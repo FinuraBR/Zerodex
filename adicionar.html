@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Jogo ao Zerodex</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Adicionar Jogo</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="jogos.html">Meus Jogos</a></li>
+                    <li><a href="sobre.html">Sobre</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="add-game-section">
+            <h2>Buscar Jogo na Base de Dados</h2>
+            
+            <div id="search-container">
+                <input type="text" id="api-search-bar" placeholder="Digite o nome de um jogo...">
+                <button id="api-search-button">Buscar</button>
+            </div>
+
+            <!-- Os resultados da busca da API aparecerão aqui -->
+<div id="api-results-container">
+    <h3>Resultados da Busca</h3>
+    <div class="results-grid">
+        <p>Os resultados da busca aparecerão aqui.</p>
+    </div>
+</div>
+
+<!-- ADICIONE O CÓDIGO ABAIXO -->
+<div class="manual-entry-link">
+    <button id="manual-entry-button" class="cta-button" style="display: none;">Não encontrou? Adicione manualmente</button>
+</div>
+
+<!-- Nosso formulário, que começa escondido -->
+<div id="add-form-container" style="display: none;">
+    <form id="game-entry-form">
+        <!-- Seção 1: Dados da API (não editáveis) -->
+        <div class="form-api-data">
+    <div class="form-image-wrapper">
+    <img id="form-game-image" src="" alt="Capa do Jogo">
+    <button type="button" id="change-cover-btn" style="display: none;">Trocar Capa</button>
+</div>
+    <div>
+        <!-- Usaremos um INPUT para o título para que seja sempre editável -->
+        <div class="form-group">
+            <label for="form-game-title-input">Título do Jogo:</label>
+            <input type="text" id="form-game-title-input" required>
+        </div>
+        <p id="form-game-release">Lançamento: </p>
+    </div>
+</div>
+
+        <hr>
+
+        <!-- Seção 2: Seus Dados Pessoais (editáveis) -->
+        <!-- Em adicionar.html, substitua o <div class="form-user-data"> -->
+<div class="form-user-data">
+    <!-- ID e Link da Loja (Campos Manuais) -->
+    <div class="form-group-inline">
+        <div class="form-group">
+            <label for="game-id">ID do Jogo:</label>
+            <input type="number" id="game-id" required>
+        </div>
+        <div class="form-group">
+            <label for="game-store-url">URL da Loja (opcional):</label>
+            <input type="text" id="game-store-url" placeholder="https://store.steampowered.com/...">
+        </div>
+        <div class="form-group" id="manual-image-group" style="display: none;">
+    <label for="game-image-url">URL da Imagem da Capa:</label>
+    <input type="text" id="game-image-url" placeholder="https://...">
+</div>
+    </div>
+    
+    <!-- Status (Sem alterações) -->
+    <div class="form-group">
+        <label for="game-status">Status:</label>
+        <select id="game-status" required>
+            <!-- Opções de status -->
+        </select>
+    </div>
+
+    <!-- Plataforma (Sem alterações) -->
+    <div class="form-group">
+        <label for="game-platform">Plataforma em que joguei:</label>
+        <select id="game-platform" required>
+            <!-- Opções de plataforma -->
+        </select>
+    </div>
+    
+    <!-- Tradução com Lógica Condicional -->
+    <div class="form-group-inline">
+        <div class="form-group">
+            <label for="game-translation">Tradução:</label>
+            <select id="game-translation">
+                <option value="Oficial">Oficial</option>
+                <option value="Não possui">Não possui</option>
+                <option value="fan">Feita por Fã</option>
+            </select>
+        </div>
+        <!-- Este campo aparecerá quando "Feita por Fã" for selecionado -->
+        <div class="form-group" id="fan-translation-link-group" style="display: none;">
+            <label for="fan-translation-link">Link da Tradução:</label>
+            <input type="text" id="fan-translation-link" placeholder="https://...">
+        </div>
+    </div>
+
+    <!-- Guias (Estrutura para adicionar múltiplos) -->
+    <div class="form-group">
+        <label>Guias (opcional):</label>
+        <div id="guides-list">
+            <!-- Guias adicionados aparecerão aqui -->
+        </div>
+        <div class="form-group-inline" style="margin-top: 5px;">
+            <input type="text" id="guide-title" placeholder="Nome do Guia (ex: IGN)">
+            <input type="text" id="guide-url" placeholder="URL do Guia">
+        </div>
+        <button type="button" id="add-guide-btn" class="secondary-btn">Adicionar Guia</button>
+    </div>
+
+    <!-- Versão do Jogo -->
+    <div class="form-group">
+    <label for="game-version">Versão (opcional):</label>
+    <select id="game-version">
+        <option value="">Padrão</option> <!-- Valor vazio será salvo como null -->
+        <option value="Demo">Demo</option>
+        <option value="Acesso Antecipado">Acesso Antecipado</option>
+        <option value="Beta">Beta</option>
+    </select>
+</div>
+
+    <!-- Seu Comentário (Sem alterações) -->
+    <div class="form-group">
+        <label for="game-review">Seu Comentário (opcional):</label>
+        <textarea id="game-review" rows="3"></textarea>
+    </div>
+    
+    <button type="submit" class="cta-button">Salvar no Zerodex</button>
+</div>
+    </form>
+</div>
+<!-- Área para mostrar o resultado final -->
+<div id="output-container" style="display: none; margin-top: 30px;">
+    <h3>Código Gerado para database.js</h3>
+    <p>Copie o código abaixo e cole no final da lista `gamesData` em `js/database.js`.</p>
+    <textarea id="output-code" rows="15" readonly style="width: 100%; white-space: pre;"></textarea>
+    <!-- Em adicionar.html -->
+<textarea id="output-code" rows="15" readonly style="width: 100%; white-space: pre;"></textarea>
+<button type="button" id="copy-code-btn" class="cta-button" style="margin-top: 10px;">Copiar Código</button>
+</div>
+        </section>
+    </main>
+
+    <div id="cover-modal" style="display: none;">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+        <h2>Escolha uma Capa Alternativa</h2>
+        <div id="cover-grid">
+            <!-- Imagens alternativas serão carregadas aqui -->
+        </div>
+        <button id="close-modal-btn" class="cta-button">Fechar</button>
+    </div>
+    
+    <script src="js/id_counter.js"></script>
+<script src="js/database.js"></script> <!-- GARANTA QUE ESTA LINHA EXISTE ANTES! -->
+<script>
+const apiKey = "e2de3be265864a059427ea9d4cc4b99f"; // <-- CONFIRA SUA CHAVE
+const searchButton = document.getElementById('api-search-button');
+const searchBar = document.getElementById('api-search-bar');
+const resultsContainer = document.getElementById('api-results-container');
+const resultsGrid = document.querySelector('.results-grid');
+const manualEntryButton = document.getElementById('manual-entry-button');
+const formContainer = document.getElementById('add-form-container');
+const gameEntryForm = document.getElementById('game-entry-form');
+const outputContainer = document.getElementById('output-container');
+const outputCode = document.getElementById('output-code');
+const copyCodeBtn = document.getElementById('copy-code-btn');
+const translationSelect = document.getElementById('game-translation');
+const fanTranslationGroup = document.getElementById('fan-translation-link-group');
+const addGuideBtn = document.getElementById('add-guide-btn');
+const guidesList = document.getElementById('guides-list');
+const manualImageGroup = document.getElementById('manual-image-group');
+const formGameTitleInput = document.getElementById('form-game-title-input');
+const changeCoverBtn = document.getElementById('change-cover-btn');
+const coverModal = document.getElementById('cover-modal');
+const closeModalBtn = document.getElementById('close-modal-btn');
+const coverGrid = document.getElementById('cover-grid');
+const modalOverlay = document.querySelector('.modal-overlay');
+
+let currentApiResults = [];
+let selectedGameData = null;
+let tempGuides = [];
+
+// --- Funções de Busca e Exibição ---
+
+async function searchGames(query) {
+    if (!query) return;
+    resultsGrid.innerHTML = '<p>Buscando...</p>'; 
+    formContainer.style.display = 'none';
+    outputContainer.style.display = 'none';
+    
+    try {
+        const response = await fetch(`https://api.rawg.io/api/games?key=${apiKey}&search=${encodeURIComponent(query)}`);
+        if (!response.ok) throw new Error(`Erro na API: ${response.statusText}`);
+        const data = await response.json();
+        currentApiResults = data.results;
+        displayResults(data.results);
+    } catch (error) {
+        console.error("Falha ao buscar jogos:", error);
+        resultsGrid.innerHTML = `<p class="no-results-message">Ocorreu um erro ao buscar. Tente novamente.</p>`;
+        manualEntryButton.style.display = 'block';
+    }
+}
+
+// Função para mostrar os resultados na tela (versão aprimorada)
+function displayResults(games) {
+    const resultsGrid = document.querySelector('.results-grid'); // Seleciona o novo container
+    manualEntryButton.style.display = 'block';
+
+    if (games.length === 0) {
+        resultsGrid.innerHTML = '<p class="no-results-message">Nenhum jogo encontrado.</p>';
+        return;
+    }
+
+    resultsGrid.innerHTML = games.map(game => `
+        <div class="api-result-item" data-game-id="${game.id}">
+            <img src="${game.background_image || 'https://placehold.co/300x400?text=Capa'}" alt="${game.name}">
+            <div>
+                <h3>${game.name}</h3>
+                <p>Lançamento: ${game.released || 'Não informado'}</p>
+            </div>
+        </div>
+    `).join('');
+}
+
+// --- Variável de Estado Global para a ID ---
+let currentNextId;
+
+// --- Lógica Principal (executa quando a página carrega) ---
+document.addEventListener('DOMContentLoaded', () => {
+    initializeId(); // Inicia o nosso contador de ID
+});
+
+// --- Função para Iniciar e Sincronizar a ID ---
+function initializeId() {
+    // Pega a ID do localStorage (se existir)
+    const storedId = parseInt(localStorage.getItem('nextGameId'));
+    // Pega a ID do arquivo de backup (window.nextGameId vem de id_counter.js)
+    const fileId = window.nextGameId;
+
+    // Usa a MAIOR das duas IDs para evitar conflitos.
+    currentNextId = Math.max(storedId || 0, fileId || 0);
+
+    // Salva a ID correta de volta no localStorage para garantir consistência
+    localStorage.setItem('nextGameId', currentNextId);
+
+    console.log(`Contador de ID iniciado em: ${currentNextId}`);
+}
+
+// --- Funções de Formulário ---
+function populateForm(gameData) {
+    selectedGameData = gameData;
+    gameEntryForm.reset();
+    tempGuides = [];
+    updateGuidesList();
+    fanTranslationGroup.style.display = 'none';
+
+    // ID: Simplesmente usa a variável global do nosso contador!
+    document.getElementById('game-id').value = currentNextId;
+
+    // Título: Sempre editável, mas pré-preenchido
+    formGameTitleInput.value = gameData.name || '';
+    
+    // Imagem e campo de imagem manual
+    document.getElementById('form-game-image').src = gameData.background_image || 'https://placehold.co/300x400?text=Capa';
+    manualImageGroup.style.display = gameData.isManual ? 'block' : 'none';
+    changeCoverBtn.style.display = gameData.isManual ? 'none' : 'block';
+    document.getElementById('game-image-url').value = '';
+
+    document.getElementById('form-game-release').textContent = `Lançamento: ${gameData.released || 'Não informado'}`;
+    document.getElementById('game-store-url').value = gameData.isManual ? '' : `https://rawg.io/games/${gameData.slug}`;
+
+    // Status: Preenche as opções
+    const statusSelect = document.getElementById('game-status');
+    statusSelect.innerHTML = `
+        <option value="playing">Jogando</option>
+        <option value="completed">Finalizado</option>
+        <option value="completed-100">100% Concluído</option>
+        <option value="retired">Aposentado</option>
+        <option value="archived">Arquivado</option>
+        <option value="abandoned">Abandonado</option>
+    `;
+
+    const platformSelect = document.getElementById('game-platform');
+    platformSelect.innerHTML = gameData.platforms 
+        ? gameData.platforms.map(p => `<option value="${p.platform.slug}">${p.platform.name}</option>`).join('')
+        : '<option value="pc">PC</option><option value="switch">Switch</option>';
+    
+    formContainer.style.display = 'block';
+    formContainer.scrollIntoView({ behavior: 'smooth' });
+}
+
+// --- Lógica de Submissão (com melhorias) ---
+gameEntryForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    let translationValue = translationSelect.value;
+    if (translationValue === 'fan') {
+        const link = document.getElementById('fan-translation-link').value;
+        translationValue = link ? `Feita por Fã (<a href="${link}" target="_blank">baixar</a>)` : "Feita por Fã";
+    }
+    // Mapeia o status para os 3 campos de dados
+    const statusMap = {
+        'playing': { text: 'Jogando', overlay: 'Jogando Atualmente' },
+        'completed': { text: 'Finalizado', overlay: 'Finalizado' },
+        'completed-100': { text: '100%', overlay: '100% Concluído' },
+        'retired': { text: 'Aposentado', overlay: 'Aposentado' },
+        'archived': { text: 'Arquivado', overlay: 'Arquivado' },
+        'abandoned': { text: 'Abandonado', overlay: 'Abandonado' },
+    };
+
+    // Monta o objeto final do jogo
+        // Pega o valor da versão, se for string vazia, vira null
+    const versionValue = document.getElementById('game-version').value;
+
+    // Define a imagem da capa (pega do campo manual se for o caso)
+    const imageUrl = selectedGameData.isManual 
+        ? document.getElementById('game-image-url').value 
+        : document.getElementById('form-game-image').src;
+    if (!imageUrl) imageUrl = "imagens/placeholder.jpg"; // Garante que nunca fique vazio
+
+    const newGame = {
+        id: parseInt(document.getElementById('game-id').value),
+        title: formGameTitleInput.value,
+        image: imageUrl || "imagens/placeholder.jpg",
+        platform: document.getElementById('game-platform').value,
+        status: document.getElementById('game-status').value,
+        statusText: statusMap[document.getElementById('game-status').value].text,
+        statusOverlay: statusMap[document.getElementById('game-status').value].overlay,
+        translation: translationValue,
+        guide: tempGuides,
+        review: document.getElementById('game-review').value || null,
+        version: versionValue || null, // Salva null se for string vazia
+        storeUrl: document.getElementById('game-store-url').value || null,
+    };
+
+    const outputString = JSON.stringify(newGame, null, 4);
+    outputCode.value = `${outputString},\n`;
+    outputContainer.style.display = 'block';
+    outputContainer.scrollIntoView({ behavior: 'smooth' });
+
+    // --- A MÁGICA DA ATUALIZAÇÃO AUTOMÁTICA ---
+    // 1. Calcula a próxima ID
+    const newNextId = newGame.id + 1;
+    
+    // 2. Atualiza a variável global
+    currentNextId = newNextId;
+
+    // 3. Salva a nova ID no localStorage para a próxima vez
+    localStorage.setItem('nextGameId', newNextId);
+
+    // 4. Dá um feedback visual imediato, atualizando o campo na tela
+    document.getElementById('game-id').value = newNextId;
+
+    // 5. Atualiza o botão de cópia com uma mensagem de sucesso
+    copyCodeBtn.textContent = 'Copiar Código (Contador Atualizado!)';
+});
+
+// --- Event Listeners ---
+searchButton.addEventListener('click', () => searchGames(searchBar.value));
+searchBar.addEventListener('keyup', (event) => { if (event.key === 'Enter') searchGames(searchBar.value); });
+
+resultsContainer.addEventListener('click', (event) => {
+    const resultItem = event.target.closest('.api-result-item');
+    if (!resultItem) return;
+    const gameId = parseInt(resultItem.dataset.gameId);
+    const selectedGame = currentApiResults.find(game => game.id === gameId);
+    if (selectedGame) populateForm({ ...selectedGame, isManual: false });
+});
+
+manualEntryButton.addEventListener('click', () => {
+    resultsContainer.innerHTML = '';
+    const manualGameData = { isManual: true, name: '', background_image: '', released: '', platforms: null };
+    populateForm(manualGameData);
+    // Removemos a linha que deixava o título readOnly
+});
+
+// Listener para o dropdown de tradução
+translationSelect.addEventListener('change', () => {
+    fanTranslationGroup.style.display = translationSelect.value === 'fan' ? 'flex' : 'none';
+});
+
+// Listener para adicionar guias
+addGuideBtn.addEventListener('click', () => {
+    const title = document.getElementById('guide-title').value;
+    const url = document.getElementById('guide-url').value;
+    if (title && url) {
+        tempGuides.push({ title, url });
+        updateGuidesList();
+        document.getElementById('guide-title').value = '';
+        document.getElementById('guide-url').value = '';
+    }
+});
+
+function updateGuidesList() {
+    guidesList.innerHTML = tempGuides.map((guide, index) => `
+        <div class="guide-item">${guide.title} - <a href="${guide.url}" target="_blank">Link</a></div>
+    `).join('');
+}
+
+copyCodeBtn.addEventListener('click', () => {
+    const codeToCopy = document.getElementById('output-code').value;
+    
+    // A mágica da cópia acontece aqui
+    navigator.clipboard.writeText(codeToCopy).then(() => {
+        // Feedback visual para o usuário
+        copyCodeBtn.textContent = 'Copiado!';
+        setTimeout(() => {
+            copyCodeBtn.textContent = 'Copiar Código';
+        }, 2000); // Volta ao normal depois de 2 segundos
+    }).catch(err => {
+        console.error('Falha ao copiar o texto: ', err);
+        copyCodeBtn.textContent = 'Erro ao copiar';
+    });
+});
+
+async function fetchAndShowCovers(gameId) {
+    coverGrid.innerHTML = '<p>Carregando imagens...</p>';
+    coverModal.style.display = 'flex';
+
+    try {
+        const response = await fetch(`https://api.rawg.io/api/games/${gameId}/screenshots?key=${apiKey}`);
+        if (!response.ok) throw new Error('Falha ao buscar screenshots');
+        const data = await response.json();
+
+        if (data.results.length === 0) {
+            coverGrid.innerHTML = '<p>Nenhuma imagem alternativa encontrada.</p>';
+            return;
+        }
+
+        coverGrid.innerHTML = data.results.map(screenshot => `
+            <img src="${screenshot.image}" class="cover-option" alt="Capa alternativa">
+        `).join('');
+
+    } catch (error) {
+        console.error(error);
+        coverGrid.innerHTML = '<p>Erro ao carregar imagens.</p>';
+    }
+}
+
+// Fecha o modal
+function closeModal() {
+    coverModal.style.display = 'none';
+}
+
+// Adiciona o evento ao botão "Trocar Capa"
+changeCoverBtn.addEventListener('click', () => {
+    if (selectedGameData && !selectedGameData.isManual) {
+        fetchAndShowCovers(selectedGameData.id);
+    }
+});
+
+// Adiciona o evento para escolher uma capa no grid
+coverGrid.addEventListener('click', (event) => {
+    if (event.target.classList.contains('cover-option')) {
+        const newImageUrl = event.target.src;
+        document.getElementById('form-game-image').src = newImageUrl;
+        closeModal();
+    }
+});
+
+// Eventos para fechar o modal
+closeModalBtn.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', closeModal);
+
+    </script>
+</div>
+</body>
+</html>

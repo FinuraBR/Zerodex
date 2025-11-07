@@ -1,0 +1,1036 @@
+/* --- Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+:root {
+    --color-background-dark: #141518; /* Fundo principal */
+    --color-background-light: #1F2125; /* Fundo de cards e header */
+    --color-border: #2C2E33; /* Bordas sutis */
+    --color-text-primary: #E1E1E1; /* Texto principal */
+    --color-text-secondary: #888; /* Texto secundário (rodapé) */
+    --color-accent: #4CAF50; /* Verde de destaque */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--color-background-dark);
+    color: var(--color-text-primary);
+}
+
+/* --- Cabeçalho e Navegação --- */
+header {
+    background-color: var(--color-background-light);
+    border-bottom: 1px solid var(--color-border);
+    padding: 20px 0;
+}
+
+.header-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-container h1 {
+    font-size: 1.5em;
+    color: var(--color-accent);
+}
+
+.header-container nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.header-container nav a {
+    color: var(--color-text-primary);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s ease-in-out;
+}
+
+.header-container nav a:hover {
+    color: var(--color-accent);
+}
+
+/* --- Conteúdo Principal --- */
+main {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+section {
+    margin-bottom: 60px;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-bottom: 25px;
+    color: var(--color-text-primary);
+}
+
+p {
+    line-height: 1.7;
+    max-width: 720px;
+}
+
+/* --- Grid de Jogos --- */
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Cards um pouco maiores */
+    gap: 25px;
+    overflow: hidden;
+}
+
+/* --- Estilo para o ID do Jogo --- */
+.game-number {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    
+    background: rgba(20, 21, 24, 0.85);
+    backdrop-filter: blur(2px);
+    color: var(--color-text-primary);
+    font-weight: bold;
+    font-size: 0.9em;
+    border-bottom-right-radius: 8px;
+    line-height: 1; 
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* --- Esconde o número e as infos padrão no hover --- */
+.game-card:hover .game-number,
+.game-card:hover .game-info-default {
+    opacity: 0;
+}
+
+.game-card {
+    position: relative; /* "Âncora" para os badges e o overlay */
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: var(--color-background-light);
+    /* Organiza a imagem e a barra de texto em uma coluna */
+    display: flex;
+    flex-direction: column;   
+}
+
+.card-image-container {
+    overflow: hidden; /* Contém o zoom da imagem */
+    position: relative; /* Âncora para o efeito de hover */
+    border-radius: 8px;
+    
+}
+
+/* --- Imagem de Fundo do Card --- */
+.game-card img {
+    border-radius: 8px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+/* --- Informações Visíveis por Padrão --- */
+.game-info-default {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0) 100%);
+    transition: opacity 0.3s ease-in-out;
+    /* Mágica do Flexbox para alinhar os itens */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    
+}
+
+.game-info-default .game-title {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #fff;
+
+    /* Garante que o texto não quebre e exibe "..." se for muito longo */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- Badges de Status --- */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+    flex-shrink: 0;
+}
+
+/* --- Estilo para o Indicador de Versão (Demo/Acesso Antecipado) --- */
+.game-version-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    padding: 4px 8px;
+    background-color: #9C27B0;
+    color: #fff;
+    font-size: 0.8em;
+    font-weight: bold;
+    border-bottom-left-radius: 8px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+}
+
+/* --- Regra de hover para esconder todos os indicadores --- */
+.game-card:hover .game-number,
+.game-card:hover .game-info-default,
+.game-card:hover .game-version-badge {
+    opacity: 0;
+}
+
+/* --- Cores para cada tipo de status --- */
+.status-completed-100 { background-color: #4CAF50; } /* Verde para 100% */
+.status-completed { background-color: #03A9F4; } /* Azul para "concluído" */
+.status-playing { background-color: #F9A825; } /* Amarelo para "jogando" */
+.status-retired { background-color: #607D8B; }   /* Azul Cinzento para "Aposentado" */
+.status-archived { background-color: #FF9800; }  /* Laranja para "Arquivado" */
+.status-abandoned { background-color: #f44336; } /* Vermelho para "Abandonado" */
+
+/* --- Sobreposição (Overlay) --- */
+.game-overlay {
+    z-index: 3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    overflow-y: auto;
+    border-radius: 8px;
+}
+
+.game-overlay .game-details {
+    flex-grow: 1;
+}
+
+.game-overlay h3 {
+    font-size: 1.3em;
+    margin-bottom: 15px;
+}
+
+.game-overlay p {
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+.game-overlay p strong {
+    color: #bbb;
+}
+
+.game-overlay a {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: bold;
+}
+.game-overlay a:hover {
+    text-decoration: underline;
+}
+
+/* --- Seção de Comentário --- */
+.game-review {
+    border-top: 1px solid #444;
+    padding-top: 15px;
+    margin-top: 10px;
+}
+
+.review-comment {
+    font-size: 0.85em;
+    font-style: italic;
+    color: #ccc;
+    line-height: 1.5;
+}
+
+/* --- A MÁGICA DO HOVER --- */
+.game-card:hover .card-image-container img {
+    transform: scale(1.1); /* Aplica o zoom apenas na imagem */
+    border-radius: 8px;
+}
+
+.game-card:hover .game-info-default {
+    opacity: 0;
+}
+
+.game-card:hover .game-overlay {
+    opacity: 1;
+}
+
+/* --- Seção PC Setup (Página Sobre) --- */
+#pc-setup h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.setup-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.setup-column {
+    flex: 1;
+    min-width: 280px;
+    background-color: var(--color-background-light);
+    padding: 25px;
+    border-radius: 8px;
+}
+
+.setup-column h3 {
+    font-size: 1.4em;
+    color: var(--color-accent);
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 10px;
+}
+
+.setup-column ul {
+    list-style: none;
+}
+
+.setup-column li {
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.setup-column li strong {
+    color: var(--color-text-secondary);
+    display: block;
+    font-size: 0.9em;
+}
+
+/* --- Tema Claro --- */
+body.light-mode {
+    --color-background-dark: #F5F5F7;
+    --color-background-light: #FFFFFF;
+    --color-border: #E0E0E0;
+    --color-text-primary: #1D1D1F;
+    --color-text-secondary: #6E6E73;
+}
+/* Estilo para o botão de tema */
+#theme-toggle {
+    padding: 8px 12px;
+    border: 1px solid var(--color-border);
+    background-color: transparent;
+    color: var(--color-text-primary);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* --- Estilo para os Filtros --- */
+#filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+.filter-btn {
+    padding: 10px 20px;
+    border: 1px solid var(--color-border);
+    background-color: transparent;
+    color: var(--color-text-primary);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+.filter-btn:hover {
+    background-color: var(--color-border);
+}
+.filter-btn.active {
+    background-color: var(--color-accent);
+    color: #fff;
+    border-color: var(--color-accent);
+}
+/* Classe para esconder jogos */
+.hidden {
+    display: none;
+}
+
+/* Estilo para o botão surpresa */
+#surprise-btn {
+    background-color: var(--color-accent);
+    color: #fff;
+    border: 1px solid var(--color-accent);
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#surprise-btn:hover {
+    background-color: #5cdb61;
+    border-color: #5cdb61;
+    transform: translateY(-2px);
+}
+.highlight {
+    box-shadow: 0 0 20px 5px #ffd700;
+    transform: scale(1.05);
+}
+
+/* --- Seção Legenda de Status (Página Sobre) --- */
+#status-legend h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.legend-list {
+    list-style: none;
+    padding: 15px 25px;
+    max-width: 650px;
+    margin: 0 auto;
+    background-color: var(--color-background-light);
+    border-radius: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    line-height: 1.6;
+    padding: 15px 0;
+}
+
+.legend-item:not(:last-child) {
+    border-bottom: 1px solid var(--color-border);
+}
+
+.legend-item::before {
+    content: '•';
+    color: var(--color-text-secondary);
+    font-size: 1.5em;
+    margin-right: 15px;
+    line-height: 1;
+}
+
+.legend-item .status-badge {
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+/* --- Botão Voltar ao Topo --- */
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    display: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+#back-to-top:hover {
+    opacity: 1;
+}
+
+/* --- Controles de Pesquisa e Ordenação --- */
+#controls-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    max-width: 960px;
+    margin: 0 auto;
+    margin-bottom: 50px; 
+}
+
+/* Estilo base para os controles de texto e seleção */
+#search-bar, #sort-options {
+    padding: 10px 15px;
+    border: 1px solid var(--color-border);
+    background-color: transparent;
+    color: var(--color-text-primary);
+    border-radius: 8px;
+    font-size: 1em;
+    flex: 1;
+    min-width: 200px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+#search-bar:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+    background-color: var(--color-background-light);
+}
+
+/* Estilo para o texto do placeholder (ex: "Pesquisar por nome...") */
+#search-bar::placeholder {
+    color: var(--color-text-secondary);
+    opacity: 0.8;
+}
+
+#sort-options {
+    cursor: pointer;
+}
+
+#sort-options:hover {
+     background-color: var(--color-border);
+}
+
+#sort-options option {
+    background: var(--color-background-light);
+    color: var(--color-text-primary);
+    border: none;
+    padding: 10px;
+}
+
+/* --- Seção de Estatísticas --- */
+#stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.stat-item {
+    background-color: var(--color-background-light);
+    padding: 25px;
+    border-radius: 8px;
+}
+
+.stat-item h3 {
+    font-size: 1.2em;
+    color: var(--color-accent);
+    margin-bottom: 20px;
+}
+
+.stat-item p {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    color: var(--color-text-secondary);
+}
+
+.stat-item p:last-child {
+    margin-bottom: 0;
+}
+
+.stat-item span {
+    font-weight: bold;
+    color: var(--color-text-primary);
+}
+
+/* --- Animações de Entrada --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card-enter-animation {
+    opacity: 0;
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+
+/* --- Contêiner do Gráfico --- */
+#chart-container {
+    background-color: var(--color-background-light);
+    padding: 20px;
+    border-radius: 8px;
+    grid-column: 1 / -1;
+    position: relative;
+    max-width: 450px;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+/* --- Botão de Tema com Ícone --- */
+.theme-toggle-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.theme-toggle-btn:hover {
+    background-color: var(--color-border);
+}
+.theme-toggle-btn svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--color-text-primary);
+}
+#moon-icon { display: none; }
+.light-mode #sun-icon { display: none; }
+.light-mode #moon-icon { display: block; }
+
+
+/* --- Acessibilidade e UX --- */
+/* Classe para esconder texto visualmente, mas mantê-lo para leitores de tela */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* Mensagem de "Nenhum Jogo Encontrado" estilizada */
+.no-results-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: var(--color-text-secondary);
+    font-size: 1.2em;
+}
+
+/* --- Estatísticas Clicáveis --- */
+.stat-item a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+.stat-item a:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+.stat-item a p {
+    padding: 2px 5px;
+}
+
+
+/* --- Responsividade dos Controles --- */
+@media (max-width: 700px) {
+    #controls-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+/* --- Seção de Observações do Catálogo (Página Sobre) --- */
+#catalog-rules h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.rules-container {
+    max-width: 650px;
+    margin: 0 auto;
+    background-color: var(--color-background-light);
+    padding: 25px;
+    border-radius: 8px;
+    text-align: center;
+    line-height: 1.7;
+}
+
+.catalog-note a {
+    color: var(--color-text-secondary);
+    text-decoration: underline;
+}
+
+.catalog-note a:hover {
+    color: var(--color-accent);
+}
+
+/* --- Bloco de Título do Catálogo --- */
+.catalog-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    margin-bottom: 40px;
+}
+
+#catalogo .catalog-header h2 {
+    margin-bottom: 8px !important;
+}
+
+.catalog-header .catalog-note {
+    color: var(--color-text-secondary);
+    font-size: 0.9em;
+    margin: 0;
+}
+
+/* Estilos do link */
+.catalog-header .catalog-note a {
+    color: var(--color-text-secondary);
+    text-decoration: underline;
+}
+.catalog-header .catalog-note a:hover {
+    color: var(--color-accent);
+}
+
+/* --- Página Adicionar Jogo --- */
+#add-game-section {
+    max-width: 800px; /* Um pouco mais de espaço */
+    margin: 0 auto;
+}
+
+#add-game-section h2 {
+    text-align: center;
+}
+
+#search-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 40px; /* Mais espaço abaixo da busca */
+}
+
+#api-search-bar {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: 1px solid var(--color-border);
+    background-color: transparent;
+    color: var(--color-text-primary);
+    border-radius: 8px;
+    font-size: 1em;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#api-search-bar:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+    background-color: var(--color-background-light);
+}
+
+#api-search-button {
+    padding: 10px 20px;
+    border: 1px solid var(--color-accent);
+    background-color: var(--color-accent);
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+#api-search-button:hover {
+    background-color: #5cdb61;
+}
+
+#api-results-container h3 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Uma coluna por padrão */
+    gap: 15px;
+}
+
+.api-result-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: var(--color-background-light);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.api-result-item:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-accent);
+}
+
+.api-result-item img {
+    width: 100px;
+    height: 133px; /* Proporção de capa de jogo (3:4) */
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.api-result-item h3 {
+    text-align: left;
+    margin-bottom: 5px;
+}
+.api-result-item p {
+    text-align: left;
+    color: var(--color-text-secondary);
+    font-size: 0.9em;
+}
+
+.manual-entry-link {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#add-form-container {
+    background-color: var(--color-background-light);
+    padding: 25px;
+    border-radius: 8px;
+    margin-top: 30px;
+}
+.form-api-data {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.form-api-data img { border-radius: 8px; }
+hr {
+    border: none;
+    height: 1px;
+    background-color: var(--color-border);
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--color-text-secondary);
+}
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--color-background-dark);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+/* --- Estilo Unificado para Botões de Ação (CTA) --- */
+.cta-button, #add-game-btn {
+    /* Aparência */
+    background-color: var(--color-accent);
+    color: #fff !important; /* !important garante que a cor do texto seja sempre branca */
+    border: 1px solid var(--color-accent);
+    
+    /* Tamanho e Espaçamento */
+    display: inline-block; /* Garante que padding e outras propriedades funcionem bem */
+    padding: 10px 20px;
+    box-sizing: border-box;
+    
+    /* Texto */
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    
+    /* Outros */
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+
+.cta-button:hover, #add-game-btn:hover {
+    background-color: #5cdb61;
+    border-color: #5cdb61;
+    transform: translateY(-2px);
+}
+
+/* Estilo para campos lado a lado */
+.form-group-inline {
+    display: flex;
+    gap: 15px;
+    align-items: flex-end; /* Alinha os itens na base */
+}
+.form-group-inline .form-group {
+    flex: 1; /* Faz com que os grupos ocupem o espaço igualmente */
+    margin-bottom: 0;
+}
+.form-group-inline + .form-group {
+    margin-top: 15px; /* Adiciona espaço se o próximo grupo for normal */
+}
+
+/* --- Aprimoramento: Troca de Capa --- */
+.form-image-wrapper {
+    position: relative;
+    width: 150px;
+    flex-shrink: 0;
+}
+.form-image-wrapper img {
+    width: 100%;
+    border-radius: 8px;
+    display: block;
+}
+#change-cover-btn {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    padding: 8px;
+    background-color: rgba(20, 21, 24, 0.8);
+    backdrop-filter: blur(4px);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.form-image-wrapper:hover #change-cover-btn {
+    opacity: 1;
+}
+
+/* Estilos do Modal */
+#cover-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.modal-content {
+    position: relative;
+    background-color: var(--color-background-dark);
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    text-align: center;
+}
+#cover-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+.cover-option {
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.cover-option:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--color-accent);
+}
+
+/* --- Aprimoramento: Detalhes nos Resultados da Busca --- */
+.api-result-item .result-info {
+    display: flex;
+    flex-direction: column; /* Empilha os textos verticalmente */
+}
+
+.result-details {
+    font-size: 0.85em;
+    color: var(--color-text-secondary);
+    margin-top: 8px;
+    display: flex;
+    gap: 15px; /* Espaço entre os itens (Metacritic | Gêneros) */
+    align-items: center;
+}
+
+.result-details p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Estilo para a nota do Metacritic */
+.metacritic-score {
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 2px solid;
+    flex-shrink: 0; /* Impede que o score seja esmagado */
+}
+/* Cores baseadas na nota */
+.metacritic-score.high {
+    color: #6c3;
+    border-color: #6c3;
+}
+.metacritic-score.medium {
+    color: #fc3;
+    border-color: #fc3;
+}
+.metacritic-score.low {
+    color: #f00;
+    border-color: #f00;
+}
+
+/* --- Estilo para Botões Secundários (ex: Adicionar Guia) --- */
+.secondary-btn {
+    /* Aparência */
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    
+    /* Tamanho e Espaçamento */
+    padding: 8px 15px;
+    margin-top: 10px; /* Adiciona um espaço acima do botão */
+    
+    /* Texto */
+    font-weight: bold;
+    text-align: center;
+    
+    /* Outros */
+    border-radius: 4px; /* Raio menor para combinar com os inputs do formulário */
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.secondary-btn:hover {
+    background-color: var(--color-border);
+    color: var(--color-text-primary);
+    border-color: var(--color-text-secondary);
+}
