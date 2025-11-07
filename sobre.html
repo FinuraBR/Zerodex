@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Mim</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/jpg" href="imagens/favicon.jpg">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Meu Zerodex</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="jogos.html">Meus Jogos</a></li>
+                    <li><a href="sobre.html">Sobre</a></li>
+                </ul>
+            </nav>
+            <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Tema">
+    <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.061 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.894 17.894a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.591 1.59a.75.75 0 010 1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75.75zM5.106 17.894a.75.75 0 010-1.06l1.591-1.59a.75.75 0 111.06 1.06l-1.59 1.591a.75.75 0 01-1.061 0zM4.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H5a.75.75 0 01-.75-.75zM6.106 5.106a.75.75 0 011.06 0l1.59 1.591a.75.75 0 11-1.06 1.06L6.106 6.167a.75.75 0 010-1.06z"/></svg>
+    <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 004.463-.945a.75.75 0 01.981.652A11.25 11.25 0 0112 21a11.25 11.25 0 01-11.25-11.25 11.25 11.25 0 012.718-7.528.75.75 0 01.819.162z" clip-rule="evenodd" /></svg>
+</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="sobre-mim">
+            <h2>Sobre Mim</h2>
+            <p>
+                Meu nome é Igor, sou um entusiasta em programação e games.
+                A paixão por games me acompanha desde criança e este site é uma forma de unir duas coisas que gosto: programar e jogar.
+            </p>
+        </section>
+
+        <section id="dynamic-stats">
+            <h2>Estatísticas Dinâmicas</h2>
+            <div id="stats-container">
+                <!-- O JavaScript preencherá os textos e o gráfico aqui -->
+                <div id="chart-container">
+                    <canvas id="platform-chart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="pc-setup">
+            <h2>Meu Setup</h2>
+            <div class="setup-container">
+                <!-- Coluna 1: Componentes do PC -->
+                <div class="setup-column">
+                    <h3>Componentes do PC</h3>
+                    <ul>
+                        <li><strong>Processador:</strong> AMD Ryzen 5 5600G</li>
+                        <li><strong>Placa-Mãe:</strong> Biostar A320MH Ver. 6.x</li>
+                        <li><strong>CPU Cooler:</strong> AMD Wraith Stealth Cooler</li>
+                        <li><strong>Memória:</strong> 16GB (2X8GB) DDR4 3200Mhz</li>
+                        <li><strong>Placa de vídeo:</strong> AMD Radeon RX 6750 XT</li>
+                        <li><strong>Armazenamento:</strong> SSD 1TB + SSD 240GB</li>
+                        <li><strong>Fonte:</strong> MSI MAG A750GL 750W</li>
+                        <li><strong>Fan:</strong> 3x RGB</li>
+                    </ul>
+                </div>
+                <!-- Coluna 2: Periféricos -->
+                <div class="setup-column">
+                    <h3>Periféricos</h3>
+                    <ul>
+                        <li><strong>Monitor:</strong> Horizon Z27 75HZ</li>
+                        <li><strong>Headset:</strong> Havit H2002d</li>
+                        <li><strong>Mouse:</strong> Redragon Cobra M711</li>
+                        <li><strong>Mouse Pad:</strong> Havit HV-MP830</li>
+                        <li><strong>Teclado:</strong> G213 Prodigy</li>
+                        <li><strong>Controle:</strong> Pichau GCX100</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+                <!-- Legenda de status -->
+        <section id="status-legend">
+            <h2>Legenda de Status</h2>
+            <ul class="legend-list">
+                <li class="legend-item">
+                    <span class="status-badge status-completed-100">100%</span> - Jogo concluído com todos os objetivos principais, secundários e colecionáveis.
+                </li>
+                <li class="legend-item">
+                    <span class="status-badge status-completed">Finalizado</span> - Terminou a campanha ou objetivo principal do jogo.
+                </li>
+                <li class="legend-item">
+                    <span class="status-badge status-playing">Jogando</span> - Jogo que estou jogando ativamente no momento.
+                </li>
+                <li class="legend-item">
+                    <span class="status-badge status-retired">Aposentado</span> - Terminou com um jogo que não tem um final (ex: multiplayer, sandbox).
+                </li>
+                <li class="legend-item">
+                    <span class="status-badge status-archived">Arquivado</span> - Inacabado, mas com a intenção de retomar mais tarde.
+                </li>
+                <li class="legend-item">
+                    <span class="status-badge status-abandoned">Abandonado</span> - Inacabado e sem planos de voltar a jogar.
+                </li>
+            </ul>
+        </section>
+
+        <section id="catalog-rules">
+            <h2>Observações do Catálogo</h2>
+            <div class="rules-container">
+                <p><strong>Uma nota sobre DLCs:</strong> Salvo alguma indicação contrária específica em um jogo, todos os títulos listados que possuem DLCs ou expansões de conteúdo foram jogados em suas versões completas e definitivas.</p>
+            </div>
+        </section>
+
+        <section id="links-externos">
+            <h2>Links Úteis</h2>
+            <ul>
+                <li><a href="https://www.backloggd.com" target="_blank">Backloggd (Site de inspiração)</a></li>
+                <li><a href="https://github.com/FinuraBR" target="_blank">Meu Perfil no GitHub</a></li>
+                <li><a href="https://steamcommunity.com/id/FinuraBR" target="_blank">Steam</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 - Desenvolvido por FinuraBR</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/database.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

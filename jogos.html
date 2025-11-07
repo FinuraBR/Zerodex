@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Jogos</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/jpg" href="imagens/favicon.jpg">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Meu Zerodex</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="jogos.html">Meus Jogos</a></li>
+                    <li><a href="sobre.html">Sobre</a></li>
+                </ul>
+            </nav>
+            <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Tema">
+    <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.061 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.894 17.894a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.591 1.59a.75.75 0 010 1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75.75zM5.106 17.894a.75.75 0 010-1.06l1.591-1.59a.75.75 0 111.06 1.06l-1.59 1.591a.75.75 0 01-1.061 0zM4.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H5a.75.75 0 01-.75-.75zM6.106 5.106a.75.75 0 011.06 0l1.59 1.591a.75.75 0 11-1.06 1.06L6.106 6.167a.75.75 0 010-1.06z"/></svg>
+    <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 004.463-.945a.75.75 0 01.981.652A11.25 11.25 0 0112 21a11.25 11.25 0 01-11.25-11.25 11.25 11.25 0 012.718-7.528.75.75 0 01.819.162z" clip-rule="evenodd" /></svg>
+</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="catalogo">
+              <div class="catalog-header">
+            <h2>Catálogo Completo</h2>
+            <p class="catalog-note">
+                Nota sobre DLCs e versões dos jogos. <a href="sobre.html#catalog-rules">Saiba mais</a>.
+            </p>
+        </div>
+            <div id="controls-container">
+                <label for="search-bar" class="visually-hidden">Pesquisar por nome do jogo</label>
+                <input type="text" id="search-bar" placeholder="Pesquisar por nome...">
+                <select id="sort-options">
+                    <option value="id-desc">Ordenar por: ID</option>
+                    <option value="title-asc">Título (A-Z)</option>
+                    <option value="title-desc">Título (Z-A)</option>
+                </select>
+            </div>
+
+            <!-- O JavaScript preencherá dinamicamente -->
+            <div id="filter-container"></div>
+
+            <div class="game-grid">
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 - Desenvolvido por FinuraBR</p>
+    </footer>
+    
+    <script src="js/database.js"></script>
+    <script src="js/script.js"></script>
+    <button id="back-to-top" title="Voltar ao topo">↑</button>
+</body>
+</html>
