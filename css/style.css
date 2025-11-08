@@ -206,6 +206,7 @@ footer {
     display: flex;
     flex-direction: column;
     transform: translateZ(0);
+    overflow: hidden;
 }
 
 .card-image-container {
@@ -300,7 +301,7 @@ footer {
 
 /* --- Overlay de Detalhes (Aparece no Hover) --- */
 .game-overlay {
-    z-index: 3; /* Fica acima de tudo, inclusive dos badges. */
+    z-index: 3;
     position: absolute;
     top: 0;
     left: 0;
@@ -308,13 +309,16 @@ footer {
     height: 100%;
     background-color: rgba(10, 10, 10, 0.85);
     backdrop-filter: blur(4px);
+
+    /* --- ESTA PARTE FOI ALTERADA --- */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* REMOVIDO: justify-content: space-between; (Esta linha causava o bug) */
+    
     padding: 20px;
-    opacity: 0; /* Começa invisível. */
+    opacity: 0;
     transition: opacity 0.3s ease-in-out;
-    overflow-y: auto; /* Adiciona uma barra de rolagem se o conteúdo for muito grande. */
+    overflow-y: auto; /* Agora esta propriedade funcionará corretamente */
     border-radius: 8px;
 }
 
@@ -325,7 +329,6 @@ footer {
 .game-overlay a:hover { text-decoration: underline; }
 
 .game-review {
-    border-top: 1px solid #444;
     padding-top: 15px;
     margin-top: 10px;
 }
@@ -604,4 +607,98 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin-bo
 .edit-btn {
     width: 100%; /* Faz o botão ocupar a largura toda */
     margin-top: 15px;
+}
+
+/* ===================================================================================
+// --- ESTILOS DO TOOLTIP DE COMENTÁRIO ---
+// =================================================================================== */
+
+/* --- Estilo do Botão "Ver Comentário" --- */
+.review-trigger {
+    width: 100%;
+    margin-top: auto; /* Truque de Flexbox para empurrá-lo para o fundo do overlay */
+}
+
+/* --- Estilo da Caixa Flutuante (Tooltip) --- */
+.review-tooltip {
+    /* Posicionamento e Camada */
+    position: fixed; /* Fixo na tela, não rola com a página */
+    z-index: 1000;   /* Garante que fique acima de todos os outros elementos */
+    
+    /* Aparência */
+    background-color: var(--color-background-dark);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidade */
+    
+    /* Texto e Tamanho */
+    padding: 15px;
+    max-width: 300px; /* Impede que fique muito largo */
+    font-size: 0.9em;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+
+    /* Animação e Comportamento */
+    transition: opacity 0.2s ease-in-out;
+    pointer-events: none; /* Impede que o próprio tooltip interfira com o mouse */
+}
+
+/* ===================================================================================
+// --- NOVO DESIGN DO TOOLTIP DE COMENTÁRIO ---
+// =================================================================================== */
+
+.review-card {
+    /* Posição relativa para que a seta (::before) possa ser posicionada */
+    position: relative;
+    
+    /* Aparência de Card */
+    background-color: var(--color-background-dark);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 20px;
+    
+    /* Garante que ocupe a altura correta na grade */
+    align-self: start;
+    
+    /* Força a quebra de palavras longas */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    /* Animação */
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.review-card.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* --- A Seta do "Balão de Fala" --- */
+/* Esta é a mágica: criamos um triângulo com bordas CSS. */
+.review-card::before {
+    content: '';
+    position: absolute;
+    top: 25px; /* Alinha a seta com o topo do botão "Ver Comentário" */
+    left: -10px; /* Faz a seta sair para a esquerda */
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent var(--color-border) transparent transparent;
+}
+
+/* --- Estilos do Conteúdo Interno do Tooltip --- */
+.review-card h3 {
+    font-size: 1.1em;
+    color: var(--color-accent);
+    margin-bottom: 10px;
+}
+
+.review-card p {
+    font-size: 0.9em;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    max-width: none; /* Remove a limitação de largura dos parágrafos */
 }
