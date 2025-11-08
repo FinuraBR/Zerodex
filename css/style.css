@@ -899,7 +899,6 @@ hr {
 .form-image-wrapper:hover #change-cover-btn {
     opacity: 1;
 }
-
 .cover-option:hover {
     transform: scale(1.05);
     box-shadow: 0 0 15px var(--color-accent);
