@@ -93,6 +93,267 @@
 
 const gamesData = [
     {
+        "id": 40,
+        "title": "LEGO Star Wars - The Complete Saga",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/32440/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Não possui",
+        "guide": [
+            {
+                "title": "Guia Steam (Traduzido por mim)",
+                "url": "https://finurabr.github.io/GUIA-LEGO-Star-Wars-The-Complete-Saga/"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/32440/LEGO_Star_Wars__The_Complete_Saga/"
+    },
+    {
+        "id": 39,
+        "title": "LEGO 2K Drive",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1451810/f9cca9fc3e0515582021d1a403f3efe442df5079/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/lego-2k-drive"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1451810/LEGO_2K_Drive/"
+    },
+    {
+        "id": 38,
+        "title": "LEGO Bricktales",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1898290/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Youtube",
+                "url": "https://youtu.be/Ww9lEIUTW8Y?si=YYnw14QWeZUQq025"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1898290/LEGO_Bricktales/"
+    },
+    {
+        "id": 37,
+        "title": "Lego Brawls",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1731460/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "The Gamer",
+                "url": "https://www.thegamer.com/lego-brawls-beginner-tips/"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1731460/LEGO_Brawls/"
+    },
+    {
+        "id": 36,
+        "title": "LEGO Builder’s Journey",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1544360/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Youtube",
+                "url": "https://youtu.be/P0geESHnvqk?si=cqow11qaIcopnZls"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1544360/LEGO_Builders_Journey/"
+    },
+    {
+        "id": 35,
+        "title": "LEGO Worlds",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/332310/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/lego-worlds"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/332310/LEGO_Worlds/"
+    },
+    {
+        "id": 34,
+        "title": "Lego City Undercover",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/578330/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/lego-city-undercover"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/578330/LEGO_City_Undercover/"
+    },
+    {
+        "id": 33,
+        "title": "LEGO Juniors Create & Cruise",
+        "image": "https://assets-prd.ignimgs.com/2023/02/01/legojuniors-1675238408104.jpg?crop=1%3A1%2Csmart&format=jpg&auto=webp&quality=80",
+        "platform": "android",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://www.google.com/search?q=lego+juniors+create+%26+cruise+apk&oq=Lego+Juniors+Create+%26+Cruise&gs_lcrp=EgRlZGdlKgcIARAAGIAEMgkIABBFGDkYgAQyBwgBEAAYgAQyBwgCEAAYgAQyBwgDEAAYgAQyCAgEEAAYFhgeMggIBRAAGBYYHjIICAYQABgWGB4yCAgHEAAYFhge0gEIMjA2NmowajSoAgCwAgE&sourceid=chrome&ie=UTF-8"
+    },
+    {
+        "id": 32,
+        "title": "The Beginner's Guide",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/303210/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Feita por Fã (<a href=\"https://www.mediafire.com/download/a93sn4ffpa9fj48/Tradu%C3%A7%C3%A3o+-+The+Beginner%27s+Guide+-+pt-BR.rar\" target=\"_blank\">baixar</a>)",
+        "guide": [
+            {
+                "title": "Youtube",
+                "url": "https://youtu.be/DatJlgN8ZqE?si=lyrIv0VjCmlX6E-c"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/303210/The_Beginners_Guide/"
+    },
+    {
+        "id": 31,
+        "title": "The Stanley Parable: Ultra Deluxe",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1703340/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/the-stanley-parable"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1703340/The_Stanley_Parable_Ultra_Deluxe/"
+    },
+    {
+        "id": 30,
+        "title": "The Walking Dead: Survival Instinct",
+        "image": "https://cdn2.steamgriddb.com/thumb/add08f927c0dec3bdf1f6d3af8db187e.jpg",
+        "platform": "pc",
+        "status": "abandoned",
+        "statusText": "Abandonado",
+        "statusOverlay": "Abandonado",
+        "translation": "Feita por Fã (<a href=\"https://tribogamer.com/traducoes/194_traducao-do-the-walking-dead-survival-instinct-para-portugues-do-brasil.html\" target=\"_blank\">baixar</a>)",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/the-walking-dead-survival-instinct"
+            }
+        ],
+        "review": "Não consegui terminar o jogo, pois ele começou a travar repetidamente em uma parte específica, o que me impediu de continuar.",
+        "version": null,
+        "storeUrl": "https://steamunlocked.org/the-walking-dead-survival-instinct-free-download/"
+    },
+    {
+        "id": 29,
+        "title": "The Walking Dead: The Telltale Definitive Series",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1449690/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/the-walking-dead-game"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1449690/The_Walking_Dead_The_Telltale_Definitive_Series/"
+    },
+    {
+        "id": 28,
+        "title": "The Witcher 3: Wild Hunt",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/292030/fe26986a2bd1601004ef0e4e1dfadd02948e3897/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/the-witcher-3-wild-hunt"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/292030/The_Witcher_3_Wild_Hunt/"
+    },
+    {
+        "id": 27,
+        "title": "The Witcher 2: Assassins of Kings Enhanced Edition",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/20920/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/witcher-2"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/20920/The_Witcher_2_Assassins_of_Kings_Enhanced_Edition/"
+    },
+    {
         "id": 26,
         "title": "Death's Door",
         "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/894020/library_600x900_2x.jpg",

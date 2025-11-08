@@ -197,36 +197,42 @@ footer {
 
 /* --- Grid de Jogos e Cards --- */
 .game-grid {
-    display: grid; /* Ativa o CSS Grid Layout. */
-    /* Cria uma grade responsiva: colunas com no mínimo 200px, que se ajustam para preencher o espaço. */
+    display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 25px; /* Espaço entre os cards. */
+    gap: 25px; 
+    /* Garante que o grid tenha espaço para a "sombra"
+    e o crescimento do card sem causar uma barra de rolagem desnecessária. */
+    padding: 10px; 
 }
 
 .game-card {
-    position: relative; /* "Âncora" para os elementos filhos com 'position: absolute'. */
+    position: relative; 
     border-radius: 8px;
     cursor: pointer;
     background-color: var(--color-background-light);
     display: flex;
     flex-direction: column;
-    transform: translateZ(0); /* Truque para otimizar animações. */
-    overflow: hidden; /* Esconde qualquer conteúdo que "vaze" para fora do card (essencial para o zoom da imagem). */
+    overflow: hidden; /* Mantemos isso para a imagem interna */
+
+    /* AJUSTE NA TRANSIÇÃO E Z-INDEX */
+    z-index: 1;
+    /* Adicionamos box-shadow à transição */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0s 0.3s;
 }
 
 .card-image-container {
-    overflow: hidden;
     position: relative;
     border-radius: 8px;
-    aspect-ratio: 3 / 4; /* Mantém a proporção 3:4 (largura:altura), evitando distorções. */
     background-color: var(--color-border); 
+    width: 100%;
+    height: 100%;
 }
 
 .game-card img {
     width: 100%;
     height: 100%;
     display: block;
-    transition: transform 0.4s ease, filter 0.4s ease; /* Animação suave para o zoom e filtro. */
+    transition: transform 0.4s ease, filter 0.4s ease; 
 }
 
 /* --- Informações Visíveis por Padrão no Card --- */
@@ -308,7 +314,7 @@ footer {
 /* --- Overlay de Detalhes (Aparece no Hover) --- */
 .game-overlay {
     z-index: 3; /* Fica na frente de todos os outros elementos do card. */
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -338,16 +344,24 @@ footer {
 
 /* --- Efeitos de Hover no Card --- */
 /* Quando o mouse passa sobre .game-card... */
+.game-card:hover {
+    /* EFEITO DE CRESCIMENTO E ELEVAÇÃO */
+    transform: scale(1.08); /* Aumentei um pouco para ficar mais visível */
+    z-index: 10; /* Coloca o card na frente de todos os outros */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidade */
+}
+
+/* O resto das regras de hover permanece igual */
 .game-card:hover .card-image-container img {
-    transform: scale(1.1); /* ...a imagem aumenta em 10% (zoom). */
+    transform: scale(1.1); 
 }
 .game-card:hover .game-overlay {
-    opacity: 1; /* ...o overlay se torna visível. */
+    opacity: 1; 
 }
 .game-card:hover .game-number,
 .game-card:hover .game-info-default,
 .game-card:hover .game-version-badge {
-    opacity: 0; /* ...e os outros elementos desaparecem. */
+    opacity: 0; 
 }
 
 
