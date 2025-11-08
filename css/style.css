@@ -205,16 +205,20 @@ footer {
     background-color: var(--color-background-light);
     display: flex;
     flex-direction: column;
+    transform: translateZ(0);
 }
 
 .card-image-container {
     overflow: hidden; /* Garante que a imagem com zoom não "vaze" para fora do card. */
+    position: relative;
     border-radius: 8px;
+    aspect-ratio: 3 / 4;
+    background-color: var(--color-border); 
 }
 
 .game-card img {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
     transition: transform 0.4s ease, filter 0.4s ease; /* Animação suave para o zoom e filtro. */
 }
@@ -369,6 +373,9 @@ footer {
 
 /* --- PÁGINA DE CATÁLOGO (jogos.html) --- */
 .catalog-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
     margin-bottom: 40px;
 }
@@ -420,7 +427,7 @@ footer {
     margin-bottom: 30px;
     flex-wrap: wrap;
 }
-.filter-btn {
+.filter-btn, #surprise-btn {
     padding: 10px 20px;
     border: 1px solid var(--color-border);
     background-color: transparent;
@@ -428,17 +435,17 @@ footer {
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
-    transition: all 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
-.filter-btn:hover { background-color: var(--color-border); }
+/* Mantém o efeito de hover separado, caso queira diferenciá-los no futuro */
+.filter-btn:hover, #surprise-btn:hover {
+    background-color: var(--color-border);
+}
+/* O estilo do botão ativo continua o mesmo */
 .filter-btn.active {
     background-color: var(--color-accent);
     color: #fff;
     border-color: var(--color-accent);
-}
-#surprise-btn {
-    /* Herda os estilos de .cta-button, apenas adiciona transição extra. */
-    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 /* --- PÁGINA SOBRE (sobre.html) --- */
@@ -512,7 +519,7 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin-bo
 .no-results-message { grid-column: 1 / -1; /* Ocupa todas as colunas da grade. */ text-align: center; padding: 40px; color: var(--color-text-secondary); font-size: 1.2em; }
 
 /* --- Destaque para o Botão Surpresa --- */
-.highlight { box-shadow: 0 0 20px 5px #ffd700; transform: scale(1.05); }
+.highlight { box-shadow: 0 0 20px 5px #ffd700; transform: scale(1.05); overflow: hidden;}
 
 /* --- Acessibilidade: Esconder texto visualmente --- */
 .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
@@ -539,4 +546,62 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin-bo
         flex-direction: column;
         align-items: stretch; /* Estica os itens para ocuparem a largura total. */
     }
+}
+
+/* ===================================================================================
+// --- ESTILOS DA SEÇÃO DE CÓDIGO GERADO (Página Adicionar) ---
+// =================================================================================== */
+
+/* --- Contêiner Principal da Seção de Saída --- */
+#output-container {
+    background-color: var(--color-background-light); /* Fundo igual ao do formulário para agrupar visualmente */
+    padding: 25px;
+    border-radius: 8px;
+    margin-top: 30px;
+}
+
+/* --- Título e Parágrafo de Instrução --- */
+#output-container h3 {
+    text-align: center; /* Centraliza o título */
+    margin-bottom: 8px;
+}
+
+#output-container p {
+    text-align: center; /* Centraliza o texto de instrução */
+    color: var(--color-text-secondary);
+    font-size: 0.9em;
+    margin-bottom: 20px;
+    max-width: none; /* Remove a limitação de largura dos parágrafos normais */
+}
+
+/* --- ESTA É A CORREÇÃO PRINCIPAL: A ÁREA DE TEXTO --- */
+#output-code {
+    /* Aparência e Cores */
+    width: 100%;
+    background-color: var(--color-background-dark); /* Fundo escuro, igual aos inputs */
+    border: 1px solid var(--color-border);          /* Borda sutil do tema */
+    color: var(--color-text-primary);               /* Cor do texto clara */
+    border-radius: 4px;                             /* Bordas arredondadas suaves */
+    
+    /* Fonte e Espaçamento */
+    padding: 15px; /* Mais espaço interno para o código respirar */
+    font-family: 'Consolas', 'Menlo', 'Courier New', monospace; /* Fonte monoespaçada, ideal para código */
+    font-size: 0.9em;
+    line-height: 1.5; /* Melhora a legibilidade das linhas de código */
+
+    /* Comportamento */
+    resize: vertical; /* Permite que o usuário redimensione a caixa apenas na vertical */
+}
+
+/* --- Botão de Copiar Código --- */
+/* Garante que o botão tenha um bom espaçamento e se alinhe bem. */
+#copy-code-btn {
+    display: block; /* Faz o botão ocupar a largura disponível */
+    width: 100%;
+    margin-top: 15px; /* Adiciona um espaço acima do botão */
+}
+
+.edit-btn {
+    width: 100%; /* Faz o botão ocupar a largura toda */
+    margin-top: 15px;
 }

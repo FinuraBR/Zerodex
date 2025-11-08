@@ -237,6 +237,24 @@ function setupControls() {
             randomCard.classList.remove('highlight');
         }, 2000); // Remove o destaque após 2 segundos
     });
+     // --- Lógica do Botão "Editar Jogo" ---
+    document.querySelector('#catalogo .game-grid').addEventListener('click', (event) => {
+        // Verifica se o elemento clicado é o nosso botão de editar
+        if (event.target.classList.contains('edit-btn')) {
+            const gameId = parseInt(event.target.dataset.editId);
+            // Encontra o objeto do jogo completo no nosso banco de dados
+            const gameToEdit = gamesData.find(game => game.id === gameId);
+
+            if (gameToEdit) {
+                // Guarda os dados do jogo no localStorage do navegador.
+                // localStorage é uma forma de guardar dados que persistem entre páginas.
+                localStorage.setItem('gameToEdit', JSON.stringify(gameToEdit));
+                
+                // Redireciona o usuário para a página de adicionar/editar.
+                window.location.href = 'adicionar.html';
+            }
+        }
+    });
 }
 
 
@@ -274,10 +292,10 @@ function renderGames(gamesArray, gridSelector) {
 
         // Define o HTML interno do card
         cardElement.innerHTML = `
-            <div class="game-number">${game.id}</div>
-            ${game.version ? `<div class="game-version-badge">${game.version}</div>` : ''}
-
             <div class="card-image-container">
+                <div class="game-number">${game.id}</div>
+                ${game.version ? `<div class="game-version-badge">${game.version}</div>` : ''}
+                
                 <img src="${game.image}" alt="Capa do jogo ${game.title}" loading="lazy">
             </div>
 
@@ -293,6 +311,7 @@ function renderGames(gamesArray, gridSelector) {
                     <p><strong>Status:</strong> ${game.statusOverlay}</p>
                     <p><strong>Tradução:</strong> ${game.translation}</p>
                     ${guideHTML}
+                    <button class="edit-btn secondary-btn" data-edit-id="${game.id}">Editar Jogo</button>
                 </div>
                 ${game.review ? `<div class="game-review"><p class="review-comment">${game.review}</p></div>` : ''}
             </div>`;

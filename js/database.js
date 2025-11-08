@@ -93,6 +93,100 @@
 
 const gamesData = [
     {
+    "id": 9,
+    "title": "The Knight Witch",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1872680/library_600x900_2x.jpg",
+    "platform": "pc",
+    "status": "completed",
+    "statusText": "Finalizado",
+    "statusOverlay": "Finalizado",
+    "translation": "Oficial",
+    "guide": [
+        {
+            "title": "Knoef Trophy Guides",
+            "url": "https://knoef.info/trophy-guides/ps5/the-knight-witch-trophy-guide/"
+        }
+    ],
+    "review": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "version": null,
+    "storeUrl": "https://store.steampowered.com/app/1872680/The_Knight_Witch/"
+    },
+    {
+    "id": 8,
+    "title": "DREDGE",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1562430/library_600x900_2x.jpg",
+    "platform": "pc",
+    "status": "completed",
+    "statusText": "Finalizado",
+    "statusOverlay": "Finalizado",
+    "translation": "Oficial",
+    "guide": [
+        {
+            "title": "IGN",
+            "url": "https://www.ign.com/wikis/dredge"
+        },
+        {
+            "title": "Map Genie",
+            "url": "https://mapgenie.io/dredge"
+        }
+    ],
+    "review": null,
+    "version": null,
+    "storeUrl": "https://store.steampowered.com/app/1562430/DREDGE/"
+    },
+    {
+    "id": 7,
+    "title": "Killer Frequency",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1903620/library_600x900_2x.jpg",
+    "platform": "pc",
+    "status": "completed",
+    "statusText": "Finalizado",
+    "statusOverlay": "Finalizado",
+    "translation": "Oficial",
+    "guide": [
+        {
+            "title": "Gamer Journalist",
+            "url": "https://gamerjournalist.com/how-to-save-everyone-in-killer-frequency-full-walkthrough/"
+        }
+    ],
+    "review": null,
+    "version": null,
+    "storeUrl": "https://store.steampowered.com/app/1903620/Killer_Frequency/"
+    },
+    {
+    "id": 6,
+    "title": "Trepang2",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1164940/library_600x900_2x.jpg",
+    "platform": "pc",
+    "status": "completed",
+    "statusText": "Finalizado",
+    "statusOverlay": "Finalizado",
+    "translation": "Feita por Fã (<a href=\"https://www.nexusmods.com/trepang2/mods/60\" target=\"_blank\">baixar</a>)",
+    "guide": [],
+    "review": null,
+    "version": null,
+    "storeUrl": "https://store.steampowered.com/app/1164940/Trepang2/"
+    },
+    {
+    "id": 5,
+    "title": "ULTRAKILL",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1229490/library_600x900_2x.jpg",
+    "platform": "pc",
+    "status": "completed",
+    "statusText": "Finalizado",
+    "statusOverlay": "Finalizado",
+    "translation": "Feita por Fã (<a href=\"https://github.com/ClearwaterUK/UltrakULL\" target=\"_blank\">baixar</a>)",
+    "guide": [
+        {
+            "title": "Fandom",
+            "url": "https://ultrakill.fandom.com/wiki/"
+        }
+    ],
+    "review": null,
+    "version": null,
+    "storeUrl": "https://store.steampowered.com/app/1229490/ULTRAKILL/"
+    },
+    {
         "id": 4, 
         "title": "Yakuza Kiwami", 
         "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/834530/library_600x900_2x.jpg", 
@@ -150,19 +244,22 @@ const gamesData = [
         "storeUrl": "https://store.steampowered.com/app/1235140/Yakuza_Like_a_Dragon"
     },
     {
-        id: 1,
-        title: "Lego Batman 3: Beyond Gotham",
-        image: "imagens/Lego Batman 3 Beyond Gotham.jpg",
-        platform: "pc",
-        storeUrl: "https://store.steampowered.com/app/313690/LEGO_Batman_3_Beyond_Gotham/",
-        status: "completed-100",
-        statusText: "100%",
-        statusOverlay: "100% Concluído",
-        translation: "Oficial",
-        guide: [
-            { title: "IGN", url: "https://www.ign.com/wikis/lego-batman-3-beyond-gotham" }
-        ],
-        review: null,
-        version: null
+    "id": 1,
+    "title": "Lego Batman 3: Beyond Gotham",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/313690/library_600x900_2x.jpg",
+    "platform": "pc",
+    "status": "completed-100",
+    "statusText": "100%",
+    "statusOverlay": "100% Concluído",
+    "translation": "Oficial",
+    "guide": [
+        {
+            "title": "IGN",
+            "url": "https://www.ign.com/wikis/lego-batman-3-beyond-gotham"
+        }
+    ],
+    "review": null,
+    "version": null,
+    "storeUrl": "https://store.steampowered.com/app/313690/LEGO_Batman_3_Beyond_Gotham/"
     }
 ];

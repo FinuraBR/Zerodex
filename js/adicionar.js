@@ -42,9 +42,14 @@ let currentNextId;           // Armazena o próximo ID de jogo disponível para 
 // --- [INICIALIZAÇÃO] ---
 // Garante que a função de inicialização do ID seja chamada assim que a página carregar.
 document.addEventListener('DOMContentLoaded', () => {
-    initializeId();
-});
+    // Esta função vai verificar se devemos entrar em "Modo Edição"
+    checkForEditMode(); 
 
+    // Se não estivermos em modo edição, a inicialização normal do ID acontece
+    if (!localStorage.getItem('gameToEdit')) {
+         initializeId();
+    }
+});
 /**
  * Define o próximo ID de jogo a ser usado.
  * Ele compara o ID salvo no navegador (localStorage) com o ID do arquivo `id_counter.js`,
@@ -65,6 +70,77 @@ function initializeId() {
  * Esta função age como um intermediário seguro, escondendo nossa chave de API.
  * @param {string} query - O nome do jogo a ser buscado.
  */
+function checkForEditMode() {
+    // Pega os dados do jogo que guardamos no localStorage
+    const gameToEditData = localStorage.getItem('gameToEdit');
+
+    if (gameToEditData) {
+        // Se encontramos dados, estamos em "Modo Edição"
+        const gameToEdit = JSON.parse(gameToEditData);
+
+        // 1. Mude os títulos e textos da página
+        document.title = `Editando: ${gameToEdit.title}`;
+        document.querySelector('#add-game-section h2').textContent = 'Editar Jogo';
+        document.querySelector('#game-entry-form button[type="submit"]').textContent = 'Salvar Alterações';
+        document.querySelector('#output-container h3').textContent = 'Código Atualizado para database.js';
+
+        // 2. Preencha o formulário com os dados do jogo
+        // Esta função é parecida com a populateForm, mas usa nossos dados salvos
+        fillFormWithExistingData(gameToEdit);
+
+        // 3. MUITO IMPORTANTE: Limpe os dados do localStorage para não entrar
+        // no modo edição por acidente na próxima vez que visitar a página.
+        localStorage.removeItem('gameToEdit');
+    }
+}
+
+// Esta função auxiliar preenche o formulário (você pode criar esta nova função)
+function fillFormWithExistingData(game) {
+    // Esconde a busca da API, pois já temos um jogo
+    document.getElementById('search-container').style.display = 'none';
+    document.getElementById('api-results-container').style.display = 'none';
+    document.getElementById('manual-entry-button').style.display = 'none';
+    
+    gameEntryForm.reset();
+    tempGuides = game.guide || []; // Carrega os guias existentes
+    updateGuidesList();
+
+    // Preenche todos os campos
+    document.getElementById('game-id').value = game.id;
+    formGameTitleInput.value = game.title;
+    document.getElementById('form-game-image').src = game.image;
+    document.getElementById('game-image-url').value = game.image;
+    document.getElementById('game-store-url').value = game.storeUrl || '';
+
+    // Popula e seleciona o status correto
+    const statusSelect = document.getElementById('game-status');
+    statusSelect.innerHTML = `<option value="playing">Jogando</option><option value="completed">Finalizado</option><option value="completed-100">100% Concluído</option><option value="retired">Aposentado</option><option value="archived">Arquivado</option><option value="abandonado">Abandonado</option>`;
+    statusSelect.value = game.status;
+
+    // Popula e seleciona a plataforma correta
+    const platformSelect = document.getElementById('game-platform');
+    platformSelect.innerHTML = `<option value="${game.platform}">${game.platform.toUpperCase()}</option>`; // Apenas a opção atual
+    
+    // Lógica da tradução
+    if (game.translation.includes("Feita por Fã")) {
+        translationSelect.value = 'fan';
+        fanTranslationGroup.style.display = 'flex';
+        // Tenta extrair o link da tradução, se existir
+        const linkMatch = game.translation.match(/href="([^"]+)"/);
+        if (linkMatch && linkMatch[1]) {
+            document.getElementById('fan-translation-link').value = linkMatch[1];
+        }
+    } else {
+        translationSelect.value = game.translation;
+    }
+
+    document.getElementById('game-version').value = game.version || '';
+    document.getElementById('game-review').value = game.review || '';
+
+    // Mostra o formulário
+    formContainer.style.display = 'block';
+}
+
 async function searchGames(query) {
     if (!query) return; // Não faz nada se a busca estiver vazia.
 
@@ -253,15 +329,34 @@ gameEntryForm.addEventListener('submit', (event) => {
     };
 
     // Converte o objeto para uma string JSON formatada e a exibe na área de saída
-    const outputString = JSON.stringify(newGame, null, 4);
-    outputCode.value = `${outputString},\n`;
+    const baseJsonString = JSON.stringify(newGame, null, 4);
 
-    outputContainer.style.display = 'block';
-    outputContainer.scrollIntoView({ behavior: 'smooth' });
+    // Isso garante que o bloco de código fique perfeitamente alinhado ao ser colado no array `gamesData`.
+    // 2. Adiciona uma indentação extra de 4 espaços em CADA linha do JSON.
+    const indentedJsonString = baseJsonString
+        .split('\n')
+        .map((line, index) => {
+            // Se for a primeira linha (index === 0), que contém o '{', retorna a linha sem alteração.
+            if (index === 0) {
+                return line;
+            }
+            // Para todas as outras linhas, adiciona 4 espaços de indentação ("tab").
+            return `    ${line}`;
+        })
+        .join('\n');
 
-    // ATUALIZA o próximo ID e salva no navegador para a próxima vez
-    currentNextId = newGame.id + 1;
-    localStorage.setItem('nextGameId', currentNextId);
+    // 3. Define o valor final na área de texto, adicionando a vírgula SEM a quebra de linha extra.
+    outputCode.value = `${indentedJsonString},`;
+        outputContainer.style.display = 'block';
+        outputContainer.scrollIntoView({ behavior: 'smooth' });
+
+    // Verificamos se o título do botão ainda é "Salvar no Zerodex".
+    // Se for, estamos adicionando um novo jogo e podemos incrementar o ID.
+    // Se não for (ou seja, é "Salvar Alterações"), NÃO incrementamos o ID.
+    if (document.querySelector('#game-entry-form button[type="submit"]').textContent === 'Salvar no Zerodex') {
+        currentNextId = newGame.id + 1;
+        localStorage.setItem('nextGameId', currentNextId);
+    }
     
     copyCodeBtn.textContent = 'Copiar Código';
 });
