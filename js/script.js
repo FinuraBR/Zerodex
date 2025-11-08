@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 // Dentro do document.addEventListener('DOMContentLoaded', ...)
 
-// NOVO CÓDIGO PARA AS PRATELEIRAS DA PÁGINA INICIAL
+// Dentro do document.addEventListener('DOMContentLoaded', ...)
+
 if (document.querySelector('.homepage-shelf')) {
     // Configuração das prateleiras da página inicial
     const homepageShelves = [
@@ -28,19 +29,52 @@ if (document.querySelector('.homepage-shelf')) {
     // Passa por cada configuração de prateleira
     homepageShelves.forEach(shelf => {
         const sectionElement = document.querySelector(shelf.selector);
-        if (!sectionElement) return; // Se a seção não existir no HTML, pula
+        // A MUDANÇA ESTÁ AQUI: Encontramos o link correspondente na barra de navegação
+        const navLink = document.querySelector(`#shelf-nav a[href="${shelf.selector}"]`);
+
+        // Se a seção ou o link não existirem, pula para a próxima
+        if (!sectionElement || !navLink) return;
 
         // Filtra os jogos que pertencem a esta prateleira
         const gamesForShelf = gamesData.filter(game => game.status === shelf.status);
 
-        // Se encontrou jogos, renderiza. Se não, esconde a seção inteira.
+        // Se encontrou jogos, renderiza e garante que o link está visível.
         if (gamesForShelf.length > 0) {
+            navLink.style.display = ''; // Garante que o link apareça
             const gridSelector = `${shelf.selector} .game-grid`;
             renderGames(gamesForShelf, gridSelector);
         } else {
+            // Se não encontrou jogos, esconde a seção E o link correspondente.
             sectionElement.style.display = 'none';
+            navLink.style.display = 'none';
         }
     });
+}
+
+// Adicione esta nova verificação:
+if (document.querySelector('#shelf-nav')) {
+    const shelfNav = document.getElementById('shelf-nav');
+    const heroSection = document.getElementById('hero');
+
+    const checkScroll = () => {
+        // Pega a posição onde a seção "hero" termina
+        const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+
+        // Se o usuário rolou para além do final da seção hero, mostra o menu
+        if (window.scrollY > heroBottom) {
+            shelfNav.classList.add('shelf-nav-visible');
+            shelfNav.classList.remove('shelf-nav-hidden');
+        } else {
+            shelfNav.classList.remove('shelf-nav-visible');
+            shelfNav.classList.add('shelf-nav-hidden');
+        }
+    };
+
+    // "Escuta" o evento de rolagem da página
+    window.addEventListener('scroll', checkScroll);
+
+    // A MUDANÇA ESTÁ AQUI: Executa a verificação uma vez no carregamento da página
+    checkScroll();
 }
 });
 

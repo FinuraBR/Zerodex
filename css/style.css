@@ -7,7 +7,7 @@
     --color-border: #2C2E33; /* Bordas sutis */
     --color-text-primary: #E1E1E1; /* Texto principal */
     --color-text-secondary: #888; /* Texto secundário (rodapé) */
-    --color-accent: #4CAF50; /* Verde de destaque */
+    --color-accent: #28a745; /* Verde de destaque */
 }
 
 * {
@@ -395,8 +395,8 @@ body.light-mode {
 }
 
 #surprise-btn:hover {
-    background-color: #5cdb61;
-    border-color: #5cdb61;
+    background-color: #2fbf4f;
+    border-color: #2fbf4f;
     transform: translateY(-2px);
 }
 .highlight {
@@ -871,8 +871,8 @@ hr {
 }
 
 .cta-button:hover, #add-game-btn:hover {
-    background-color: #5cdb61;
-    border-color: #5cdb61;
+    background-color: #2fbf4f;
+    border-color: #2fbf4f;
     transform: translateY(-2px);
 }
 
@@ -971,4 +971,48 @@ hr {
     background-color: var(--color-border);
     color: var(--color-text-primary);
     border-color: var(--color-text-secondary);
+}
+
+/* --- Aprimoramento: Menu de Navegação das Prateleiras (Homepage) --- */
+#shelf-nav {
+    /* A MUDANÇA PRINCIPAL ESTÁ AQUI: de 'sticky' para 'fixed' */
+    position: fixed; 
+    top: 0;
+    left: 0; /* Garante que ocupe a largura toda */
+    right: 0; /* Garante que ocupe a largura toda */
+    z-index: 100;
+    
+    background-color: var(--color-background-dark);
+    border-bottom: 1px solid var(--color-border);
+    padding: 15px 20px;
+    
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    
+    /* A animação de deslize continua a mesma */
+    transition: transform 0.4s ease-in-out;
+}
+
+/* Estado escondido (começa fora da tela) */
+#shelf-nav.shelf-nav-hidden {
+    transform: translateY(-100%);
+}
+
+/* Estado visível */
+#shelf-nav.shelf-nav-visible {
+    transform: translateY(0);
+}
+
+#shelf-nav a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9em;
+    transition: color 0.2s ease;
+}
+
+#shelf-nav a:hover {
+    color: var(--color-accent);
 }
