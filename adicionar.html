@@ -1,12 +1,20 @@
 <!DOCTYPE html>
+<!-- Define o tipo de documento como HTML5 -->
 <html lang="pt-BR">
+
 <head>
+    <!-- Metadados do documento -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionar Jogo ao Zerodex</title>
+
+    <!-- Links para CSS e Favicon -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/jpg" href="imagens/favicon.jpg">
 </head>
+
 <body>
+    <!-- ======================= CABEÇALHO ======================= -->
     <header>
         <div class="header-container">
             <h1>Adicionar Jogo</h1>
@@ -20,246 +28,137 @@
         </div>
     </header>
 
+    <!-- ======================= CONTEÚDO PRINCIPAL ======================= -->
     <main>
         <section id="add-game-section">
             <h2>Buscar Jogo na Base de Dados</h2>
             
+            <!-- Passo 1: Busca na API externa -->
             <div id="search-container">
                 <input type="text" id="api-search-bar" placeholder="Digite o nome de um jogo...">
                 <button id="api-search-button" class="cta-button">Buscar</button>
             </div>
 
+            <!-- Passo 2: Exibição dos resultados da busca -->
             <div id="api-results-container">
                 <h3>Resultados da Busca</h3>
+                <!-- O JavaScript preencherá os resultados da API aqui dentro -->
                 <div class="results-grid">
                     <p>Os resultados da busca aparecerão aqui.</p>
                 </div>
             </div>
 
+            <!-- Opção para adicionar um jogo que não foi encontrado na busca -->
             <div class="manual-entry-link">
                 <button id="manual-entry-button" class="secondary-btn" style="display: none;">Não encontrou? Adicione manualmente</button>
             </div>
 
-            <!-- Formulário (começa escondido) -->
+            <!-- ======================= FORMULÁRIO DE ADIÇÃO ======================= -->
+            <!-- Este contêiner começa escondido e só aparece após selecionar um jogo ou clicar em "Adicionar manualmente". -->
             <div id="add-form-container" style="display: none;">
                 <form id="game-entry-form">
+                    <!-- Parte 1: Dados preenchidos pela API (ou manualmente) -->
                     <div class="form-api-data">
+                        <!-- A imagem da capa do jogo -->
                         <img id="form-game-image" src="" alt="Capa do Jogo" width="150">
                         <div>
+                            <!-- Título do Jogo -->
                             <div class="form-group">
                                 <label for="form-game-title-input">Título do Jogo:</label>
                                 <input type="text" id="form-game-title-input" required>
                             </div>
+                            <!-- Data de lançamento (texto informativo) -->
                             <p id="form-game-release">Lançamento: </p>
                         </div>
                     </div>
                     <hr>
+                    <!-- Parte 2: Dados que você precisa preencher -->
                     <div class="form-user-data">
-                        <!-- ID, Link da Loja e Imagem Manual -->
                         <div class="form-group-inline">
+                            <!-- ID do Jogo (gerado automaticamente) -->
                             <div class="form-group">
                                 <label for="game-id">ID do Jogo:</label>
                                 <input type="number" id="game-id" required>
                             </div>
+                            <!-- URL da Loja (opcional, ex: Steam, PSN) -->
                             <div class="form-group">
                                 <label for="game-store-url">URL da Loja (opcional):</label>
                                 <input type="text" id="game-store-url" placeholder="https://...">
                             </div>
                         </div>
+                        <!-- Campo para a URL da imagem, caso queira usar uma diferente da API -->
                         <div class="form-group" id="manual-image-group">
                             <label for="game-image-url">URL da Imagem da Capa:</label>
                             <input type="text" id="game-image-url" placeholder="https://...">
                         </div>
-                        <!-- Status -->
+                        <!-- Status do Jogo (Jogando, Finalizado, etc.) -->
                         <div class="form-group"><label for="game-status">Status:</label><select id="game-status" required></select></div>
-                        <!-- Plataforma -->
+                        <!-- Plataforma onde você jogou -->
                         <div class="form-group"><label for="game-platform">Plataforma em que joguei:</label><select id="game-platform" required></select></div>
-                        <!-- Tradução -->
+                        <!-- Detalhes sobre a Tradução -->
                         <div class="form-group-inline">
-                            <div class="form-group"><label for="game-translation">Tradução:</label><select id="game-translation"><option value="Oficial">Oficial</option><option value="Não possui">Não possui</option><option value="fan">Feita por Fã</option></select></div>
-                            <div class="form-group" id="fan-translation-link-group" style="display: none;"><label for="fan-translation-link">Link da Tradução:</label><input type="text" id="fan-translation-link" placeholder="https://..."></div>
+                            <div class="form-group">
+                                <label for="game-translation">Tradução:</label>
+                                <select id="game-translation">
+                                    <option value="Oficial">Oficial</option>
+                                    <option value="Não possui">Não possui</option>
+                                    <option value="fan">Feita por Fã</option>
+                                </select>
+                            </div>
+                            <!-- Campo para o link da tradução de fã (só aparece se a opção for selecionada) -->
+                            <div class="form-group" id="fan-translation-link-group" style="display: none;">
+                                <label for="fan-translation-link">Link da Tradução:</label>
+                                <input type="text" id="fan-translation-link" placeholder="https://...">
+                            </div>
                         </div>
-                        <!-- Guias -->
-                        <div class="form-group"><label>Guias (opcional):</label><div id="guides-list"></div><div class="form-group-inline" style="margin-top: 5px;"><input type="text" id="guide-title" placeholder="Nome do Guia (ex: IGN)"><input type="text" id="guide-url" placeholder="URL do Guia"></div><button type="button" id="add-guide-btn" class="secondary-btn">Adicionar Guia</button></div>
-                        <!-- Versão -->
-                        <div class="form-group"><label for="game-version">Versão (opcional):</label><select id="game-version"><option value="">Padrão</option><option value="Demo">Demo</option><option value="Acesso Antecipado">Acesso Antecipado</option><option value="Beta">Beta</option></select></div>
-                        <!-- Comentário -->
-                        <div class="form-group"><label for="game-review">Seu Comentário (opcional):</label><textarea id="game-review" rows="3"></textarea></div>
+                        <!-- Seção para adicionar guias/tutoriais (opcional) -->
+                        <div class="form-group">
+                            <label>Guias (opcional):</label>
+                            <!-- A lista de guias adicionados aparecerá aqui -->
+                            <div id="guides-list"></div>
+                            <div class="form-group-inline" style="margin-top: 5px;">
+                                <input type="text" id="guide-title" placeholder="Nome do Guia (ex: IGN)">
+                                <input type="text" id="guide-url" placeholder="URL do Guia">
+                            </div>
+                            <button type="button" id="add-guide-btn" class="secondary-btn">Adicionar Guia</button>
+                        </div>
+                        <!-- Versão do jogo (Demo, Beta, etc.) -->
+                        <div class="form-group">
+                            <label for="game-version">Versão (opcional):</label>
+                            <select id="game-version">
+                                <option value="">Padrão</option>
+                                <option value="Demo">Demo</option>
+                                <option value="Acesso Antecipado">Acesso Antecipado</option>
+                                <option value="Beta">Beta</option>
+                            </select>
+                        </div>
+                        <!-- Seu comentário ou mini-review sobre o jogo -->
+                        <div class="form-group">
+                            <label for="game-review">Seu Comentário (opcional):</label>
+                            <textarea id="game-review" rows="3"></textarea>
+                        </div>
+                        <!-- Botão para gerar o código do objeto do jogo -->
                         <button type="submit" class="cta-button">Salvar no Zerodex</button>
                     </div>
                 </form>
             </div>
 
-            <!-- Área de Resultado -->
+            <!-- Passo Final: Área de Resultado com o Código Gerado -->
             <div id="output-container" style="display: none; margin-top: 30px;">
                 <h3>Código Gerado para database.js</h3>
                 <p>Copie o código abaixo e cole no topo da lista `gamesData`.</p>
-                <textarea id="output-code" rows="15" readonly style="width: 100%; white-space: pre;"></textarea>
-                <button type="button" id="copy-code-btn" class="cta-button" style="margin-top: 10px;">Copiar Código</button>
+                <textarea id="output-code" rows="15" readonly></textarea>
+                <button type="button" id="copy-code-btn" class="cta-button">Copiar Código</button>
             </div>
         </section>
     </main>
     
+    <!-- ======================= SCRIPTS ======================= -->
+    <!-- Carrega o contador de ID primeiro -->
     <script src="js/id_counter.js"></script>
+    <!-- Carrega o banco de dados (embora não seja usado diretamente aqui, é bom para consistência) -->
     <script src="js/database.js"></script>
-    <script>
-        // --- CÓDIGO JAVASCRIPT FINAL E LIMPO ---
-        const apiKey = "e2de3be265864a059427ea9d4cc4b99f"; // Chave da RAWG
-        const searchButton = document.getElementById('api-search-button');
-        const searchBar = document.getElementById('api-search-bar');
-        const resultsContainer = document.getElementById('api-results-container');
-        const resultsGrid = document.querySelector('.results-grid');
-        const manualEntryButton = document.getElementById('manual-entry-button');
-        const formContainer = document.getElementById('add-form-container');
-        const gameEntryForm = document.getElementById('game-entry-form');
-        const outputContainer = document.getElementById('output-container');
-        const outputCode = document.getElementById('output-code');
-        const copyCodeBtn = document.getElementById('copy-code-btn');
-        const translationSelect = document.getElementById('game-translation');
-        const fanTranslationGroup = document.getElementById('fan-translation-link-group');
-        const addGuideBtn = document.getElementById('add-guide-btn');
-        const guidesList = document.getElementById('guides-list');
-        const manualImageGroup = document.getElementById('manual-image-group');
-        const formGameTitleInput = document.getElementById('form-game-title-input');
-
-        let currentApiResults = [];
-        let selectedGameData = null;
-        let tempGuides = [];
-        let currentNextId;
-
-        document.addEventListener('DOMContentLoaded', () => { initializeId(); });
-
-        function initializeId() {
-            const storedId = parseInt(localStorage.getItem('nextGameId'));
-            const fileId = window.nextGameId || 1;
-            currentNextId = Math.max(storedId || 1, fileId);
-            localStorage.setItem('nextGameId', currentNextId);
-        }
-
-        async function searchGames(query) {
-            if (!query) return;
-            resultsGrid.innerHTML = '<p>Buscando...</p>';
-            formContainer.style.display = 'none';
-            outputContainer.style.display = 'none';
-            try {
-                const response = await fetch(`https://api.rawg.io/api/games?key=${apiKey}&search=${encodeURIComponent(query)}`);
-                if (!response.ok) throw new Error(`Erro na API: ${response.statusText}`);
-                const data = await response.json();
-                currentApiResults = data.results;
-                displayResults(data.results);
-            } catch (error) {
-                console.error("Falha ao buscar jogos:", error);
-                resultsGrid.innerHTML = `<p class="no-results-message">Ocorreu um erro ao buscar.</p>`;
-                manualEntryButton.style.display = 'block';
-            }
-        }
-
-    function displayResults(games) {
-    const resultsGrid = document.querySelector('.results-grid'); // Seleciona o novo container
-    manualEntryButton.style.display = 'block';
-
-    if (games.length === 0) {
-        resultsGrid.innerHTML = '<p class="no-results-message">Nenhum jogo encontrado.</p>';
-        return;
-    }
-
-    resultsGrid.innerHTML = games.map(game => `
-        <div class="api-result-item" data-game-id="${game.id}">
-            <img src="${game.background_image || 'https://placehold.co/300x400?text=Capa'}" alt="${game.name}">
-            <div>
-                <h3>${game.name}</h3>
-                <p>Lançamento: ${game.released || 'Não informado'}</p>
-            </div>
-        </div>
-    `).join('');
-}
-
-        function populateForm(gameData) {
-            selectedGameData = gameData;
-            gameEntryForm.reset();
-            tempGuides = [];
-            updateGuidesList();
-            fanTranslationGroup.style.display = 'none';
-
-            document.getElementById('game-id').value = currentNextId;
-            formGameTitleInput.value = gameData.name || '';
-            document.getElementById('form-game-image').src = gameData.background_image || 'https://placehold.co/300x400?text=Capa';
-            manualImageGroup.style.display = 'block';
-            document.getElementById('game-image-url').value = gameData.background_image || '';
-            document.getElementById('form-game-release').textContent = `Lançamento: ${gameData.released || 'Não informado'}`;
-            document.getElementById('game-store-url').value = gameData.isManual ? '' : `https://rawg.io/games/${gameData.slug}`;
-
-            const statusSelect = document.getElementById('game-status');
-            statusSelect.innerHTML = `<option value="playing">Jogando</option><option value="completed">Finalizado</option><option value="completed-100">100% Concluído</option><option value="retired">Aposentado</option><option value="archived">Arquivado</option><option value="abandoned">Abandonado</option>`;
-            
-            const platformSelect = document.getElementById('game-platform');
-            platformSelect.innerHTML = gameData.platforms ? gameData.platforms.map(p => `<option value="${p.platform.slug}">${p.platform.name}</option>`).join('') : '<option value="pc">PC</option><option value="switch">Switch</option>';
-            
-            formContainer.style.display = 'block';
-            formContainer.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        gameEntryForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            let translationValue = translationSelect.value;
-            if (translationValue === 'fan') {
-                const link = document.getElementById('fan-translation-link').value;
-                translationValue = link ? `Feita por Fã (<a href="${link}" target="_blank">baixar</a>)` : "Feita por Fã";
-            }
-            const statusMap = { 'playing': { text: 'Jogando', overlay: 'Jogando Atualmente' }, 'completed': { text: 'Finalizado', overlay: 'Finalizado' }, 'completed-100': { text: '100%', overlay: '100% Concluído' }, 'retired': { text: 'Aposentado', overlay: 'Aposentado' }, 'archived': { text: 'Arquivado', overlay: 'Arquivado' }, 'abandoned': { text: 'Abandonado', overlay: 'Abandonado' } };
-            const versionValue = document.getElementById('game-version').value;
-            const imageUrl = document.getElementById('game-image-url').value;
-            const newGame = {
-                id: parseInt(document.getElementById('game-id').value),
-                title: formGameTitleInput.value,
-                image: imageUrl || "imagens/placeholder.jpg",
-                platform: document.getElementById('game-platform').value,
-                status: document.getElementById('game-status').value,
-                statusText: statusMap[document.getElementById('game-status').value].text,
-                statusOverlay: statusMap[document.getElementById('game-status').value].overlay,
-                translation: translationValue,
-                guide: tempGuides,
-                review: document.getElementById('game-review').value || null,
-                version: versionValue || null,
-                storeUrl: document.getElementById('game-store-url').value || null,
-            };
-            const outputString = JSON.stringify(newGame, null, 4);
-            outputCode.value = `${outputString},\n`;
-            outputContainer.style.display = 'block';
-            outputContainer.scrollIntoView({ behavior: 'smooth' });
-            currentNextId = newGame.id + 1;
-            localStorage.setItem('nextGameId', currentNextId);
-            document.getElementById('game-id').value = currentNextId;
-            copyCodeBtn.textContent = 'Copiar Código (Contador Atualizado!)';
-        });
-
-        searchButton.addEventListener('click', () => searchGames(searchBar.value));
-        searchBar.addEventListener('keyup', (event) => { if (event.key === 'Enter') searchGames(searchBar.value); });
-        resultsContainer.addEventListener('click', (event) => {
-            const resultItem = event.target.closest('.api-result-item');
-            if (!resultItem) return;
-            const gameId = parseInt(resultItem.dataset.gameId);
-            const selectedGame = currentApiResults.find(game => game.id === gameId);
-            if (selectedGame) populateForm({ ...selectedGame, isManual: false });
-        });
-        manualEntryButton.addEventListener('click', () => {
-            resultsContainer.innerHTML = '';
-            const manualGameData = { isManual: true, name: '', background_image: '', released: '', platforms: null };
-            populateForm(manualGameData);
-        });
-        translationSelect.addEventListener('change', () => { fanTranslationGroup.style.display = translationSelect.value === 'fan' ? 'flex' : 'none'; });
-        addGuideBtn.addEventListener('click', () => {
-            const title = document.getElementById('guide-title').value;
-            const url = document.getElementById('guide-url').value;
-            if (title && url) { tempGuides.push({ title, url }); updateGuidesList(); document.getElementById('guide-title').value = ''; document.getElementById('guide-url').value = ''; }
-        });
-        function updateGuidesList() { guidesList.innerHTML = tempGuides.map(g => `<div class="guide-item">${g.title} - <a href="${g.url}" target="_blank">Link</a></div>`).join(''); }
-        copyCodeBtn.addEventListener('click', () => {
-            navigator.clipboard.writeText(outputCode.value).then(() => {
-                copyCodeBtn.textContent = 'Copiado!';
-                setTimeout(() => { copyCodeBtn.textContent = 'Copiar Código'; }, 2000);
-            }).catch(err => { console.error('Falha ao copiar: ', err); copyCodeBtn.textContent = 'Erro ao copiar'; });
-        });
-    </script>
+    <!-- **NOVO** Link para o arquivo JavaScript externo que controla esta página -->
+    <script src="js/add_game.js"></script>
 </body>
 </html>
