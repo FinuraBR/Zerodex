@@ -474,20 +474,36 @@ async function fetchAndShowAlternativeCovers(gameName) {
     }
 }
 
-// Função auxiliar para encontrar o ID da Steam
+// Função auxiliar para encontrar o ID da Steam (VERSÃO CORRIGIDA)
 async function findSteamAppId(gameName) {
-    // Usamos um proxy CORS para acessar a API da loja da Steam, que normalmente bloquearia a chamada
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    // URL da API de busca da loja da Steam
     const steamSearchUrl = `https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(gameName)}&l=english&cc=US`;
-
-    const response = await fetch(proxyUrl + steamSearchUrl);
-    if (!response.ok) return null;
     
-    const data = await response.json();
-    if (data.total > 0 && data.items.length > 0) {
-        return data.items[0].id; // Retorna o ID do primeiro resultado (o mais relevante)
+    // Usamos o proxy allorigins.win para contornar o bloqueio de CORS
+    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(steamSearchUrl)}`;
+
+    try {
+        const response = await fetch(proxyUrl);
+        if (!response.ok) {
+            console.error('Resposta do proxy não foi OK:', response);
+            return null;
+        }
+        
+        const data = await response.json();
+
+        // Verifica se a busca da Steam retornou resultados
+        if (data.total > 0 && data.items.length > 0) {
+            console.log(`Jogo encontrado na Steam: ${data.items[0].name} (ID: ${data.items[0].id})`);
+            return data.items[0].id; // Retorna o ID do primeiro resultado (o mais relevante)
+        }
+        
+        console.log('Nenhum jogo encontrado na busca da Steam para:', gameName);
+        return null;
+
+    } catch (error) {
+        console.error('Erro ao buscar ID da Steam via proxy:', error);
+        return null;
     }
-    return null;
 }
 
 // Fecha o modal
