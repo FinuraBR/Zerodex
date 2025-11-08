@@ -150,19 +150,22 @@ const gamesData = [
         "storeUrl": "https://store.steampowered.com/app/1235140/Yakuza_Like_a_Dragon"
     },
     {
-        id: 1,
-        title: "Lego Batman 3: Beyond Gotham",
-        image: "imagens/Lego Batman 3 Beyond Gotham.jpg",
-        platform: "pc",
-        storeUrl: "https://store.steampowered.com/app/313690/LEGO_Batman_3_Beyond_Gotham/",
-        status: "completed-100",
-        statusText: "100%",
-        statusOverlay: "100% Concluído",
-        translation: "Oficial",
-        guide: [
-            { title: "IGN", url: "https://www.ign.com/wikis/lego-batman-3-beyond-gotham" }
-        ],
-        review: null,
-        version: null
+    "id": 1,
+    "title": "Lego Batman 3: Beyond Gotham",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/313690/library_600x900_2x.jpg",
+    "platform": "pc",
+    "status": "completed-100",
+    "statusText": "100%",
+    "statusOverlay": "100% Concluído",
+    "translation": "Oficial",
+    "guide": [
+        {
+            "title": "IGN",
+            "url": "https://www.ign.com/wikis/lego-batman-3-beyond-gotham"
+        }
+    ],
+    "review": null,
+    "version": null,
+    "storeUrl": "https://store.steampowered.com/app/313690/LEGO_Batman_3_Beyond_Gotham/"
     }
 ];
