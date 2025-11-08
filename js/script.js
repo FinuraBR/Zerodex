@@ -11,10 +11,37 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector('#dynamic-stats')) {
         renderStatistics();
     }
-    if (document.querySelector('#currently-playing .game-grid')) {
-        const currentlyPlayingGames = gamesData.filter(game => game.status === 'playing');
-        renderGames(currentlyPlayingGames, '#currently-playing .game-grid');
-    }
+// Dentro do document.addEventListener('DOMContentLoaded', ...)
+
+// NOVO CÓDIGO PARA AS PRATELEIRAS DA PÁGINA INICIAL
+if (document.querySelector('.homepage-shelf')) {
+    // Configuração das prateleiras da página inicial
+    const homepageShelves = [
+        { selector: '#currently-playing', status: 'playing' },
+        { selector: '#archived-games', status: 'archived' },
+        { selector: '#completed-100-games', status: 'completed-100' },
+        { selector: '#finished-games', status: 'completed' },
+        { selector: '#retired-games', status: 'retired' },
+        { selector: '#abandoned-games', status: 'abandoned' },
+    ];
+
+    // Passa por cada configuração de prateleira
+    homepageShelves.forEach(shelf => {
+        const sectionElement = document.querySelector(shelf.selector);
+        if (!sectionElement) return; // Se a seção não existir no HTML, pula
+
+        // Filtra os jogos que pertencem a esta prateleira
+        const gamesForShelf = gamesData.filter(game => game.status === shelf.status);
+
+        // Se encontrou jogos, renderiza. Se não, esconde a seção inteira.
+        if (gamesForShelf.length > 0) {
+            const gridSelector = `${shelf.selector} .game-grid`;
+            renderGames(gamesForShelf, gridSelector);
+        } else {
+            sectionElement.style.display = 'none';
+        }
+    });
+}
 });
 
 let currentSearchTerm = '', currentPlatform = 'all', currentSort = 'id-desc';
