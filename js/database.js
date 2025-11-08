@@ -93,6 +93,341 @@
 
 const gamesData = [
     {
+        "id": 26,
+        "title": "Death's Door",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/894020/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Youtube",
+                "url": "https://www.youtube.com/playlist?list=PLRYiNkjGrK9NIBzM-v2qP8e9Fq5pIAeJj"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/894020/Deaths_Door/"
+    },
+    {
+        "id": 25,
+        "title": "Tom Clancy’s The Division 2",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2221490/8517c0415397d69e5c0e818eb1f2eb0ae83806b2/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/the-division-2"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2221490/Tom_Clancys_The_Division_2/"
+    },
+    {
+        "id": 24,
+        "title": "Tom Clancy’s The Division",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/365590/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/the-division"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/365590/Tom_Clancys_The_Division/"
+    },
+    {
+        "id": 23,
+        "title": "Watch Dogs: Legion",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2239550/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/watch-dogs-legion"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2239550/Watch_Dogs_Legion/"
+    },
+    {
+        "id": 22,
+        "title": "Watch_Dogs 2",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/447040/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/watch-dogs-2"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/447040/Watch_Dogs_2/"
+    },
+    {
+        "id": 21,
+        "title": "Watch_Dogs",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/243470/hero_capsule.jpg?t=1739177057",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/watch-dogs"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/243470/Watch_Dogs/"
+    },
+    {
+        "id": 20,
+        "title": "Wolfenstein: Youngblood",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1056960/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/wolfenstein-youngblood"
+            },
+            {
+                "title": "Youtube - All Collectibles",
+                "url": "https://www.youtube.com/playlist?list=PLRYiNkjGrK9NpwSmplqWVpbMA0zU-M_oG"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1056960/Wolfenstein_Youngblood/"
+    },
+    {
+        "id": 19,
+        "title": "Wolfenstein II: The New Colossus",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/612880/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/wolfenstein-2-the-new-colossus"
+            },
+            {
+                "title": "Youtube - All Collectibles",
+                "url": "https://www.youtube.com/watch?v=5zckI-DjiQM"
+            },
+            {
+                "title": "Youtube - DLCs",
+                "url": "https://www.youtube.com/playlist?list=PL61FH1Fo4C7FMOlmprE1eATSRcXyH0MEs"
+            },
+            {
+                "title": "Youtube - Filme dublado PT-BR (com as duas linhas, Fergus e Wyatt)",
+                "url": "https://www.youtube.com/watch?v=WtxMM8RAjQ0"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/612880/Wolfenstein_II_The_New_Colossus/"
+    },
+    {
+        "id": 18,
+        "title": "Wolfenstein: The New Order",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/201810/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Feita por Fã (<a href=\"https://www.centraldetraducoes.net.br/2014/07/traducao-do-wolfenstein-new-order-pc.html\" target=\"_blank\">baixar</a>)",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/wolfenstein-new-order"
+            },
+            {
+                "title": "Youtube",
+                "url": "https://www.youtube.com/watch?v=0e1xVoOuz2s"
+            },
+            {
+                "title": "Youtube - All Weapon Upgrades",
+                "url": "https://www.youtube.com/watch?v=nI2a6Okahuo"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/201810/Wolfenstein_The_New_Order/"
+    },
+    {
+        "id": 17,
+        "title": "Wolfenstein: The Old Blood",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/350080/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Feita por Fã (<a href=\"https://tribogamer.com/traducoes/304_traducao-do-wolfenstein-the-old-blood-para-portugues-do-brasil.html\" target=\"_blank\">baixar</a>)",
+        "guide": [
+            {
+                "title": "Youtube",
+                "url": "https://www.youtube.com/watch?v=XNxTpDNXjbQ"
+            },
+            {
+                "title": "Youtube - Nightmare Mazes",
+                "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=509836028"
+            },
+            {
+                "title": "Fandom",
+                "url": "https://wolfenstein.fandom.com/wiki/Wolfenstein_Wiki"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/350080/Wolfenstein_The_Old_Blood/"
+    },
+    {
+        "id": 16,
+        "title": "Pool Cleaning Simulator",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2165620/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Youtube",
+                "url": "https://youtu.be/5cQSshXDVVI?si=KhJb48PP31v0BsZn"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2165620/Pool_Cleaning_Simulator/"
+    },
+    {
+        "id": 15,
+        "title": "Strike Force 2 - Terrorist Hunt",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1375260/3cd0134dd37dce609d0087fa09a7785feedb3823/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Não possui",
+        "guide": [
+            {
+                "title": "Youtube",
+                "url": "https://youtu.be/WRuD6oYuGEw?si=gnuxFFLB6lXcAykM"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1375260/Strike_Force_2__Terrorist_Hunt_Enhanced_Edition/?curator_clanid=5467829"
+    },
+    {
+        "id": 14,
+        "title": "Boti: Byteland Overclocked",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2161050/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2161050/Boti_Byteland_Overclocked/"
+    },
+    {
+        "id": 13,
+        "title": "Confabulation: Homestead",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2355350/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Feita por Fã (<a href=\"https://github.com/bbepis/XUnity.AutoTranslator\" target=\"_blank\">baixar</a>)",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2355350/Confabulation_Homestead/"
+    },
+    {
+        "id": 12,
+        "title": "接触: 第一章(The Encounter: Chapter One)",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2498580/library_600x900_2x.jpg?t=1694339151",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2498580/_The_Encounter_Chapter_One/"
+    },
+    {
+        "id": 11,
+        "title": "Horizon Chase 2",
+        "image": "https://cdn2.steamgriddb.com/thumb/add500717355718ecf5a28ddfb85d1a1.jpg",
+        "platform": "pc",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://rawg.io/games/horizon-chase-2"
+    },
+    {
+        "id": 10,
+        "title": "Horizon Chase Turbo",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/389140/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Knoef Trophy Guides",
+                "url": "https://knoef.info/trophy-guides/ps4-guides/horizon-chase-turbo-trophy-guide/"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/389140/Horizon_Chase_Turbo/"
+    },
+    {
     "id": 9,
     "title": "The Knight Witch",
     "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1872680/library_600x900_2x.jpg",
@@ -107,7 +442,7 @@ const gamesData = [
             "url": "https://knoef.info/trophy-guides/ps5/the-knight-witch-trophy-guide/"
         }
     ],
-    "review": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "review": "",
     "version": null,
     "storeUrl": "https://store.steampowered.com/app/1872680/The_Knight_Witch/"
     },
