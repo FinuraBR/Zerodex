@@ -435,28 +435,37 @@ copyCodeBtn.addEventListener('click', () => {
     });
 });
 
-// Função Principal que orquestra as chamadas
+// Função Principal que orquestra as chamadas (VERSÃO FINAL CORRIGIDA)
 async function fetchAndShowAlternativeCovers(rawgGameId) {
-    coverGrid.innerHTML = '<p>Buscando detalhes do jogo na RAWG...</p>';
+    coverGrid.innerHTML = '<p>Buscando lojas do jogo na RAWG...</p>';
     coverModal.style.display = 'flex';
 
     try {
-        // 1. Busca os detalhes do jogo na RAWG para encontrar o ID da Steam
-        const rawgDetailsResponse = await fetch(`https://api.rawg.io/api/games/${rawgGameId}?key=${apiKey}`);
-        if (!rawgDetailsResponse.ok) throw new Error('Falha ao buscar detalhes na RAWG.');
-        const gameDetails = await rawgDetailsResponse.json();
+        // 1. Busca as informações de LOJAS para o jogo na RAWG
+        const storesResponse = await fetch(`https://api.rawg.io/api/games/${rawgGameId}/stores?key=${apiKey}`);
+        if (!storesResponse.ok) {
+            throw new Error('Falha ao buscar as lojas do jogo na RAWG.');
+        }
+        const storesData = await storesResponse.json();
 
-        // Extrai o ID da Steam da URL da loja
-        const steamStore = gameDetails.stores?.find(s => s.store.slug === 'steam');
-        const steamAppId = steamStore ? steamStore.url.split('/')[4] : null;
+        // 2. Encontra a URL da loja Steam na resposta
+        const steamStore = storesData.results?.find(s => s.store_id === 1); // store_id 1 é sempre a Steam
+        
+        if (!steamStore || !steamStore.url) {
+            throw new Error('Este jogo não parece estar disponível na Steam, segundo a RAWG.');
+        }
+
+        // 3. Extrai o ID da Steam da URL
+        // Ex: "http://store.steampowered.com/app/213230/" -> pega o "213230"
+        const steamAppId = steamStore.url.split('/app/')[1].split('/')[0];
 
         if (!steamAppId) {
-            throw new Error('ID da Steam não encontrado para este jogo na RAWG.');
+            throw new Error('Não foi possível extrair o ID da Steam da URL.');
         }
 
         coverGrid.innerHTML = `<p>Encontrado ID da Steam: ${steamAppId}. Buscando capas...</p>`;
         
-        // 2. Com o ID da Steam, busca as capas no SteamGridDB
+        // 4. Com o ID da Steam, busca as capas no SteamGridDB
         const steamGridResponse = await fetch(`https://www.steamgriddb.com/api/v2/grids/steam/${steamAppId}`, {
             headers: { 'Authorization': `Bearer ${steamGridApiKey}` }
         });
@@ -468,12 +477,12 @@ async function fetchAndShowAlternativeCovers(rawgGameId) {
         const steamGridData = await steamGridResponse.json();
 
         if (!steamGridData.success || steamGridData.data.length === 0) {
-            throw new Error('Nenhuma capa alternativa encontrada no SteamGridDB.');
+            throw new Error('Nenhuma capa alternativa encontrada no SteamGridDB para este jogo.');
         }
         
-        // 3. Exibe as capas no modal
+        // 5. Exibe as capas no modal
         coverGrid.innerHTML = steamGridData.data.map(grid => `
-            <img src="${grid.url}" class="cover-option" alt="Capa alternativa por ${grid.author.name}">
+            <img src="${grid.url}" class="cover-option" alt="Capa alternativa">
         `).join('');
 
     } catch (error) {
