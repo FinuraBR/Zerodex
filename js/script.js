@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector('.homepage-shelf')) {
         setupHomepageShelves();      // Preenche as "estantes" de jogos (Jogando, Finalizados, etc.).
         setupStickyShelfNav();       // Ativa o menu de navegação que fica fixo ao rolar a página.
+        setupSmoothShelfScrolling();
     }
 
     // Se QUALQUER página tiver uma grade de jogos (uma '.game-grid'), ativa a lógica do tooltip.
@@ -128,6 +129,41 @@ function setupStickyShelfNav() {
     window.addEventListener('scroll', checkScroll);
     // Executa a função uma vez no carregamento para definir o estado inicial correto.
     checkScroll();
+}
+
+/**
+ * Adiciona uma animação de rolagem suave para os links da navegação de seções.
+ * Captura o clique, previne o salto padrão e rola a página de forma animada.
+ */
+function setupSmoothShelfScrolling() {
+    // Seleciona todos os links <a> que estão dentro da navegação #shelf-nav
+    const shelfLinks = document.querySelectorAll('#shelf-nav a');
+
+    // Itera sobre cada link encontrado
+    shelfLinks.forEach(link => {
+        // Adiciona um "ouvinte" de evento de clique para cada link
+        link.addEventListener('click', function(event) {
+            // 1. Previne o comportamento padrão do navegador (o salto instantâneo)
+            event.preventDefault();
+
+            // 2. Pega o valor do atributo 'href' do link clicado (ex: "#finished-games")
+            const targetId = this.getAttribute('href');
+
+            // 3. Encontra o elemento na página que possui esse ID
+            const targetSection = document.querySelector(targetId);
+
+            // 4. Se o elemento for encontrado...
+            if (targetSection) {
+                // ...rola a página suavemente até ele.
+                // 'behavior: smooth' é o que cria a animação.
+                // 'block: start' garante que o topo da seção alinhe com o topo da tela.
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
 }
 
 
@@ -454,42 +490,52 @@ function renderFilterButtons() {
 /**
  * Calcula e exibe as estatísticas e o gráfico na página "Sobre".
  */
-function renderStatistics() {
-    const statsContainer = document.querySelector('#stats-container');
-    const chartCanvas = document.getElementById('platform-chart');
-    if (!statsContainer || !chartCanvas || gamesData.length === 0) return;
+// em script.js
 
-    // Usa `reduce` para contar quantos jogos existem por plataforma.
+/**
+ * Calcula e exibe as estatísticas e os gráficos na página "Sobre".
+ */
+function renderStatistics() {
+    // Pega os contêineres e os elementos <canvas> do HTML.
+    const platformChartCanvas = document.getElementById('platform-chart');
+    const statusChartCanvas = document.getElementById('status-chart');
+
+    // Se algum dos canvas não for encontrado, interrompe a função.
+    if (!platformChartCanvas || !statusChartCanvas || gamesData.length === 0) return;
+
+    // Calcula a contagem de jogos por plataforma.
     const platformCounts = gamesData.reduce((acc, game) => {
         acc[game.platform.toUpperCase()] = (acc[game.platform.toUpperCase()] || 0) + 1;
         return acc;
     }, {});
     
-    // Usa `reduce` para contar quantos jogos existem por status.
+    // Calcula a contagem de jogos por status.
     const statusCounts = gamesData.reduce((acc, game) => {
         acc[game.statusText] = (acc[game.statusText] || 0) + 1;
         return acc;
     }, {});
 
-    // Gera o HTML para as estatísticas de texto a partir dos dados contados.
+    // --- PREENCHE AS CAIXAS DE ESTATÍSTICAS DE TEXTO ---
+    // Gera o HTML para a lista de plataformas e insere no local correto.
     const platformsHTML = Object.entries(platformCounts).map(([p, c]) => `<a href="jogos.html?platform=${p.toLowerCase()}"><p>${p}: <span>${c}</span></p></a>`).join('');
+    document.getElementById('platform-stats-list').innerHTML = platformsHTML;
+
+    // Gera o HTML para a lista de status e insere no local correto.
     const statusHTML = Object.entries(statusCounts).map(([s, c]) => `<p>${s}: <span>${c}</span></p>`).join('');
+    document.getElementById('status-stats-list').innerHTML = statusHTML;
 
-    // Insere o HTML gerado na página, antes do contêiner do gráfico.
-    document.querySelector('#chart-container').insertAdjacentHTML('beforebegin', `
-        <div class="stat-item"><h3>Jogos por Plataforma</h3>${platformsHTML}</div>
-        <div class="stat-item"><h3>Jogos por Status</h3>${statusHTML}</div>
-        <div class="stat-item"><h3>Estatísticas Gerais</h3><p>Total de Jogos Catalogados: <span>${gamesData.length}</span></p></div>
-    `);
+    // Gera o HTML para as estatísticas gerais e insere no local correto.
+    const generalHTML = `<p>Total de Jogos Catalogados: <span>${gamesData.length}</span></p>`;
+    document.getElementById('general-stats-list').innerHTML = generalHTML;
 
-    // --- Configuração do Gráfico (usando a biblioteca Chart.js) ---
-    new Chart(chartCanvas, {
-        type: 'doughnut', // Tipo de gráfico: rosca.
+    // --- GRÁFICO 1: Plataformas (Tipo Rosca) ---
+    new Chart(platformChartCanvas, {
+        type: 'doughnut',
         data: {
-            labels: Object.keys(platformCounts), // Nomes das plataformas.
+            labels: Object.keys(platformCounts),
             datasets: [{
                 label: 'Jogos por Plataforma',
-                data: Object.values(platformCounts), // Quantidade de jogos.
+                data: Object.values(platformCounts),
                 backgroundColor: ['rgba(76, 175, 80, 0.8)','rgba(3, 169, 244, 0.8)','rgba(249, 168, 37, 0.8)','rgba(96, 125, 139, 0.8)','rgba(255, 152, 0, 0.8)','rgba(244, 67, 54, 0.8)'],
                 borderColor: 'rgba(20, 21, 24, 0.5)',
                 borderWidth: 2
@@ -500,14 +546,44 @@ function renderStatistics() {
             maintainAspectRatio: true,
             plugins: {
                 legend: {
-                    position: 'top', // Posição da legenda.
-                    // Pega a cor do texto do CSS para que a legenda se adapte ao tema claro/escuro.
+                    position: 'top',
+                    labels: { color: getComputedStyle(document.body).getPropertyValue('--color-text-primary') }
+                }
+            }
+        }
+    });
+
+    // --- GRÁFICO 2: Status (Tipo Pizza) ---
+    const statusColorMap = {
+        'Finalizado 100%': '#4CAF50', 'Finalizado': '#03A9F4', 'Jogando': '#F9A825',
+        'Pausado': '#607D8B', 'Arquivado': '#FF9800', 'Abandonado': '#f44336'
+    };
+
+    new Chart(statusChartCanvas, {
+        type: 'pie',
+        data: {
+            labels: Object.keys(statusCounts),
+            datasets: [{
+                label: 'Jogos por Status',
+                data: Object.values(statusCounts),
+                backgroundColor: Object.keys(statusCounts).map(status => statusColorMap[status] || '#cccccc'),
+                borderColor: 'rgba(20, 21, 24, 0.5)',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    position: 'top',
                     labels: { color: getComputedStyle(document.body).getPropertyValue('--color-text-primary') }
                 }
             }
         }
     });
 }
+
 
 
 // ===================================================================================

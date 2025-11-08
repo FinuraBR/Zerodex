@@ -1,13 +1,21 @@
 <!DOCTYPE html>
+<!-- Define o tipo de documento como HTML5 e o idioma principal como Português do Brasil. -->
 <html lang="pt-BR">
 <head>
+    <!-- Define o conjunto de caracteres como UTF-8, que suporta a maioria dos caracteres e símbolos. -->
     <meta charset="UTF-8">
+    <!-- Viewport: Garante que a página se adapte corretamente a diferentes tamanhos de tela (essencial for responsividade). -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- O título que aparece na aba do navegador. -->
     <title>Sobre Mim</title>
+    <!-- Link para a folha de estilos principal. -->
     <link rel="stylesheet" href="css/style.css">
+    <!-- Define o ícone (favicon) que aparece na aba do navegador. -->
     <link rel="icon" type="image/jpg" href="imagens/favicon.jpg">
 </head>
 <body>
+
+    <!-- CABEÇALHO: Contém o título principal e a navegação do site. É consistente em todas as páginas. -->
     <header>
         <div class="header-container">
             <h1>Meu Zerodex</h1>
@@ -18,14 +26,19 @@
                     <li><a href="sobre.html">Sobre</a></li>
                 </ul>
             </nav>
+            <!-- Botão para alternar o tema (claro/escuro). A lógica dele está no script.js. -->
             <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Tema">
-    <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.061 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.894 17.894a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.591 1.59a.75.75 0 010 1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75.75zM5.106 17.894a.75.75 0 010-1.06l1.591-1.59a.75.75 0 111.06 1.06l-1.59 1.591a.75.75 0 01-1.061 0zM4.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H5a.75.75 0 01-.75-.75zM6.106 5.106a.75.75 0 011.06 0l1.59 1.591a.75.75 0 11-1.06 1.06L6.106 6.167a.75.75 0 010-1.06z"/></svg>
-    <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 004.463-.945a.75.75 0 01.981.652A11.25 11.25 0 0112 21a11.25 11.25 0 01-11.25-11.25 11.25 11.25 0 012.718-7.528.75.75 0 01.819.162z" clip-rule="evenodd" /></svg>
-</button>
+                <!-- Ícone de Sol (visível no tema escuro) -->
+                <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.061 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.894 17.894a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.591 1.59a.75.75 0 010 1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75.75zM5.106 17.894a.75.75 0 010-1.06l1.591-1.59a.75.75 0 111.06 1.06l-1.59 1.591a.75.75 0 01-1.061 0zM4.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H5a.75.75 0 01-.75-.75zM6.106 5.106a.75.75 0 011.06 0l1.59 1.591a.75.75 0 11-1.06 1.06L6.106 6.167a.75.75 0 010-1.06z"/></svg>
+                <!-- Ícone de Lua (visível no tema claro) -->
+                <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 004.463-.945a.75.75 0 01.981.652A11.25 11.25 0 0112 21a11.25 11.25 0 01-11.25-11.25 11.25 11.25 0 012.718-7.528.75.75 0 01.819.162z" clip-rule="evenodd" /></svg>
+            </button>
         </div>
     </header>
 
+    <!-- CONTEÚDO PRINCIPAL: Todo o conteúdo específico desta página fica dentro da tag <main>. -->
     <main>
+        <!-- SEÇÃO 1: SOBRE MIM - Uma breve introdução. -->
         <section id="sobre-mim">
             <h2>Sobre Mim</h2>
             <p>
@@ -34,18 +47,49 @@
             </p>
         </section>
 
+        <!-- SEÇÃO 2: ESTATÍSTICAS DINÂMICAS - Esta seção é preenchida automaticamente pelo script.js. -->
         <section id="dynamic-stats">
             <h2>Estatísticas Dinâmicas</h2>
+
+            <!-- Contêiner para as caixas de estatísticas de texto (layout em grid). -->
             <div id="stats-container">
-                <!-- O JavaScript preencherá os textos e o gráfico aqui -->
-                <div id="chart-container">
+                <!-- Caixa 1: Plataformas. O JS vai inserir a lista aqui. -->
+                <div class="stat-item">
+                    <h3>Jogos por Plataforma</h3>
+                    <div id="platform-stats-list"></div>
+                </div>
+
+                <!-- Caixa 2: Status. O JS vai inserir a lista aqui. -->
+                <div class="stat-item">
+                    <h3>Jogos por Status</h3>
+                    <div id="status-stats-list"></div>
+                </div>
+
+                <!-- Caixa 3: Gerais. O JS vai inserir a contagem total aqui. -->
+                <div class="stat-item">
+                    <h3>Estatísticas Gerais</h3>
+                    <div id="general-stats-list"></div>
+                </div>
+            </div>
+
+            <!-- Contêiner para alinhar os dois gráficos lado a lado (layout em flex). -->
+            <div class="charts-wrapper">
+                <!-- Gráfico 1: Plataformas. A tag <canvas> é o "desenho" onde o Chart.js cria o gráfico. -->
+                <div class="chart-box">
                     <canvas id="platform-chart"></canvas>
+                </div>
+
+                <!-- Gráfico 2: Status. -->
+                <div class="chart-box">
+                    <canvas id="status-chart"></canvas>
                 </div>
             </div>
         </section>
 
+        <!-- SEÇÃO 3: MEU SETUP - Apresenta as especificações do PC e periféricos. -->
         <section id="pc-setup">
             <h2>Meu Setup</h2>
+            <!-- Contêiner principal para o layout de duas colunas. -->
             <div class="setup-container">
                 <!-- Coluna 1: Componentes do PC -->
                 <div class="setup-column">
@@ -76,10 +120,11 @@
             </div>
         </section>
 
-                <!-- Legenda de status -->
+        <!-- SEÇÃO 4: LEGENDA DE STATUS - Explica o que cada status de jogo significa. -->
         <section id="status-legend">
             <h2>Legenda de Status</h2>
             <ul class="legend-list">
+                <!-- Cada item da legenda usa a mesma classe '.status-badge' dos cards de jogo para manter a consistência visual. -->
                 <li class="legend-item">
                     <span class="status-badge status-completed-100">100%</span> - Jogo concluído com todos os objetivos principais, secundários e colecionáveis.
                 </li>
@@ -101,6 +146,7 @@
             </ul>
         </section>
 
+        <!-- SEÇÃO 5: OBSERVAÇÕES - Uma nota sobre como DLCs são tratadas no catálogo. -->
         <section id="catalog-rules">
             <h2>Observações do Catálogo</h2>
             <div class="rules-container">
@@ -108,9 +154,11 @@
             </div>
         </section>
 
+        <!-- SEÇÃO 6: LINKS EXTERNOS - Uma lista de links úteis e relacionados ao projeto. -->
         <section id="links-externos">
             <h2>Links Úteis</h2>
             <ul>
+                <!-- target="_blank" faz com que o link abra em uma nova aba do navegador. -->
                 <li><a href="https://www.backloggd.com" target="_blank">Backloggd (Site de inspiração)</a></li>
                 <li><a href="https://github.com/FinuraBR" target="_blank">Meu Perfil no GitHub</a></li>
                 <li><a href="https://www.netlify.com" target="_blank">Host do projeto</a></li>
@@ -119,13 +167,19 @@
         </section>
     </main>
 
-<footer>
-    <div class="footer-container">
-        <p>&copy; 2025 - Desenvolvido por FinuraBR</p>
-    </div>
-</footer>
+    <!-- RODAPÉ: Informações de copyright, consistente em todas as páginas. -->
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2025 - Desenvolvido por FinuraBR</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS: Colocados no final do <body> para que a página carregue o conteúdo visual primeiro. -->
+    <!-- 1. Chart.js: Biblioteca externa para criar os gráficos. -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- 2. database.js: Seu banco de dados de jogos. -->
     <script src="js/database.js"></script>
+    <!-- 3. script.js: Seu arquivo principal com toda a lógica de interatividade. -->
     <script src="js/script.js"></script>
 </body>
 </html>

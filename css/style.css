@@ -18,10 +18,12 @@
 // =================================================================================== */
 
 /* --- Importa a fonte 'Inter' do Google Fonts --- */
+/* A regra @import busca a fonte na internet para que possamos usá-la no site. */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
 /* --- Variáveis de Cor (CSS Variables) --- */
-/* Usar variáveis torna a troca de temas (claro/escuro) e a manutenção muito mais fáceis. */
+/* O seletor :root se refere à raiz do documento (<html>). Definir variáveis aqui as torna globais.
+   Este é o pilar do sistema de tema claro/escuro. */
 :root {
     /* Tema Escuro (Padrão) */
     --color-background-dark: #141518;    /* Fundo principal do site */
@@ -37,22 +39,25 @@
 // =================================================================================== */
 
 /* --- Reset Básico --- */
-/* Remove margens e preenchimentos padrão de todos os elementos. */
+/* O seletor universal (*) aplica estas regras a TODOS os elementos. */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Garante que padding e bordas não aumentem o tamanho final do elemento. */
+    /* Propriedade essencial: garante que padding e border não aumentem o tamanho final do elemento,
+       facilitando a criação de layouts previsíveis. */
+    box-sizing: border-box;
 }
 
 /* --- Estilos do Corpo da Página (Body) --- */
 body {
-    font-family: 'Inter', sans-serif; /* Define a fonte padrão para todo o site. */
-    background-color: var(--color-background-dark);
+    font-family: 'Inter', sans-serif; /* Define a fonte padrão. 'sans-serif' é o fallback caso 'Inter' não carregue. */
+    background-color: var(--color-background-dark); /* Usa a variável de cor. */
     color: var(--color-text-primary);
 }
 
 /* --- Tema Claro --- */
-/* Quando o <body> tiver a classe 'light-mode', estas variáveis substituirão as do :root. */
+/* Quando o <body> tem a classe 'light-mode' (adicionada via JS), estas variáveis
+   SOBRESCREVEM as definidas no :root, trocando todo o esquema de cores do site. */
 body.light-mode {
     --color-background-dark: #F5F5F7;
     --color-background-light: #FFFFFF;
@@ -73,12 +78,12 @@ header {
 }
 
 .header-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    max-width: 1100px; /* Limita a largura do conteúdo em telas grandes. */
+    margin: 0 auto; /* Centraliza o contêiner na página. */
+    padding: 0 20px; /* Adiciona um respiro nas laterais. */
+    display: flex; /* Ativa o Flexbox para alinhar os itens. */
+    justify-content: space-between; /* Empurra o logo para a esquerda e a navegação para a direita. */
+    align-items: center; /* Alinha os itens verticalmente. */
 }
 
 .header-container h1 {
@@ -87,16 +92,16 @@ header {
 }
 
 .header-container nav ul {
-    list-style: none;
+    list-style: none; /* Remove os marcadores de lista. */
     display: flex;
     gap: 30px; /* Espaçamento entre os links da navegação. */
 }
 
 .header-container nav a {
     color: var(--color-text-primary);
-    text-decoration: none;
+    text-decoration: none; /* Remove o sublinhado dos links. */
     font-weight: bold;
-    transition: color 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out; /* Animação suave da mudança de cor. */
 }
 
 .header-container nav a:hover {
@@ -111,7 +116,7 @@ main {
 }
 
 section {
-    margin-bottom: 60px; /* Espaço entre as seções. */
+    margin-bottom: 60px; /* Espaçamento vertical entre as seções. */
 }
 
 h2 {
@@ -121,8 +126,8 @@ h2 {
 }
 
 p {
-    line-height: 1.7; /* Altura da linha para melhor legibilidade. */
-    max-width: 720px; /* Limita a largura dos parágrafos para não ficarem muito longos. */
+    line-height: 1.7; /* Aumenta o espaço entre as linhas para melhor legibilidade. */
+    max-width: 720px; /* Evita que as linhas de texto fiquem muito longas. */
 }
 
 /* --- Rodapé --- */
@@ -130,7 +135,7 @@ footer {
     padding: 30px 0;
     margin-top: 40px;
     border-top: 1px solid var(--color-border);
-    text-align: center; /* Centraliza todo o conteúdo dentro do rodapé. */
+    text-align: center; /* Centraliza o conteúdo. */
     color: var(--color-text-secondary);
 }
 
@@ -141,7 +146,7 @@ footer {
 }
 
 .footer-container p {
-    max-width: none; /* Remove a limitação de largura padrão dos parágrafos. */
+    max-width: none; /* Remove a limitação de largura dos parágrafos dentro do rodapé. */
 }
 
 
@@ -152,7 +157,7 @@ footer {
 /* --- Botões de Ação Principais (Call to Action) --- */
 .cta-button, #add-game-btn {
     background-color: var(--color-accent);
-    color: #fff !important; /* !important garante que a cor do texto seja sempre branca. */
+    color: #fff !important; /* !important garante que a cor seja sempre branca, mesmo que outra regra tente mudá-la. */
     border: 1px solid var(--color-accent);
     display: inline-block;
     padding: 10px 20px;
@@ -160,14 +165,14 @@ footer {
     font-weight: bold;
     text-align: center;
     border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    cursor: pointer; /* Muda o cursor para a "mãozinha". */
+    transition: all 0.3s ease; /* Anima todas as propriedades que mudam no hover. */
 }
 
 .cta-button:hover, #add-game-btn:hover {
     background-color: #2fbf4f;
     border-color: #2fbf4f;
-    transform: translateY(-2px); /* Efeito de "levantar" o botão. */
+    transform: translateY(-2px); /* Efeito de "levantar" o botão ao passar o mouse. */
 }
 
 /* --- Botões Secundários --- */
@@ -192,28 +197,28 @@ footer {
 
 /* --- Grid de Jogos e Cards --- */
 .game-grid {
-    display: grid;
-    /* Cria uma grade responsiva: colunas com no mínimo 200px, preenchendo o espaço disponível. */
+    display: grid; /* Ativa o CSS Grid Layout. */
+    /* Cria uma grade responsiva: colunas com no mínimo 200px, que se ajustam para preencher o espaço. */
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 25px;
+    gap: 25px; /* Espaço entre os cards. */
 }
 
 .game-card {
-    position: relative; /* "Âncora" para os badges e o overlay que têm 'position: absolute'. */
+    position: relative; /* "Âncora" para os elementos filhos com 'position: absolute'. */
     border-radius: 8px;
     cursor: pointer;
     background-color: var(--color-background-light);
     display: flex;
     flex-direction: column;
-    transform: translateZ(0);
-    overflow: hidden;
+    transform: translateZ(0); /* Truque para otimizar animações. */
+    overflow: hidden; /* Esconde qualquer conteúdo que "vaze" para fora do card (essencial para o zoom da imagem). */
 }
 
 .card-image-container {
-    overflow: hidden; /* Garante que a imagem com zoom não "vaze" para fora do card. */
+    overflow: hidden;
     position: relative;
     border-radius: 8px;
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 3 / 4; /* Mantém a proporção 3:4 (largura:altura), evitando distorções. */
     background-color: var(--color-border); 
 }
 
@@ -226,12 +231,13 @@ footer {
 
 /* --- Informações Visíveis por Padrão no Card --- */
 .game-info-default {
-    position: absolute;
+    position: absolute; /* Posicionado em relação ao .game-card. */
     bottom: 0;
     left: 0;
     right: 0;
     padding: 15px;
-    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0) 100%); /* Gradiente para o texto ser legível. */
+    /* Gradiente de preto transparente para transparente, para garantir a legibilidade do texto sobre a imagem. */
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0) 100%);
     transition: opacity 0.3s ease-in-out;
     display: flex;
     justify-content: space-between;
@@ -242,7 +248,7 @@ footer {
 .game-info-default .game-title {
     font-size: 1.1em;
     font-weight: bold;
-    /* Garante que o texto não quebre e exibe "..." se for muito longo. */
+    /* As 3 propriedades abaixo criam o efeito "ellipsis" (reticências) se o texto for muito longo. */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -253,14 +259,14 @@ footer {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 2; /* Garante que fique acima da imagem. */
+    z-index: 2; /* Garante que o número fique sobre a imagem. */
     width: 32px;
     height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: rgba(20, 21, 24, 0.85);
-    backdrop-filter: blur(2px); /* Efeito de vidro fosco. */
+    backdrop-filter: blur(2px); /* Efeito de vidro fosco, desfocando o que está atrás. */
     font-weight: bold;
     font-size: 0.9em;
     border-bottom-right-radius: 8px;
@@ -278,7 +284,7 @@ footer {
     font-size: 0.8em;
     font-weight: bold;
     border-bottom-left-radius: 8px;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7); /* Sombra para destacar o texto. */
 }
 
 .status-badge {
@@ -288,7 +294,7 @@ footer {
     font-weight: bold;
     color: #fff;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-    flex-shrink: 0; /* Impede que o badge seja esmagado se o título for grande. */
+    flex-shrink: 0; /* Impede que o badge seja "esmagado" se o título for grande. */
 }
 
 /* Cores para cada tipo de status */
@@ -301,7 +307,7 @@ footer {
 
 /* --- Overlay de Detalhes (Aparece no Hover) --- */
 .game-overlay {
-    z-index: 3;
+    z-index: 3; /* Fica na frente de todos os outros elementos do card. */
     position: absolute;
     top: 0;
     left: 0;
@@ -309,16 +315,12 @@ footer {
     height: 100%;
     background-color: rgba(10, 10, 10, 0.85);
     backdrop-filter: blur(4px);
-
-    /* --- ESTA PARTE FOI ALTERADA --- */
     display: flex;
     flex-direction: column;
-    /* REMOVIDO: justify-content: space-between; (Esta linha causava o bug) */
-    
     padding: 20px;
-    opacity: 0;
+    opacity: 0; /* Começa invisível por padrão. */
     transition: opacity 0.3s ease-in-out;
-    overflow-y: auto; /* Agora esta propriedade funcionará corretamente */
+    overflow-y: auto; /* Adiciona barra de rolagem se o conteúdo for maior que o card. */
     border-radius: 8px;
 }
 
@@ -335,16 +337,17 @@ footer {
 .review-comment { font-size: 0.85em; font-style: italic; color: #ccc; line-height: 1.5; }
 
 /* --- Efeitos de Hover no Card --- */
+/* Quando o mouse passa sobre .game-card... */
 .game-card:hover .card-image-container img {
-    transform: scale(1.1); /* Aplica o zoom na imagem. */
+    transform: scale(1.1); /* ...a imagem aumenta em 10% (zoom). */
 }
 .game-card:hover .game-overlay {
-    opacity: 1; /* Torna o overlay visível. */
+    opacity: 1; /* ...o overlay se torna visível. */
 }
 .game-card:hover .game-number,
 .game-card:hover .game-info-default,
 .game-card:hover .game-version-badge {
-    opacity: 0; /* Esconde os badges e as informações padrão. */
+    opacity: 0; /* ...e os outros elementos desaparecem. */
 }
 
 
@@ -365,11 +368,12 @@ footer {
     display: flex;
     justify-content: center;
     gap: 20px;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Permite que os links quebrem a linha em telas pequenas. */
     transition: transform 0.4s ease-in-out;
 }
-#shelf-nav.shelf-nav-hidden { transform: translateY(-100%); } /* Esconde o menu acima da tela. */
-#shelf-nav.shelf-nav-visible { transform: translateY(0); } /* Traz o menu para a tela. */
+/* A navegação começa fora da tela (acima) e desliza para dentro. */
+#shelf-nav.shelf-nav-hidden { transform: translateY(-100%); }
+#shelf-nav.shelf-nav-visible { transform: translateY(0); }
 #shelf-nav a { color: var(--color-text-secondary); text-decoration: none; font-weight: bold; font-size: 0.9em; transition: color 0.2s ease; }
 #shelf-nav a:hover { color: var(--color-accent); }
 
@@ -409,14 +413,14 @@ footer {
     color: var(--color-text-primary);
     border-radius: 8px;
     font-size: 1em;
-    flex: 1;
+    flex: 1; /* Permite que os inputs cresçam para preencher o espaço. */
     min-width: 200px;
-    outline: none;
+    outline: none; /* Remove a borda azul padrão do navegador ao focar. */
     transition: all 0.3s ease;
 }
 #search-bar:focus {
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+    border-color: var(--color-accent); /* Destaca a borda ao focar. */
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2); /* Adiciona um brilho sutil. */
 }
 #search-bar::placeholder { color: var(--color-text-secondary); }
 #sort-options { cursor: pointer; }
@@ -440,11 +444,10 @@ footer {
     font-weight: bold;
     transition: background-color 0.3s, color 0.3s;
 }
-/* Mantém o efeito de hover separado, caso queira diferenciá-los no futuro */
 .filter-btn:hover, #surprise-btn:hover {
     background-color: var(--color-border);
 }
-/* O estilo do botão ativo continua o mesmo */
+/* Estilo para o botão de filtro que está atualmente selecionado. */
 .filter-btn.active {
     background-color: var(--color-accent);
     color: #fff;
@@ -465,14 +468,56 @@ footer {
 .legend-item:not(:last-child) { border-bottom: 1px solid var(--color-border); }
 .legend-item .status-badge { margin-right: 15px; }
 
-#stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 650px; margin: 0 auto; }
-.stat-item { background-color: var(--color-background-light); padding: 25px; border-radius: 8px; }
+/* Contêiner das caixas de estatísticas de texto */
+#stats-container { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 20px; 
+    max-width: 960px;
+    margin: 0 auto 60px auto; /* Centraliza e adiciona espaço abaixo, antes dos gráficos. */
+}
+/* Estilo para cada caixa individual */
+.stat-item { 
+    background-color: var(--color-background-light); 
+    padding: 25px; 
+    border-radius: 8px; 
+}
 .stat-item h3 { color: var(--color-accent); margin-bottom: 20px; }
 .stat-item p { display: flex; justify-content: space-between; margin-bottom: 12px; color: var(--color-text-secondary); }
 .stat-item span { font-weight: bold; color: var(--color-text-primary); }
-.stat-item a { text-decoration: none; color: inherit; display: block; border-radius: 4px; transition: background-color 0.2s ease; }
+/* Melhora a área de clique para o link de plataforma */
+.stat-item a { text-decoration: none; color: inherit; display: block; border-radius: 4px; transition: background-color 0.2s ease; margin: -10px; padding: 10px; }
 .stat-item a:hover { background-color: rgba(255, 255, 255, 0.05); }
-#chart-container { background-color: var(--color-background-light); padding: 20px; border-radius: 8px; grid-column: 1 / -1; max-width: 450px; margin: 40px auto 0 auto; }
+
+/* Contêiner que segura os dois gráficos */
+.charts-wrapper {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+/* Caixa de cada gráfico individual */
+.chart-box {
+    background-color: var(--color-background-light);
+    padding: 20px;
+    border-radius: 8px;
+    /* Define uma largura responsiva (100%) mas limita o tamanho máximo em telas grandes
+       para que os gráficos não fiquem enormes. */
+    width: 100%;
+    max-width: 250px; /* Você ajustou para 250px para um visual mais compacto. */
+}
+
+/* Esconde o H3 que não existe mais no HTML dos gráficos. */
+.chart-box h3 { display: none; }
+
+/* Limpa estilos desnecessários que o #chart-container possa ter herdado. */
+#chart-container {
+    padding: 0;
+    background-color: transparent;
+}
 
 .rules-container { max-width: 650px; margin: 0 auto; background-color: var(--color-background-light); padding: 25px; border-radius: 8px; text-align: center; }
 
@@ -510,6 +555,7 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin-bo
 .theme-toggle-btn { background: transparent; border: none; cursor: pointer; padding: 5px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 .theme-toggle-btn:hover { background-color: var(--color-border); }
 .theme-toggle-btn svg { width: 24px; height: 24px; fill: var(--color-text-primary); }
+/* Controla qual ícone (sol/lua) é exibido com base no tema. */
 #moon-icon { display: none; }
 .light-mode #sun-icon { display: none; }
 .light-mode #moon-icon { display: block; }
@@ -524,7 +570,7 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin-bo
 /* --- Destaque para o Botão Surpresa --- */
 .highlight { box-shadow: 0 0 20px 5px #ffd700; transform: scale(1.05); overflow: hidden;}
 
-/* --- Acessibilidade: Esconder texto visualmente --- */
+/* --- Acessibilidade: Esconder texto visualmente, mas manter para leitores de tela --- */
 .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
 
 /* --- Animação de Entrada para os Cards --- */
@@ -542,9 +588,9 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin-bo
 // --- 7. RESPONSIVIDADE (Media Queries) ---------------------------------------------
 // =================================================================================== */
 
-/* Para telas com largura máxima de 700px. */
+/* Estas regras só se aplicam em telas com largura máxima de 700px. */
 @media (max-width: 700px) {
-    /* Faz os controles do catálogo ficarem um em cima do outro em vez de lado a lado. */
+    /* Faz os controles do catálogo ficarem um em cima do outro. */
     #controls-container {
         flex-direction: column;
         align-items: stretch; /* Estica os itens para ocuparem a largura total. */
@@ -555,57 +601,48 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin-bo
 // --- ESTILOS DA SEÇÃO DE CÓDIGO GERADO (Página Adicionar) ---
 // =================================================================================== */
 
-/* --- Contêiner Principal da Seção de Saída --- */
 #output-container {
-    background-color: var(--color-background-light); /* Fundo igual ao do formulário para agrupar visualmente */
+    background-color: var(--color-background-light);
     padding: 25px;
     border-radius: 8px;
     margin-top: 30px;
 }
 
-/* --- Título e Parágrafo de Instrução --- */
 #output-container h3 {
-    text-align: center; /* Centraliza o título */
+    text-align: center;
     margin-bottom: 8px;
 }
 
 #output-container p {
-    text-align: center; /* Centraliza o texto de instrução */
+    text-align: center;
     color: var(--color-text-secondary);
     font-size: 0.9em;
     margin-bottom: 20px;
-    max-width: none; /* Remove a limitação de largura dos parágrafos normais */
+    max-width: none;
 }
 
-/* --- ESTA É A CORREÇÃO PRINCIPAL: A ÁREA DE TEXTO --- */
 #output-code {
-    /* Aparência e Cores */
     width: 100%;
-    background-color: var(--color-background-dark); /* Fundo escuro, igual aos inputs */
-    border: 1px solid var(--color-border);          /* Borda sutil do tema */
-    color: var(--color-text-primary);               /* Cor do texto clara */
-    border-radius: 4px;                             /* Bordas arredondadas suaves */
-    
-    /* Fonte e Espaçamento */
-    padding: 15px; /* Mais espaço interno para o código respirar */
-    font-family: 'Consolas', 'Menlo', 'Courier New', monospace; /* Fonte monoespaçada, ideal para código */
+    background-color: var(--color-background-dark);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    border-radius: 4px;
+    padding: 15px; /* Espaço interno para o código respirar. */
+    /* Fonte monoespaçada, ideal para exibir código. */
+    font-family: 'Consolas', 'Menlo', 'Courier New', monospace;
     font-size: 0.9em;
-    line-height: 1.5; /* Melhora a legibilidade das linhas de código */
-
-    /* Comportamento */
-    resize: vertical; /* Permite que o usuário redimensione a caixa apenas na vertical */
+    line-height: 1.5;
+    resize: vertical; /* Permite que o usuário redimensione a caixa na vertical. */
 }
 
-/* --- Botão de Copiar Código --- */
-/* Garante que o botão tenha um bom espaçamento e se alinhe bem. */
 #copy-code-btn {
-    display: block; /* Faz o botão ocupar a largura disponível */
+    display: block;
     width: 100%;
-    margin-top: 15px; /* Adiciona um espaço acima do botão */
+    margin-top: 15px;
 }
 
 .edit-btn {
-    width: 100%; /* Faz o botão ocupar a largura toda */
+    width: 100%;
     margin-top: 15px;
 }
 
@@ -613,58 +650,43 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin-bo
 // --- ESTILOS DO TOOLTIP DE COMENTÁRIO ---
 // =================================================================================== */
 
-/* --- Estilo do Botão "Ver Comentário" --- */
 .review-trigger {
     width: 100%;
-    margin-top: auto; /* Truque de Flexbox para empurrá-lo para o fundo do overlay */
+    margin-top: auto; /* Truque de Flexbox para empurrá-lo para o fundo do overlay. */
 }
 
-/* --- Estilo da Caixa Flutuante (Tooltip) --- */
+/* (Estilos para .review-tooltip, se ainda forem usados como fallback) */
 .review-tooltip {
-    /* Posicionamento e Camada */
-    position: fixed; /* Fixo na tela, não rola com a página */
-    z-index: 1000;   /* Garante que fique acima de todos os outros elementos */
-    
-    /* Aparência */
+    position: fixed;
+    z-index: 1000;
     background-color: var(--color-background-dark);
     border: 1px solid var(--color-border);
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidade */
-    
-    /* Texto e Tamanho */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     padding: 15px;
-    max-width: 300px; /* Impede que fique muito largo */
+    max-width: 300px;
     font-size: 0.9em;
     line-height: 1.6;
     color: var(--color-text-secondary);
-
-    /* Animação e Comportamento */
     transition: opacity 0.2s ease-in-out;
-    pointer-events: none; /* Impede que o próprio tooltip interfira com o mouse */
+    pointer-events: none; /* Impede que o tooltip interfira com o mouse. */
 }
 
 /* ===================================================================================
-// --- NOVO DESIGN DO TOOLTIP DE COMENTÁRIO ---
+// --- NOVO DESIGN DO TOOLTIP DE COMENTÁRIO (TIPO CARD) ---
 // =================================================================================== */
 
 .review-card {
-    /* Posição relativa para que a seta (::before) possa ser posicionada */
-    position: relative;
-    
-    /* Aparência de Card */
+    position: relative; /* Posição de referência para a seta. */
     background-color: var(--color-background-dark);
     border: 1px solid var(--color-border);
     border-radius: 8px;
     padding: 20px;
-    
-    /* Garante que ocupe a altura correta na grade */
     align-self: start;
-    
-    /* Força a quebra de palavras longas */
-    overflow-wrap: break-word;
+    overflow-wrap: break-word; /* Força a quebra de palavras longas. */
     word-wrap: break-word;
 
-    /* Animação */
+    /* Animação de entrada */
     opacity: 0;
     transform: scale(0.95);
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -676,20 +698,22 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin-bo
 }
 
 /* --- A Seta do "Balão de Fala" --- */
-/* Esta é a mágica: criamos um triângulo com bordas CSS. */
+/* O pseudo-elemento ::before cria um "elemento" extra via CSS.
+   Usamos um truque com bordas para desenhar um triângulo. */
 .review-card::before {
-    content: '';
+    content: ''; /* Obrigatório para o pseudo-elemento aparecer. */
     position: absolute;
-    top: 25px; /* Alinha a seta com o topo do botão "Ver Comentário" */
-    left: -10px; /* Faz a seta sair para a esquerda */
+    top: 25px;
+    left: -10px; /* Posiciona a seta para fora do card. */
     width: 0;
     height: 0;
     border-style: solid;
+    /* Apenas a borda direita tem cor, as outras são transparentes, formando o triângulo. */
     border-width: 10px 10px 10px 0;
     border-color: transparent var(--color-border) transparent transparent;
 }
 
-/* --- Estilos do Conteúdo Interno do Tooltip --- */
+/* --- Conteúdo Interno do Tooltip --- */
 .review-card h3 {
     font-size: 1.1em;
     color: var(--color-accent);
@@ -700,5 +724,5 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin-bo
     font-size: 0.9em;
     line-height: 1.6;
     color: var(--color-text-secondary);
-    max-width: none; /* Remove a limitação de largura dos parágrafos */
+    max-width: none;
 }
