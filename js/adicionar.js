@@ -212,7 +212,7 @@ async function searchGames(query) {
         // =================================================================================
         // 1. Definimos a URL do nosso Worker.
         //    É ESSENCIAL que você substitua o valor abaixo pela URL real do seu Worker.
-        const CLOUDFLARE_WORKER_URL = 'zerodex-api-proxy.igorrabenschlag.workers.dev'; // <-- MUITO IMPORTANTE: SUBSTITUA PELA SUA URL REAL!
+        const CLOUDFLARE_WORKER_URL = 'https://zerodex-api-proxy.igorrabenschlag.workers.dev'; // <-- MUITO IMPORTANTE: SUBSTITUA PELA SUA URL REAL!
 
         // 2. Construímos a URL final, passando o termo de busca como um parâmetro "query".
         //    O código do nosso Worker foi feito para entender este parâmetro.
