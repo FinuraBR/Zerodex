@@ -117,9 +117,8 @@ function initializeId() {
 // --- [FUNÇÕES PRINCIPAIS DE LÓGICA] ---
 
 /**
- * Busca jogos chamando a nossa própria Função Serverless na Netlify.
- * Esta função age como um intermediário seguro, escondendo nossa chave de API.
- * @param {string} query - O nome do jogo a ser buscado.
+ * Verifica se a página foi carregada com a intenção de editar um jogo existente.
+ * Os dados do jogo a ser editado são passados através do localStorage.
  */
 function checkForEditMode() {
     // Pega os dados do jogo que guardamos no localStorage
@@ -136,7 +135,6 @@ function checkForEditMode() {
         document.querySelector('#output-container h3').textContent = 'Código Atualizado para database.js';
 
         // 2. Preencha o formulário com os dados do jogo
-        // Esta função é parecida com a populateForm, mas usa nossos dados salvos
         fillFormWithExistingData(gameToEdit);
 
         // 3. MUITO IMPORTANTE: Limpe os dados do localStorage para não entrar
@@ -145,7 +143,10 @@ function checkForEditMode() {
     }
 }
 
-// Esta função auxiliar preenche o formulário (você pode criar esta nova função)
+/**
+ * Preenche o formulário com os dados de um jogo existente para edição.
+ * @param {object} game - O objeto do jogo vindo do localStorage.
+ */
 function fillFormWithExistingData(game) {
     // Esconde a busca da API, pois já temos um jogo
     document.getElementById('search-container').style.display = 'none';
@@ -192,6 +193,12 @@ function fillFormWithExistingData(game) {
     formContainer.style.display = 'block';
 }
 
+/**
+ * Busca jogos chamando o nosso Cloudflare Worker.
+ * Esta função age como um intermediário seguro (proxy), adicionando a chave de API no servidor
+ * e nos devolvendo os resultados, sem nunca expor a chave no navegador.
+ * @param {string} query - O nome do jogo a ser buscado.
+ */
 async function searchGames(query) {
     if (!query) return; // Não faz nada se a busca estiver vazia.
 
@@ -200,17 +207,26 @@ async function searchGames(query) {
     outputContainer.style.display = 'none';
 
     try {
-        // === A GRANDE MUDANÇA ESTÁ AQUI ===
-        // Em vez de chamar a API da RAWG diretamente com nossa chave, chamamos um "endpoint"
-        // no nosso próprio site. A Netlify automaticamente executa o código do arquivo
-        // 'netlify/functions/search-rawg.js' quando este endereço é chamado.
-        const response = await fetch(`/.netlify/functions/search-rawg?query=${encodeURIComponent(query)}`);
+        // =================================================================================
+        // === MUDANÇA PRINCIPAL: DE NETLIFY PARA CLOUDFLARE WORKER ========================
+        // =================================================================================
+        // 1. Definimos a URL do nosso Worker.
+        //    É ESSENCIAL que você substitua o valor abaixo pela URL real do seu Worker.
+        const CLOUDFLARE_WORKER_URL = 'zerodex-api-proxy.igorrabenschlag.workers.dev'; // <-- MUITO IMPORTANTE: SUBSTITUA PELA SUA URL REAL!
 
-        if (!response.ok) { // Verifica se a nossa função serverless retornou um erro.
-            throw new Error(`Erro na chamada da função serverless: ${response.statusText}`);
+        // 2. Construímos a URL final, passando o termo de busca como um parâmetro "query".
+        //    O código do nosso Worker foi feito para entender este parâmetro.
+        const url = `${CLOUDFLARE_WORKER_URL}?query=${encodeURIComponent(query)}`;
+
+        // 3. Fazemos a chamada `fetch` para o nosso Worker.
+        //    O Worker então fará a chamada segura para a API externa por nós.
+        const response = await fetch(url);
+
+        if (!response.ok) { // Verifica se o nosso Worker retornou um erro.
+            throw new Error(`Erro na chamada do Worker: ${response.statusText}`);
         }
 
-        const data = await response.json(); // A resposta da nossa função é idêntica à da API original.
+        const data = await response.json(); // A resposta do Worker é idêntica à da API original.
         currentApiResults = data.results;
         displayResults(data.results);
     } catch (error) {
@@ -222,8 +238,7 @@ async function searchGames(query) {
 
 /**
  * Exibe os resultados da busca na tela, criando os cards dos jogos.
- * (Esta função não precisou de nenhuma alteração).
- * @param {Array} games - Uma lista de objetos de jogos retornados pela nossa função serverless.
+ * @param {Array} games - Uma lista de objetos de jogos retornados pelo nosso worker.
  */
 function displayResults(games) {
     manualEntryButton.style.display = 'block';
@@ -244,7 +259,6 @@ function displayResults(games) {
 
 /**
  * Preenche o formulário de adição com os dados de um jogo selecionado.
- * (Esta função não precisou de nenhuma alteração).
  * @param {object} gameData - Dados do jogo vindos da API.
  */
 function populateForm(gameData) {
@@ -288,7 +302,6 @@ function updateGuidesList() {
 
 // --- [EVENT LISTENERS (Ouvintes de Eventos)] ---
 // Esta seção conecta as ações do usuário (cliques, digitação) às nossas funções.
-// Nenhuma alteração foi necessária aqui.
 
 searchButton.addEventListener('click', () => searchGames(searchBar.value));
 
@@ -430,7 +443,6 @@ gameEntryForm.addEventListener('submit', (event) => {
         behavior: 'smooth'
     });
 
-    // --- [SUGESTÃO APLICADA] ---
     // Copia o código gerado automaticamente para a área de transferência do usuário.
     copyCodeToClipboard(finalCodeString, copyCodeBtn, 'Copiado Automaticamente!');
 
