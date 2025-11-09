@@ -4,6 +4,57 @@
 // Este arquivo controla toda a funcionalidade da página 'adicionar.html'.
 // A chave da API foi removida deste arquivo para segurança.
 
+
+// --- [FUNÇÕES AUXILIARES DE COPIA] ---
+// Funções para copiar o código gerado para a área de transferência do usuário.
+
+/**
+ * Copia um texto para a área de transferência e dá um feedback visual no botão.
+ * @param {string} textToCopy - O texto que será copiado.
+ * @param {HTMLElement} buttonElement - O elemento do botão que terá seu texto alterado.
+ * @param {string} successMessage - A mensagem a ser exibida no botão em caso de sucesso.
+ */
+async function copyCodeToClipboard(textToCopy, buttonElement, successMessage = 'Copiado!') {
+    // Fallback para navegadores mais antigos ou conexões não seguras (http)
+    if (!navigator.clipboard) {
+        try {
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            updateCopyButton(buttonElement, successMessage);
+        } catch (err) {
+            console.error('Fallback: Falha ao copiar', err);
+        }
+        return;
+    }
+
+    // API moderna e segura
+    try {
+        await navigator.clipboard.writeText(textToCopy);
+        updateCopyButton(buttonElement, successMessage);
+    } catch (err) {
+        console.error('Falha ao copiar: ', err);
+    }
+}
+
+/**
+ * Função auxiliar para atualizar o texto do botão e resetá-lo depois de um tempo.
+ * @param {HTMLElement} buttonElement - O botão a ser atualizado.
+ * @param {string} message - A mensagem temporária a ser exibida.
+ */
+function updateCopyButton(buttonElement, message) {
+    const originalText = 'Copiar Código'; // Texto original padrão do botão
+    buttonElement.textContent = message;
+    setTimeout(() => {
+        buttonElement.textContent = originalText;
+    }, 2500); // Volta ao normal depois de 2.5 segundos
+}
+
+
 // --- [SELEÇÃO DE ELEMENTOS DO DOM] ---
 // Guardamos todos os elementos HTML que vamos manipular em constantes.
 // Isso melhora a performance (evita buscas repetidas no documento) e organiza o código.
@@ -35,19 +86,19 @@ const copyCodeBtn = document.getElementById('copy-code-btn');
 // --- [VARIÁVEIS DE ESTADO GLOBAL] ---
 // Variáveis que guardam informações importantes enquanto a página está aberta.
 let currentApiResults = []; // Armazena os resultados da última busca para podermos encontrar o jogo selecionado.
-let tempGuides = [];         // Armazena a lista de guias adicionados para o jogo que está sendo criado.
-let currentNextId;           // Armazena o próximo ID de jogo disponível para ser usado.
+let tempGuides = []; // Armazena a lista de guias adicionados para o jogo que está sendo criado.
+let currentNextId; // Armazena o próximo ID de jogo disponível para ser usado.
 
 
 // --- [INICIALIZAÇÃO] ---
 // Garante que a função de inicialização do ID seja chamada assim que a página carregar.
 document.addEventListener('DOMContentLoaded', () => {
     // Esta função vai verificar se devemos entrar em "Modo Edição"
-    checkForEditMode(); 
+    checkForEditMode();
 
     // Se não estivermos em modo edição, a inicialização normal do ID acontece
     if (!localStorage.getItem('gameToEdit')) {
-         initializeId();
+        initializeId();
     }
 });
 /**
@@ -100,7 +151,7 @@ function fillFormWithExistingData(game) {
     document.getElementById('search-container').style.display = 'none';
     document.getElementById('api-results-container').style.display = 'none';
     document.getElementById('manual-entry-button').style.display = 'none';
-    
+
     gameEntryForm.reset();
     tempGuides = game.guide || []; // Carrega os guias existentes
     updateGuidesList();
@@ -120,7 +171,7 @@ function fillFormWithExistingData(game) {
     // Popula e seleciona a plataforma correta
     const platformSelect = document.getElementById('game-platform');
     platformSelect.innerHTML = `<option value="${game.platform}">${game.platform.toUpperCase()}</option>`; // Apenas a opção atual
-    
+
     // Lógica da tradução
     if (game.translation.includes("Feita por Fã")) {
         translationSelect.value = 'fan';
@@ -154,11 +205,11 @@ async function searchGames(query) {
         // no nosso próprio site. A Netlify automaticamente executa o código do arquivo
         // 'netlify/functions/search-rawg.js' quando este endereço é chamado.
         const response = await fetch(`/.netlify/functions/search-rawg?query=${encodeURIComponent(query)}`);
-        
+
         if (!response.ok) { // Verifica se a nossa função serverless retornou um erro.
             throw new Error(`Erro na chamada da função serverless: ${response.statusText}`);
         }
-        
+
         const data = await response.json(); // A resposta da nossa função é idêntica à da API original.
         currentApiResults = data.results;
         displayResults(data.results);
@@ -211,14 +262,16 @@ function populateForm(gameData) {
 
     const statusSelect = document.getElementById('game-status');
     statusSelect.innerHTML = `<option value="playing">Jogando</option><option value="completed">Finalizado</option><option value="completed-100">100% Concluído</option><option value="retired">Aposentado</option><option value="archived">Arquivado</option><option value="abandoned">Abandonado</option>`;
-    
+
     const platformSelect = document.getElementById('game-platform');
-    platformSelect.innerHTML = gameData.platforms 
-        ? gameData.platforms.map(p => `<option value="${p.platform.slug}">${p.platform.name}</option>`).join('') 
-        : '<option value="pc">PC</option><option value="switch">Switch</option>';
-    
+    platformSelect.innerHTML = gameData.platforms ?
+        gameData.platforms.map(p => `<option value="${p.platform.slug}">${p.platform.name}</option>`).join('') :
+        '<option value="pc">PC</option><option value="switch">Switch</option>';
+
     formContainer.style.display = 'block';
-    formContainer.scrollIntoView({ behavior: 'smooth' });
+    formContainer.scrollIntoView({
+        behavior: 'smooth'
+    });
 }
 
 /**
@@ -251,15 +304,23 @@ resultsContainer.addEventListener('click', (event) => {
 
     const gameId = parseInt(resultItem.dataset.gameId);
     const selectedGame = currentApiResults.find(game => game.id === gameId);
-    
+
     if (selectedGame) {
-        populateForm({ ...selectedGame, isManual: false });
+        populateForm({ ...selectedGame,
+            isManual: false
+        });
     }
 });
 
 manualEntryButton.addEventListener('click', () => {
     resultsGrid.innerHTML = '<p>Entrada manual selecionada.</p>';
-    const manualGameData = { isManual: true, name: '', background_image: '', released: '', platforms: null };
+    const manualGameData = {
+        isManual: true,
+        name: '',
+        background_image: '',
+        released: '',
+        platforms: null
+    };
     populateForm(manualGameData);
 });
 
@@ -271,21 +332,20 @@ addGuideBtn.addEventListener('click', () => {
     const title = document.getElementById('guide-title').value.trim();
     const url = document.getElementById('guide-url').value.trim();
     if (title && url) {
-        tempGuides.push({ title, url });
+        tempGuides.push({
+            title,
+            url
+        });
         updateGuidesList();
         document.getElementById('guide-title').value = '';
         document.getElementById('guide-url').value = '';
     }
 });
 
+// Ação de clique do botão para cópia manual
 copyCodeBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(outputCode.value).then(() => {
-        copyCodeBtn.textContent = 'Copiado!';
-        setTimeout(() => { copyCodeBtn.textContent = 'Copiar Código'; }, 2000);
-    }).catch(err => {
-        console.error('Falha ao copiar: ', err);
-        copyCodeBtn.textContent = 'Erro ao copiar';
-    });
+    // Reutiliza a nossa função auxiliar para manter a consistência
+    copyCodeToClipboard(outputCode.value, copyCodeBtn, 'Copiado!');
 });
 
 // Evento principal: quando o formulário é enviado para gerar o código do objeto.
@@ -301,14 +361,32 @@ gameEntryForm.addEventListener('submit', (event) => {
 
     // Mapeia o valor do status (ex: 'playing') para os textos correspondentes
     const statusMap = {
-        'playing': { text: 'Jogando', overlay: 'Jogando Atualmente' },
-        'completed': { text: 'Finalizado', overlay: 'Finalizado' },
-        'completed-100': { text: '100%', overlay: '100% Concluído' },
-        'retired': { text: 'Aposentado', overlay: 'Aposentado' },
-        'archived': { text: 'Arquivado', overlay: 'Arquivado' },
-        'abandoned': { text: 'Abandonado', overlay: 'Abandonado' }
+        'playing': {
+            text: 'Jogando',
+            overlay: 'Jogando Atualmente'
+        },
+        'completed': {
+            text: 'Finalizado',
+            overlay: 'Finalizado'
+        },
+        'completed-100': {
+            text: '100%',
+            overlay: '100% Concluído'
+        },
+        'retired': {
+            text: 'Aposentado',
+            overlay: 'Aposentado'
+        },
+        'archived': {
+            text: 'Arquivado',
+            overlay: 'Arquivado'
+        },
+        'abandoned': {
+            text: 'Abandonado',
+            overlay: 'Abandonado'
+        }
     };
-    
+
     const statusValue = document.getElementById('game-status').value;
     const imageUrl = document.getElementById('game-image-url').value;
 
@@ -328,35 +406,37 @@ gameEntryForm.addEventListener('submit', (event) => {
         storeUrl: document.getElementById('game-store-url').value || null,
     };
 
-    // Converte o objeto para uma string JSON formatada e a exibe na área de saída
+    // Converte o objeto para uma string JSON formatada
     const baseJsonString = JSON.stringify(newGame, null, 4);
 
-    // Isso garante que o bloco de código fique perfeitamente alinhado ao ser colado no array `gamesData`.
-    // 2. Adiciona uma indentação extra de 4 espaços em CADA linha do JSON.
+    // Garante que o bloco de código fique perfeitamente alinhado
     const indentedJsonString = baseJsonString
         .split('\n')
         .map((line, index) => {
-            // Se for a primeira linha (index === 0), que contém o '{', retorna a linha sem alteração.
             if (index === 0) {
                 return line;
             }
-            // Para todas as outras linhas, adiciona 4 espaços de indentação ("tab").
             return `    ${line}`;
         })
         .join('\n');
 
-    // 3. Define o valor final na área de texto, adicionando a vírgula SEM a quebra de linha extra.
-    outputCode.value = `${indentedJsonString},`;
-        outputContainer.style.display = 'block';
-        outputContainer.scrollIntoView({ behavior: 'smooth' });
+    // Define o valor final na área de texto, adicionando a vírgula.
+    const finalCodeString = `${indentedJsonString},`;
+    outputCode.value = finalCodeString;
 
-    // Verificamos se o título do botão ainda é "Salvar no Zerodex".
-    // Se for, estamos adicionando um novo jogo e podemos incrementar o ID.
-    // Se não for (ou seja, é "Salvar Alterações"), NÃO incrementamos o ID.
+    // Mostra o container de output
+    outputContainer.style.display = 'block';
+    outputContainer.scrollIntoView({
+        behavior: 'smooth'
+    });
+
+    // --- [SUGESTÃO APLICADA] ---
+    // Copia o código gerado automaticamente para a área de transferência do usuário.
+    copyCodeToClipboard(finalCodeString, copyCodeBtn, 'Copiado Automaticamente!');
+
+    // Verificamos se estamos adicionando um novo jogo para incrementar o ID.
     if (document.querySelector('#game-entry-form button[type="submit"]').textContent === 'Salvar no Zerodex') {
         currentNextId = newGame.id + 1;
         localStorage.setItem('nextGameId', currentNextId);
     }
-    
-    copyCodeBtn.textContent = 'Copiar Código';
 });
