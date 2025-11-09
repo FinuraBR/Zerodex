@@ -93,6 +93,581 @@
 
 const gamesData = [
     {
+        "id": 69,
+        "title": "DON'T SCREAM",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2497900/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2497900/DONT_SCREAM/"
+    },
+    {
+        "id": 68,
+        "title": "Super Mario Bros. Wonder",
+        "image": "https://cdn2.steamgriddb.com/thumb/66da3b21fe18692332284c64e08b8e02.jpg",
+        "platform": "nintendo-switch",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/super-mario-bros-wonder"
+            },
+            {
+                "title": "Youtube",
+                "url": "https://youtu.be/A_qMu9ClfC8"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://www.nintendo.com/pt-br/store/products/super-mario-bros-wonder-switch/"
+    },
+    {
+        "id": 67,
+        "title": "God of War (2018)",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1593500/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Map Genie",
+                "url": "https://mapgenie.io/god-of-war-2018"
+            },
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/god-of-war-2018"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1593500/God_of_War/"
+    },
+    {
+        "id": 66,
+        "title": "SUPERHOT: MIND CONTROL DELETE",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/690040/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "abandoned",
+        "statusText": "Abandonado",
+        "statusOverlay": "Abandonado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": "dropei, muito enjoativo e repetitivo",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/690040/SUPERHOT_MIND_CONTROL_DELETE/"
+    },
+    {
+        "id": 65,
+        "title": "SUPERHOT",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/322500/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Youtube",
+                "url": "https://youtu.be/5PkogxoWGDk?si=Q5RwEBwPW3CbVVZ7"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/322500/SUPERHOT/"
+    },
+    {
+        "id": 64,
+        "title": "Marvel's Spider-Man 2",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/6fa28738ef8cde05390d3f0a9b942185b5763cbd/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Map Genie",
+                "url": "https://mapgenie.io/marvels-spider-man-2/maps/new-york"
+            }
+        ],
+        "review": "fiz tudo (tudo q da pra pegar já tá no map genie). fui jogar o ng+  pra fazer 100%, mas desisti, pois basicamente teria q ZERAR, mais 2 vezes o ng+, no total 3 jogatinas (1 normal e 2 no ng+)",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2651280/Marvels_SpiderMan_2/"
+    },
+    {
+        "id": 63,
+        "title": "Marvel's Spider-Man: Miles Morales",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1817190/library_600x900.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Map Genie",
+                "url": "https://mapgenie.io/marvels-spider-man-miles-morales/maps/manhattan"
+            }
+        ],
+        "review": "na primeira run eu fiz tudo q dava (TUDO MSM) e na segunda run eu fiz apenas o necessario para concluir o q faltava (as coisas q só desbloqueiam no new game plus).\ne só pra dar uma brisa a mais botei na dificuldade maxima (dificuldade supremo)",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1817190/Marvels_SpiderMan_Miles_Morales/"
+    },
+    {
+        "id": 62,
+        "title": "Marvel's Spider-Man Remastered",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1817070/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Map Genie",
+                "url": "https://mapgenie.io/marvels-spider-man/maps/manhattan"
+            },
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/marvels-spider-man/"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1817070/Marvels_SpiderMan_Remastered/"
+    },
+    {
+        "id": 61,
+        "title": "The Evil Within 2",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/601430/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Steam",
+                "url": "https://steamcommunity-com.translate.goog/sharedfiles/filedetails/?id=2094826878&_x_tr_sl=auto&_x_tr_tl=pt&_x_tr_hl=pt-BR&_x_tr_pto=wapp"
+            },
+            {
+                "title": "Sem Spoilers",
+                "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=1181659147"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/601430/The_Evil_Within_2/"
+    },
+    {
+        "id": 60,
+        "title": "The Evil Within",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/268050/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Feita por Fã (<a href=\"https://steamcommunity.com/app/268050/discussions/0/492379159715516576/\" target=\"_blank\">baixar</a>)",
+        "guide": [
+            {
+                "title": "Steam",
+                "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=332983566"
+            },
+            {
+                "title": "The Assignment - Chapter 1",
+                "url": "https://youtu.be/LKt23YW8We0?si=tujuLf_HwFgbLhBZ"
+            },
+            {
+                "title": "The Assignment - Chapter 2",
+                "url": "https://youtu.be/huSXqZFa87A?si=_2GzkPsbF7pPZRqv"
+            },
+            {
+                "title": "The Consequence - Chapter 3",
+                "url": "https://youtu.be/315R9VqgzbM?si=aNQNZX5ei_H_TJLz"
+            },
+            {
+                "title": "The Consequence - Chapter 4",
+                "url": "https://youtu.be/LapjfiNA5to?si=IIr2OZyBwpb1vqJe"
+            },
+            {
+                "title": "The Executioner",
+                "url": "https://youtu.be/zpDBFPD9uF4?si=ZC63ApIg2ZOX2BF4"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/268050/The_Evil_Within/"
+    },
+    {
+        "id": 59,
+        "title": "Lego Star Wars: The Skywalker Saga",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/920210/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "abandoned",
+        "statusText": "Abandonado",
+        "statusOverlay": "Abandonado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/lego-star-wars-the-skywalker-saga"
+            }
+        ],
+        "review": "EU NÃO TERMINEI ESSA PORRA, POIS O MEU SAVE CORROMPEU! PERDI UMA SEMANA JOGANDO A TARDE TODA ATÉ UMAS ONZE DA NOITE!",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/920210/LEGO_Star_Wars_A_Saga_Skywalker/"
+    },
+    {
+        "id": 58,
+        "title": "The LEGO Movie 2 Videogame",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/881320/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Youtube",
+                "url": "https://youtu.be/pXzvwc_5row?si=AFUUf9Q6ks7YHk9L"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/881320/The_LEGO_Movie_2_Videogame/"
+    },
+    {
+        "id": 57,
+        "title": "LEGO DC Super-Villains",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/829110/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/lego-dc-super-villains"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/829110/LEGO_DC_SuperVillains/"
+    },
+    {
+        "id": 56,
+        "title": "LEGO The Incredibles",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/818320/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/818320/LEGO_The_Incredibles/"
+    },
+    {
+        "id": 55,
+        "title": "LEGO Marvel Super Heroes 2",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/647830/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/lego-marvel-super-heroes-2"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/647830/LEGO_Marvel_Super_Heroes_2/"
+    },
+    {
+        "id": 54,
+        "title": "The LEGO NINJAGO Movie Video Game",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/640590/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/the-lego-ninjago-movie-video-game"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/640590/The_LEGO_NINJAGO_Movie_Video_Game/"
+    },
+    {
+        "id": 53,
+        "title": "LEGO Star Wars: The Force Awakens",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/438640/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Steam",
+                "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=712686492"
+            },
+            {
+                "title": "Curiosidades",
+                "url": "https://youtube.com/playlist?list=PLKnK4jzjfh6ZhWm80tBZqQtrfulZ3mEfb&si=txF0ghjibYCaVE4q"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/438640/LEGO_STAR_WARS_The_Force_Awakens/"
+    },
+    {
+        "id": 52,
+        "title": "LEGO Marvel's Avengers",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/405310/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/lego-marvel-avengers"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/405310/LEGO_MARVELs_Avengers/"
+    },
+    {
+        "id": 51,
+        "title": "LEGO Jurassic World",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/352400/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Não possui",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/lego-jurassic-world"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/352400/LEGO_Jurassic_World/"
+    },
+    {
+        "id": 50,
+        "title": "LEGO The Hobbit",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/285160/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/lego-the-hobbit"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/285160/LEGO_The_Hobbit/"
+    },
+    {
+        "id": 49,
+        "title": "The LEGO Movie - Videogame",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/267530/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/the-lego-movie-video-game"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/267530/The_LEGO_Movie__Videogame/"
+    },
+    {
+        "id": 48,
+        "title": "LEGO Marvel Super Heroes",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/249130/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/lego-marvel-super-heroes"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/249130/LEGO_Marvel_Super_Heroes/"
+    },
+    {
+        "id": 47,
+        "title": "LEGO The Lord of the Rings",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/214510/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Não possui",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/lego-lord-of-the-rings"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/214510/LEGO_The_Lord_of_the_Rings/"
+    },
+    {
+        "id": 46,
+        "title": "LEGO Batman 2 DC Super Heroes",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/213330/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Não possui",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/lego-batman-2-dc-super-heroes"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/213330/LEGO_Batman_2_DC_Super_Heroes/"
+    },
+    {
+        "id": 45,
+        "title": "LEGO Pirates of the Caribbean: The Video Game",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/311770/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Steam",
+                "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2350147277"
+            },
+            {
+                "title": "Youtube",
+                "url": "https://youtube.com/playlist?list=PLYpDU5ElRBfnddOzrQnIBPr45qyAsAttH&si=YvhX7srRyECIeeD2"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://www.gog.com/en/game/lego_pirates_of_the_caribbean_the_video_game"
+    },
+    {
+        "id": 44,
+        "title": "LEGO Star Wars III - The Clone Wars",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/32510/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Não possui",
+        "guide": [
+            {
+                "title": "Steam",
+                "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2280643595"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/32510/LEGO_Star_Wars_III__The_Clone_Wars/"
+    },
+    {
+        "id": 43,
+        "title": "LEGO Harry Potter Collection",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2950340/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2950340/LEGO_Harry_Potter_Collection/"
+    },
+    {
+        "id": 42,
+        "title": "LEGO Batman",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/21000/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Feita por Fã (<a href=\"https://steamcommunity.com/app/21000/discussions/0/3117032860248216877/\" target=\"_blank\">baixar</a>)",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/lego-batman-the-videogame"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/21000/LEGO_Batman_The_Videogame/"
+    },
+    {
+        "id": 41,
+        "title": "LEGO Indiana Jones: The Original Adventures",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/32330/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "abandoned",
+        "statusText": "Abandonado",
+        "statusOverlay": "Abandonado",
+        "translation": "Não possui",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/lego-indiana-jones-the-original-adventures"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/32330/LEGO_Indiana_Jones_The_Original_Adventures/"
+    },
+    {
         "id": 40,
         "title": "LEGO Star Wars - The Complete Saga",
         "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/32440/library_600x900_2x.jpg",
