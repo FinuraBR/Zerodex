@@ -22,9 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Se encontrar o elemento '#catalogo', significa que estamos na página de jogos (jogos.html).
     if (document.querySelector('#catalogo')) {
-        renderFilterButtons();       // Desenha os botões de filtro (PC, Switch, etc.).
-        readURLAndSetupControls();   // Lê filtros da URL (ex: ?platform=pc) e prepara os controles.
-        updateDisplay();             // Exibe os jogos na tela, aplicando os filtros lidos.
+        initializeCatalog();             // Exibe os jogos na tela, aplicando os filtros lidos.
     }
     
     // Se encontrar '#dynamic-stats', estamos na página "Sobre" (sobre.html).
@@ -58,6 +56,15 @@ let currentSort = 'id-desc';     // A ordenação escolhida (ex: 'id-desc', 'tit
 // ===================================================================================
 // --- SEÇÃO: LÓGICA DA PÁGINA INICIAL (INDEX.HTML) ----------------------------------
 // ===================================================================================
+
+// Mapa para traduzir os 'slugs' das plataformas para nomes legíveis.
+// Declarado aqui fora para ser acessível por múltiplas funções.
+const PLATFORM_DISPLAY_NAMES = {
+    'pc': 'PC',
+    'nintendo-switch': 'Switch',
+    'android': 'Celular',
+    // Adicione outras plataformas aqui conforme necessário
+};
 
 /**
  * Preenche as diferentes seções ("estantes") da página inicial.
@@ -172,40 +179,36 @@ function setupSmoothShelfScrolling() {
 // ===================================================================================
 
 /**
- * Função central que atualiza a exibição dos jogos no catálogo.
- * Ela segue um processo de 3 passos: Filtrar -> Ordenar -> Renderizar.
+ * Função que é chamada APENAS quando a ORDENAÇÃO muda.
+ * Ela filtra, ordena e RE-RENDERIZA os cards na nova ordem.
  */
-function updateDisplay() {
-    // 1. FILTRAGEM: Começa com uma cópia da lista completa de jogos.
+function sortAndReRender() {
     let filteredGames = [...gamesData]; 
 
-    // Filtra por termo de busca (se houver algum).
-    if (currentSearchTerm) {
-        // Mantém apenas os jogos cujo título (em minúsculas) inclui o termo de busca.
-        filteredGames = filteredGames.filter(g => g.title.toLowerCase().includes(currentSearchTerm));
-    }
-    // Filtra por plataforma (se não for 'all').
+    // A filtragem aqui garante que a ordenação seja aplicada apenas nos itens visíveis.
     if (currentPlatform !== 'all') {
         filteredGames = filteredGames.filter(g => g.platform === currentPlatform);
     }
+    if (currentSearchTerm) {
+        filteredGames = filteredGames.filter(g => g.title.toLowerCase().includes(currentSearchTerm));
+    }
     
-    // 2. ORDENAÇÃO: Organiza a lista filtrada com base na seleção do usuário.
+    // Ordena a lista já filtrada.
     switch (currentSort) {
-        case 'title-asc': // Ordem alfabética A-Z
+        case 'title-asc':
             filteredGames.sort((a, b) => a.title.localeCompare(b.title));
             break;
-        case 'title-desc': // Ordem alfabética Z-A
+        case 'title-desc':
             filteredGames.sort((a, b) => b.title.localeCompare(a.title));
             break;
-        case 'id-desc': // Padrão: Mais recentes primeiro
+        case 'id-desc':
         default:
             filteredGames.sort((a, b) => b.id - a.id);
             break;
     }
     
-    // 3. RENDERIZAÇÃO: Desenha os jogos filtrados e ordenados na tela.
+    // Re-renderiza os jogos na nova ordem.
     renderGames(filteredGames, '#catalogo .game-grid');
-    // Atualiza a URL do navegador para refletir os filtros atuais (bom para compartilhar links).
     updateURL();
 }
 
@@ -251,74 +254,63 @@ function updateURL() {
 
 /**
  * Configura os "ouvintes de eventos" para os controles de filtro, busca e ordenação.
- * É aqui que a interatividade do usuário é capturada.
+ * OTIMIZADO para usar a função 'applyFilters' para uma resposta instantânea.
  */
 function setupControls() {
-    // Barra de pesquisa: aciona a atualização a cada tecla pressionada ('keyup').
+    // Barra de pesquisa: agora chama applyFilters para uma resposta instantânea.
     document.getElementById('search-bar').addEventListener('keyup', e => {
         currentSearchTerm = e.target.value.toLowerCase();
-        updateDisplay(); // Re-filtra e re-renderiza os jogos.
+        applyFilters(); // Super rápido!
+        updateURL();
     });
     
-    // Menu de ordenação: aciona a atualização quando uma nova opção é selecionada ('change').
+    // Menu de ordenação: esta é a ÚNICA ação que ainda precisa re-renderizar tudo.
     document.getElementById('sort-options').addEventListener('change', e => {
         currentSort = e.target.value;
-        updateDisplay();
+        sortAndReRender(); // CORRETO: a ordenação exige reconstrução.
     });
 
-    // Botões de filtro de plataforma: usa um loop para configurar todos.
+    // Botões de filtro de plataforma: agora chamam applyFilters para uma resposta instantânea.
     document.querySelectorAll('#filter-container .filter-btn').forEach(button => {
         button.addEventListener('click', () => {
-            // Pega a plataforma do atributo 'data-platform' do botão clicado.
             currentPlatform = button.dataset.platform;
             
-            // Atualiza o estilo visual: remove 'active' de todos e adiciona apenas no clicado.
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
             
-            updateDisplay();
+            applyFilters(); // Super rápido!
+            updateURL();
         });
     });
 
-    // Botão "Me Surpreenda!": sorteia um jogo visível e rola a tela até ele.
+    // Botão "Me Surpreenda!": continua funcionando perfeitamente.
     document.getElementById('surprise-btn').addEventListener('click', () => {
         const visibleCards = document.querySelectorAll('#catalogo .game-card:not(.hidden)');
-        if (visibleCards.length === 0) return; // Não faz nada se não houver jogos visíveis.
+        if (visibleCards.length === 0) return;
 
-        // Remove o destaque de um jogo sorteado anteriormente.
         const currentHighlight = document.querySelector('.highlight');
         if (currentHighlight) {
             currentHighlight.classList.remove('highlight');
         }
 
-        // Escolhe um índice aleatório da lista de cards visíveis.
         const randomIndex = Math.floor(Math.random() * visibleCards.length);
         const randomCard = visibleCards[randomIndex];
 
-        // Rola a página suavemente até o card sorteado.
         randomCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        // Adiciona uma classe de destaque visual.
         randomCard.classList.add('highlight');
-        // Remove a classe de destaque após 2 segundos.
         setTimeout(() => {
             randomCard.classList.remove('highlight');
         }, 2000);
     });
 
-     // Botão "Editar Jogo": usa delegação de eventos para funcionar.
-     // O "ouvinte" é colocado na grade de jogos, e não em cada botão individualmente (melhor para performance).
+     // Botão "Editar Jogo": continua funcionando perfeitamente.
     document.querySelector('#catalogo .game-grid').addEventListener('click', (event) => {
-        // Verifica se o elemento que originou o clique tem a classe 'edit-btn'.
         if (event.target.classList.contains('edit-btn')) {
             const gameId = parseInt(event.target.dataset.editId);
             const gameToEdit = gamesData.find(game => game.id === gameId);
 
             if (gameToEdit) {
-                // Guarda os dados do jogo no 'localStorage' do navegador.
-                // O localStorage permite que dados persistam mesmo ao mudar de página.
                 localStorage.setItem('gameToEdit', JSON.stringify(gameToEdit));
-                
-                // Redireciona o usuário para a página de edição.
                 window.location.href = 'adicionar.html';
             }
         }
@@ -406,60 +398,125 @@ function setupTooltipLogic() {
 
 /**
  * Gera e insere o HTML dos cards de jogos na grade especificada.
+ * VERSÃO FINAL AVANÇADA: Usa renderização assíncrona em lotes e
+ * garante que o lazy loading seja ativado APÓS a conclusão de todos os lotes.
  * @param {Array} gamesArray - A lista de jogos a ser exibida.
  * @param {string} gridSelector - O seletor CSS da grade onde os jogos serão inseridos.
  */
 function renderGames(gamesArray, gridSelector) {
     const gameGrid = document.querySelector(gridSelector);
-    if (!gameGrid) return; // Se a grade não for encontrada, interrompe a função.
+    if (!gameGrid) return;
 
-    // Limpa a grade. Se o array de jogos estiver vazio, exibe uma mensagem.
     gameGrid.innerHTML = gamesArray.length === 0 ? '<p class="no-results-message">Nenhum jogo encontrado.</p>' : '';
+    if (gamesArray.length === 0) return;
 
-    // Itera sobre cada jogo do array para criar seu card.
-    gamesArray.forEach((game, index) => {
-        // Prepara o HTML dos links de guias.
-        const guideLinks = game.guide.map(g => `<a href="${g.url}" target="_blank">${g.title}</a>`).join(' | ');
-        const guideHTML = game.guide.length > 0 ? `<p><strong>Guia:</strong> ${guideLinks}</p>` : '<p><strong>Guia:</strong> Não utilizado</p>';
-        
-        // Prepara o HTML da plataforma, adicionando um link para a loja se existir.
-        const platformText = game.platform.toUpperCase();
-        const platformHTML = game.storeUrl 
-            ? `<a href="${game.storeUrl}" target="_blank">${platformText}</a>`
-            : platformText;
+    let currentIndex = 0;
+    const batchSize = 10; 
 
-        // Cria o elemento 'div' para o card.
-        const cardElement = document.createElement('div');
-        cardElement.className = 'game-card';
-        cardElement.dataset.platform = game.platform; // Atributo usado para filtros.
+    function processBatch() {
+        const fragment = document.createDocumentFragment();
+        const endIndex = Math.min(currentIndex + batchSize, gamesArray.length);
 
-        // Define o HTML interno do card usando template literals para facilitar a leitura.
-        cardElement.innerHTML = `
-            <div class="card-image-container">
-                <div class="game-number">${game.id}</div>
-                ${game.version ? `<div class="game-version-badge">${game.version}</div>` : ''}
-                <img src="${game.image}" alt="Capa do jogo ${game.title}" loading="lazy">
-            </div>
-            <div class="game-info-default">
-                <p class="game-title">${game.title}</p>
-                <span class="status-badge status-${game.status}">${game.statusText}</span>
-            </div>
-            <div class="game-overlay">
-                <div class="game-details">
-                    <h3>${game.title}</h3>
-                    <p><strong>Plataforma:</strong> ${platformHTML}</p>
-                    <p><strong>Status:</strong> ${game.statusOverlay}</p>
-                    <p><strong>Tradução:</strong> ${game.translation}</p>
-                    ${guideHTML}
-                    <button class="edit-btn secondary-btn" data-edit-id="${game.id}">Editar Jogo</button>
+        for (let i = currentIndex; i < endIndex; i++) {
+            const game = gamesArray[i];
+            const platformText = PLATFORM_DISPLAY_NAMES[game.platform] || game.platform.toUpperCase();
+            const platformHTML = game.storeUrl ? `<a href="${game.storeUrl}" target="_blank">${platformText}</a>` : platformText;
+            const guideLinks = game.guide.map(g => `<a href="${g.url}" target="_blank">${g.title}</a>`).join(' | ');
+            const guideHTML = game.guide.length > 0 ? `<p><strong>Guia:</strong> ${guideLinks}</p>` : '<p><strong>Guia:</strong> Não utilizado</p>';
+            
+            const cardElement = document.createElement('div');
+            cardElement.className = 'game-card';
+            cardElement.dataset.platform = game.platform;
+
+            cardElement.innerHTML = `
+                <div class="card-image-container">
+                    <div class="game-number">${game.id}</div>
+                    ${game.version ? `<div class="game-version-badge">${game.version}</div>` : ''}
+                    <img data-src="${game.image}" alt="Capa do jogo ${game.title}" class="lazy-image" src="imagens/favicon.jpg">
                 </div>
-                ${game.review ? `<div class="game-review"><button class="review-trigger secondary-btn">Ver Comentário</button></div>` : ''}
-            </div>`;
+                <div class="game-info-default">
+                    <p class="game-title">${game.title}</p>
+                    <span class="status-badge status-${game.status}">${game.statusText}</span>
+                </div>
+                <div class="game-overlay">
+                    <div class="game-details">
+                        <h3>${game.title}</h3>
+                        <p><strong>Plataforma:</strong> ${platformHTML}</p>
+                        <p><strong>Status:</strong> ${game.statusOverlay}</p>
+                        <p><strong>Tradução:</strong> ${game.translation}</p>
+                        ${guideHTML}
+                        <button class="edit-btn secondary-btn" data-edit-id="${game.id}">Editar Jogo</button>
+                    </div>
+                    ${game.review ? `<div class="game-review"><button class="review-trigger secondary-btn">Ver Comentário</button></div>` : ''}
+                </div>`;
+
+            fragment.appendChild(cardElement);
+        }
+
+        gameGrid.appendChild(fragment);
         
-        // Adiciona o card recém-criado à grade.
-        gameGrid.appendChild(cardElement);
-        // Aplica uma animação de entrada com um pequeno atraso (index * 50ms) para criar um efeito cascata.
-        setTimeout(() => cardElement.classList.add('card-enter-animation'), index * 50);
+        currentIndex = endIndex;
+
+        if (currentIndex < gamesArray.length) {
+            requestAnimationFrame(processBatch);
+        } else {
+            // Todos os cards estão no DOM. Agora é a hora de finalizar.
+            
+            // 1. Aplica a animação de entrada em todos os cards.
+            gameGrid.querySelectorAll('.game-card').forEach((card, index) => {
+                setTimeout(() => card.classList.add('card-enter-animation'), index * 1);
+            });
+            
+            // 2. Ativa o lazy loading para as imagens.
+            setupLazyLoading();
+
+            // 3. APLICA O FILTRO INICIAL que foi lido da URL.
+            applyFilters(); 
+        }
+    }
+    requestAnimationFrame(processBatch);
+}
+
+/**
+ * Orquestra a inicialização da página do catálogo. Prepara os botões,
+ * lê o estado da URL e inicia o processo de renderização.
+ */
+function initializeCatalog() {
+    renderFilterButtons();
+    readURLAndSetupControls(); // Define o estado (currentPlatform, etc.) e os listeners
+    
+    // Inicia a renderização de TODOS os jogos. A própria renderGames
+    // irá aplicar o filtro inicial no final do processo.
+    renderGames(gamesData, '#catalogo .game-grid');
+}
+
+/**
+ * Configura o Intersection Observer para carregar imagens sob demanda (lazy loading).
+ * Esta função encontra todas as imagens com a classe 'lazy-image' e as observa.
+ * Quando uma imagem está prestes a entrar na tela, ela troca o 'data-src' pelo 'src'.
+ */
+function setupLazyLoading() {
+    const lazyImages = document.querySelectorAll('.lazy-image');
+    if (lazyImages.length === 0) return;
+
+    // Opções: Carrega a imagem quando ela estiver a 250px de distância da tela.
+    const observerOptions = {
+        rootMargin: '0px 0px 250px 0px'
+    };
+
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const image = entry.target;
+                image.src = image.dataset.src; // A mágica acontece aqui!
+                image.classList.remove('lazy-image'); // Remove a classe para não observar de novo.
+                observer.unobserve(image); // Para de observar esta imagem.
+            }
+        });
+    }, observerOptions);
+
+    lazyImages.forEach(image => {
+        imageObserver.observe(image);
     });
 }
 
@@ -476,15 +533,51 @@ function renderFilterButtons() {
     const platforms = ['all', ...new Set(gamesData.map(g => g.platform))];
     
     // Gera o HTML de cada botão a partir do array de plataformas.
-    const buttonsHTML = platforms.map(p => 
-        `<button class="filter-btn" data-platform="${p}">${p === 'all' ? 'Todos' : p.toUpperCase()}</button>`
-    ).join('');
+    const buttonsHTML = platforms.map(slug => {
+        // Se o slug for 'all', o texto é 'Todos'.
+        // Para os outros, pega o nome do mapa ou usa o slug em maiúsculas como fallback.
+        const displayName = slug === 'all' ? 'Todos' : (PLATFORM_DISPLAY_NAMES[slug] || slug.toUpperCase());
+        return `<button class="filter-btn" data-platform="${slug}">${displayName}</button>`;
+    }).join('');
     
     // Adiciona os botões de filtro e também os botões de ação ("Surpreenda", "Adicionar").
     filterContainer.innerHTML = buttonsHTML + `
         <button id="surprise-btn">Me Surpreenda!</button>
         <a href="adicionar.html" id="add-game-btn" class="cta-button">Adicionar Jogo</a>
     `;
+}
+
+/**
+ * Aplica filtros de forma eficiente, escondendo ou mostrando os cards existentes
+ * sem a necessidade de recriar tudo. Isso torna a filtragem instantânea.
+ */
+function applyFilters() {
+    const allCards = document.querySelectorAll('#catalogo .game-grid .game-card');
+    let visibleGameCount = 0;
+
+    allCards.forEach(card => {
+        // Verifica se o card atual corresponde aos filtros selecionados.
+        const platformMatch = currentPlatform === 'all' || card.dataset.platform === currentPlatform;
+        
+        // Pega o título do card para a busca. '.textContent.toLowerCase()' é rápido.
+        const title = card.querySelector('.game-title').textContent.toLowerCase();
+        const searchMatch = currentSearchTerm === '' || title.includes(currentSearchTerm);
+
+        // Se o card corresponde a AMBOS os filtros, ele deve ser visível.
+        if (platformMatch && searchMatch) {
+            card.classList.remove('hidden');
+            visibleGameCount++;
+        } else {
+            // Caso contrário, ele deve ser escondido.
+            card.classList.add('hidden');
+        }
+    });
+
+    // Mostra ou esconde a mensagem de "Nenhum jogo encontrado".
+    const noResultsMessage = document.querySelector('#catalogo .no-results-message');
+    if (noResultsMessage) {
+        noResultsMessage.style.display = visibleGameCount === 0 ? 'block' : 'none';
+    }
 }
 
 /**
@@ -503,9 +596,9 @@ function renderStatistics() {
     // Se algum dos canvas não for encontrado, interrompe a função.
     if (!platformChartCanvas || !statusChartCanvas || gamesData.length === 0) return;
 
-    // Calcula a contagem de jogos por plataforma.
+    // Calcula a contagem de jogos por plataforma (USANDO O SLUG ORIGINAL como chave).
     const platformCounts = gamesData.reduce((acc, game) => {
-        acc[game.platform.toUpperCase()] = (acc[game.platform.toUpperCase()] || 0) + 1;
+        acc[game.platform] = (acc[game.platform] || 0) + 1; // Mantemos 'pc', 'nintendo-switch', etc.
         return acc;
     }, {});
     
@@ -516,8 +609,13 @@ function renderStatistics() {
     }, {});
 
     // --- PREENCHE AS CAIXAS DE ESTATÍSTICAS DE TEXTO ---
-    // Gera o HTML para a lista de plataformas e insere no local correto.
-    const platformsHTML = Object.entries(platformCounts).map(([p, c]) => `<a href="jogos.html?platform=${p.toLowerCase()}"><p>${p}: <span>${c}</span></p></a>`).join('');
+    // Gera o HTML para a lista de plataformas usando nosso mapa de nomes.
+    const platformsHTML = Object.entries(platformCounts).map(([slug, count]) => {
+        // Para cada 'slug' (ex: 'nintendo-switch'), pegamos o nome bonito do nosso mapa.
+        // Se não encontrar, usa o slug em maiúsculas como fallback.
+        const displayName = PLATFORM_DISPLAY_NAMES[slug] || slug.toUpperCase();
+        return `<a href="jogos.html?platform=${slug}"><p>${displayName}: <span>${count}</span></p></a>`;
+    }).join('');
     document.getElementById('platform-stats-list').innerHTML = platformsHTML;
 
     // Gera o HTML para a lista de status e insere no local correto.
@@ -532,7 +630,8 @@ function renderStatistics() {
     new Chart(platformChartCanvas, {
         type: 'doughnut',
         data: {
-            labels: Object.keys(platformCounts),
+            // Usa o mapa para criar os rótulos do gráfico também.
+            labels: Object.keys(platformCounts).map(slug => PLATFORM_DISPLAY_NAMES[slug] || slug.toUpperCase()),
             datasets: [{
                 label: 'Jogos por Plataforma',
                 data: Object.values(platformCounts),

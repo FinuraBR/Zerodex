@@ -731,7 +731,7 @@ const gamesData = [
         "id": 68,
         "title": "Super Mario Bros. Wonder",
         "image": "https://cdn2.steamgriddb.com/thumb/66da3b21fe18692332284c64e08b8e02.jpg",
-        "platform": "nintendo switch",
+        "platform": "nintendo-switch",
         "status": "completed-100",
         "statusText": "100%",
         "statusOverlay": "100% Concluído",
