@@ -121,7 +121,7 @@ main {
 }
 
 section {
-    margin-bottom: 60px; /* Espaçamento vertical entre as seções. */
+    margin-bottom: 40px; /* Espaçamento vertical entre as seções. */
 }
 
 h2 {
@@ -416,6 +416,20 @@ footer {
 // =================================================================================== */
 
 /* --- PÁGINA INICIAL (index.html) --- */
+#hero {
+    text-align: center;
+}
+.hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+.hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+}
+
 #shelf-nav {
     position: fixed; /* Fixo na tela, não rola com a página. */
     top: 0;
