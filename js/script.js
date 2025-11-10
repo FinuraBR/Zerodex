@@ -222,7 +222,6 @@ function readURLAndSetupControls() {
     currentPlatform = params.get('platform') || 'all';
     currentSearchTerm = params.get('search') || '';
     currentSort = params.get('sort') || 'id-desc';
-    
     // Atualiza os elementos visuais (barra de busca, menu de ordenação, botões) para corresponderem aos valores da URL.
     document.getElementById('search-bar').value = currentSearchTerm;
     document.getElementById('sort-options').value = currentSort;
@@ -300,7 +299,7 @@ function setupControls() {
         randomCard.classList.add('highlight');
         setTimeout(() => {
             randomCard.classList.remove('highlight');
-        }, 2000);
+        }, 5000);
     });
 
      // Botão "Editar Jogo": continua funcionando perfeitamente.
@@ -462,9 +461,9 @@ function renderGames(gamesArray, gridSelector) {
         } else {
             // Todos os cards estão no DOM. Agora é a hora de finalizar.
             
-            // 1. Aplica a animação de entrada em todos os cards.
-            gameGrid.querySelectorAll('.game-card').forEach((card, index) => {
-                setTimeout(() => card.classList.add('card-enter-animation'), index * 1);
+            // 1. Aplica a animação de entrada em todos os cards de uma vez.
+            gameGrid.querySelectorAll('.game-card').forEach(card => {
+            card.classList.add('card-enter-animation');
             });
             
             // 2. Ativa o lazy loading para as imagens.
@@ -553,7 +552,11 @@ function renderFilterButtons() {
  */
 function applyFilters() {
     const allCards = document.querySelectorAll('#catalogo .game-grid .game-card');
+    const gameGrid = document.querySelector('#catalogo .game-grid'); // Pega o contêiner da grade
     let visibleGameCount = 0;
+
+    // Adiciona a classe para iniciar o efeito de esmaecer
+    if (gameGrid) gameGrid.classList.add('reloading');
 
     allCards.forEach(card => {
         // Verifica se o card atual corresponde aos filtros selecionados.
@@ -572,6 +575,11 @@ function applyFilters() {
             card.classList.add('hidden');
         }
     });
+
+    // Remove a classe após um pequeno atraso para o efeito ser visível
+    setTimeout(() => {
+        if (gameGrid) gameGrid.classList.remove('reloading');
+    }, 200); // 200ms é um bom tempo para o efeito ser notado
 
     // Mostra ou esconde a mensagem de "Nenhum jogo encontrado".
     const noResultsMessage = document.querySelector('#catalogo .no-results-message');

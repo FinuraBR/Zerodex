@@ -13,6 +13,11 @@
 // 7. RESPONSIVIDADE (Media Queries)
 // =================================================================================== */
 
+.game-grid.reloading {
+    opacity: 0.5;
+    transition: opacity 0.2s ease-out;
+}
+
 /* ===================================================================================
 // --- 1. FONTES E VARIÁVEIS GLOBAIS -------------------------------------------------
 // =================================================================================== */
@@ -368,12 +373,28 @@ footer {
 .review-comment { font-size: 0.85em; font-style: italic; color: #ccc; line-height: 1.5; }
 
 /* --- Efeitos de Hover no Card --- */
-/* Quando o mouse passa sobre .game-card... */
+
+/* Aplica-se a QUALQUER card quando o mouse está sobre ele. */
 .game-card:hover {
-    /* EFEITO DE CRESCIMENTO E ELEVAÇÃO */
-    transform: scale(1.08); /* Aumentei um pouco para ficar mais visível */
-    z-index: 10; /* Coloca o card na frente de todos os outros */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidade */
+    transform: scale(1.08);
+    z-index: 10;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra escura para "elevar" */
+}
+
+/* --- Destaque do Botão Surpresa (Estado Estático) --- */
+/* Aplica-se apenas ao card que tem a classe .highlight, quando o mouse NÃO está sobre ele. */
+.game-card.highlight {
+    box-shadow: 0 0 20px 5px #ffd700; /* O brilho amarelo */
+    /* Removemos o transform daqui para evitar um "salto" visual antes do hover */
+    z-index: 5; /* Garante que ele fique um pouco acima dos outros, mesmo sem hover */
+}
+
+/* Esta regra é MAIS ESPECÍFICA e só se aplica quando um card
+   tem a classe .highlight E o mouse está sobre ele. */
+.game-card.highlight:hover {
+    transform: scale(1.08); /* Mantém o mesmo crescimento do hover normal */
+    box-shadow: 0 0 25px 7px #ffd700; /* Mantém (e até intensifica) o brilho amarelo */
+    z-index: 11; /* Z-index mais alto para garantir que fique na frente de tudo */
 }
 
 /* O resto das regras de hover permanece igual */
@@ -525,7 +546,7 @@ footer {
 .stat-item p { display: flex; justify-content: space-between; margin-bottom: 12px; color: var(--color-text-secondary); }
 .stat-item span { font-weight: bold; color: var(--color-text-primary); }
 /* Melhora a área de clique para o link de plataforma */
-.stat-item a { text-decoration: none; color: inherit; display: block; border-radius: 4px; transition: background-color 0.2s ease; margin: -10px; padding: 10px; }
+.stat-item a { text-decoration: none; color: inherit; display: block; border-radius: 4px; transition: background-color 0.2s ease; margin: 0 -8px; padding: 0px 8px; }
 .stat-item a:hover { background-color: rgba(255, 255, 255, 0.05); }
 
 /* Contêiner que segura os dois gráficos */
@@ -605,9 +626,6 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin-bo
 
 /* --- Mensagem de "Nenhum Jogo Encontrado" --- */
 .no-results-message { grid-column: 1 / -1; /* Ocupa todas as colunas da grade. */ text-align: center; padding: 40px; color: var(--color-text-secondary); font-size: 1.2em; }
-
-/* --- Destaque para o Botão Surpresa --- */
-.highlight { box-shadow: 0 0 20px 5px #ffd700; transform: scale(1.05); overflow: hidden;}
 
 /* --- Acessibilidade: Esconder texto visualmente, mas manter para leitores de tela --- */
 .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }

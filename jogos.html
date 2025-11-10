@@ -1,36 +1,38 @@
 <!DOCTYPE html>
-<!-- Define o tipo de documento como HTML5 -->
+<!-- Define o tipo do documento como HTML5 e o idioma principal como Português do Brasil. -->
 <html lang="pt-BR">
-<!-- A tag <html> é a raiz do documento. 'lang="pt-BR"' define o idioma como Português do Brasil. -->
 
 <head>
-    <!-- A tag <head> contém metadados sobre o documento. -->
+    <!-- ======================= METADADOS E LINKS ======================= -->
+    <!-- A tag <head> contém informações importantes sobre a página que não são visíveis diretamente. -->
+
+    <!-- Define o conjunto de caracteres como UTF-8, garantindo a exibição correta de acentos e símbolos. -->
     <meta charset="UTF-8">
-    <!-- Define o conjunto de caracteres como UTF-8 para suportar caracteres especiais. -->
+
+    <!-- Garante que a página seja responsiva, adaptando-se à largura da tela de qualquer dispositivo. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Torna o site responsivo, ajustando-se à largura da tela do dispositivo. -->
 
-    <title>Catálogo de Jogos</title>
-    <!-- O título que aparece na aba do navegador. -->
+    <!-- O título que aparece na aba ou janela do navegador. -->
+    <title>Catálogo de Jogos - Meu Zerodex</title>
 
+    <!-- Link para a folha de estilos principal (CSS) que define a aparência do site. -->
     <link rel="stylesheet" href="css/style.css">
-    <!-- Link para sua folha de estilos (CSS) externa. -->
+
+    <!-- Define o ícone (favicon) que aparece na aba do navegador. -->
     <link rel="icon" type="image/jpg" href="imagens/favicon.jpg">
-    <!-- Define o ícone (favicon) da página. -->
 </head>
 
 <body>
-    <!-- A tag <body> contém todo o conteúdo visível da página. -->
+    <!-- A tag <body> contém todo o conteúdo visível da página web. -->
 
     <!-- ======================= CABEÇALHO ======================= -->
+    <!-- O cabeçalho é consistente em todas as páginas, contendo o título, a navegação principal e o botão de tema. -->
     <header>
-        <!-- O cabeçalho do site, contendo título, navegação e outros elementos globais. -->
         <div class="header-container">
-            <!-- Um contêiner para organizar os elementos do cabeçalho. -->
+            <!-- Título principal do site. -->
             <h1>Meu Zerodex</h1>
-            <!-- Título principal. -->
 
-            <!-- Menu de Navegação -->
+            <!-- Menu de Navegação Principal -->
             <nav>
                 <ul>
                     <li><a href="index.html">Início</a></li>
@@ -39,10 +41,11 @@
                 </ul>
             </nav>
 
-            <!-- Botão de Alternar Tema (Claro/Escuro) -->
-            <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Tema">
-                <!-- O JavaScript usará o 'id' para controlar este botão. -->
+            <!-- Botão para alternar entre o tema claro e escuro. A lógica é controlada pelo JavaScript. -->
+            <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Tema" aria-label="Alternar Tema">
+                <!-- Ícone de Sol (visível no tema escuro) -->
                 <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.061 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.894 17.894a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.591 1.59a.75.75 0 010 1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75-.75zM5.106 17.894a.75.75 0 010-1.06l1.591-1.59a.75.75 0 111.06 1.06l-1.59 1.591a.75.75 0 01-1.061 0zM4.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H5a.75.75 0 01-.75-.75zM6.106 5.106a.75.75 0 011.06 0l1.59 1.591a.75.75 0 11-1.06 1.06L6.106 6.167a.75.75 0 010-1.06z"/></svg>
+                <!-- Ícone de Lua (visível no tema claro) -->
                 <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 004.463-.945a.75.75 0 01.981.652A11.25 11.25 0 0112 21a11.25 11.25 0 01-11.25-11.25 11.25 11.25 0 012.718-7.528a.75.75 0 01.819.162z" clip-rule="evenodd" /></svg>
             </button>
         </div>
@@ -50,51 +53,57 @@
 
     <!-- ======================= CONTEÚDO PRINCIPAL ======================= -->
     <main>
-        <!-- A tag <main> define o conteúdo principal e único da página. -->
+        <!-- Seção dedicada a todo o catálogo de jogos. -->
         <section id="catalogo">
-            <!-- Uma seção dedicada a todo o catálogo de jogos. -->
+
+            <!-- Cabeçalho específico da seção do catálogo. -->
             <div class="catalog-header">
-                <!-- Cabeçalho específico para a seção do catálogo. -->
                 <h2>Catálogo Completo</h2>
                 <p class="catalog-note">
-                    <!-- Link informativo para a seção de regras sobre DLCs na página 'sobre'. -->
                     Nota sobre DLCs e versões dos jogos. <a href="sobre.html#catalog-rules">Saiba mais</a>.
                 </p>
             </div>
 
             <!-- Controles de Pesquisa, Filtro e Ordenação -->
             <div id="controls-container">
-                <!-- Agrupa todos os controles para facilitar a estilização. -->
-
                 <!-- Barra de Pesquisa -->
-                <!-- A tag <label> melhora a acessibilidade. A classe 'visually-hidden' a esconde visualmente, mas leitores de tela ainda podem encontrá-la. -->
+                <!-- A tag <label> melhora a acessibilidade. A classe 'visually-hidden' a esconde visualmente, mas leitores de tela a identificam. -->
                 <label for="search-bar" class="visually-hidden">Pesquisar por nome do jogo</label>
                 <input type="text" id="search-bar" placeholder="Pesquisar por nome...">
 
                 <!-- Opções de Ordenação -->
+                <label for="sort-options" class="visually-hidden">Ordenar jogos por</label>
                 <select id="sort-options">
-                    <!-- Menu dropdown para o usuário escolher como os jogos serão ordenados. -->
-                    <option value="id-desc">Ordenar por: ID</option>
+                    <option value="id-desc">Ordenar por: Mais Recentes</option>
                     <option value="title-asc">Título (A-Z)</option>
                     <option value="title-desc">Título (Z-A)</option>
                 </select>
             </div>
 
             <!-- Contêiner para os Botões de Filtro -->
-            <!-- Este contêiner será preenchido dinamicamente pelo JavaScript com os botões de filtro (ex: por plataforma, ano, etc.). -->
+            <!-- Este contêiner será preenchido dinamicamente pelo JavaScript com os botões de filtro (por plataforma, etc.). -->
             <div id="filter-container"></div>
 
             <!-- Grade de Jogos -->
             <!-- Esta é a área principal onde os cards dos jogos serão exibidos. O JavaScript irá gerar e inserir os jogos aqui. -->
             <div class="game-grid">
-                <!-- Exemplo de como um card de jogo seria (gerado pelo JS): -->
-                <!--
-                <div class="game-card">
-                    <img src="imagens/nome-do-jogo.jpg" alt="Nome do Jogo">
-                    <h3>Nome do Jogo</h3>
-                    <p>Plataforma</p>
-                    <span class="status-badge status-completed">Finalizado</span>
-                </div>
+                <!-- 
+                  EXEMPLO DE CARD DE JOGO (GERADO PELO JAVASCRIPT):
+                  Este bloco comentado serve como referência de como a estrutura de um card é montada.
+
+                  <div class="game-card" data-platform="pc">
+                      <div class="card-image-container">
+                          <div class="game-number">103</div>
+                          <img data-src="url_da_imagem.jpg" alt="Capa do jogo" class="lazy-image">
+                      </div>
+                      <div class="game-info-default">
+                          <p class="game-title">Nome do Jogo</p>
+                          <span class="status-badge status-completed">Finalizado</span>
+                      </div>
+                      <div class="game-overlay">
+                          ... detalhes do jogo ...
+                      </div>
+                  </div>
                 -->
             </div>
         </section>
@@ -103,18 +112,23 @@
     <!-- ======================= RODAPÉ ======================= -->
     <footer>
         <div class="footer-container">
-            <p>&copy; 2025 - Desenvolvido por FinuraBR</p>
             <!-- '&copy;' gera o símbolo de copyright © -->
+            <p>&copy; 2025 - Desenvolvido por FinuraBR</p>
         </div>
     </footer>
     
     <!-- ======================= SCRIPTS E ELEMENTOS EXTRAS ======================= -->
-    <!-- Scripts são colocados ao final do body para garantir que o HTML seja carregado antes que o JavaScript tente manipulá-lo. -->
-    <script src="js/database.js"></script> <!-- Script que provavelmente contém a lista/banco de dados dos seus jogos. -->
-    <script src="js/script.js"></script>   <!-- Script principal que controla a lógica da página: renderizar jogos, filtros, busca, etc. -->
+    <!-- Scripts são colocados no final do <body> para garantir que o HTML seja totalmente carregado antes que o JS tente manipulá-lo. -->
+
+    <!-- Carrega o banco de dados dos jogos. Deve vir antes do script principal. -->
+    <script src="js/database.js"></script>
+    
+    <!-- Carrega o script principal que controla toda a lógica da página (renderização, filtros, busca, etc.). -->
+    <script src="js/script.js"></script>
     
     <!-- Botão "Voltar ao Topo" -->
-    <!-- Este botão aparecerá (controlado via JS/CSS) quando o usuário rolar a página para baixo. -->
+    <!-- Este botão (controlado via JS/CSS) aparece quando o usuário rola a página para baixo. -->
     <button id="back-to-top" title="Voltar ao topo">↑</button>
+
 </body>
 </html>
