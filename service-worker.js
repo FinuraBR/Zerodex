@@ -5,17 +5,17 @@ const CACHE_NAME = 'zerodex-cache-v1';
 
 // Lista de arquivos principais do app que queremos deixar em cache (o "app shell")
 const urlsToCache = [
-    '/',
-    '/index.html',
-    '/jogos.html',
-    '/sobre.html',
-    '/adicionar.html',
-    '/css/style.css',
-    '/js/database.js',
-    '/js/script.js',
-    '/js/add_game.js',
-    '/js/id_counter.js'
-    // Adicione aqui outros arquivos importantes, como seu favicon.
+    './',
+    './index.html',
+    './jogos.html',
+    './sobre.html',
+    './adicionar.html',
+    './css/style.css',
+    './js/database.js',
+    './js/script.js',
+    './js/add_game.js',
+    './js/id_counter.js'
+    // Adicione aqui outros arquivos importantes.
 ];
 
 // Evento 'install': é disparado quando o Service Worker é instalado pela primeira vez.

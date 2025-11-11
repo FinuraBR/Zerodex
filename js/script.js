@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Verifica se o navegador suporta Service Workers
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/service-worker.js') // Registra o nosso arquivo
+            navigator.serviceWorker.register('./service-worker.js') // Registra o nosso arquivo
                 .then(registration => {
                     console.log('Service Worker registrado com sucesso:', registration);
                 })
