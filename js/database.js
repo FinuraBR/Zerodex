@@ -119,6 +119,20 @@ const PLATFORM_DISPLAY_NAMES = {
 
 const gamesData = [
     {
+        "id": 108,
+        "title": "Minecraft",
+        "image": "https://www.steamgriddb.com/grid/36537",
+        "platform": "pc",
+        "status": "retired",
+        "statusText": "Aposentado",
+        "statusOverlay": "Aposentado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": "Já joguei no PC, Xbox 360, Xbox One e Celular",
+        "version": null,
+        "storeUrl": "https://www.minecraft.net/pt-br"
+    },
+    {
         "id": 107,
         "title": "Integer",
         "image": "https://img.itch.zone/aW1nLzQ5NjExNzcucG5n/original/%2B47CRP.png",
