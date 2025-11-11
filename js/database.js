@@ -119,6 +119,20 @@ const PLATFORM_DISPLAY_NAMES = {
 
 const gamesData = [
     {
+        "id": 109,
+        "title": "Roblox",
+        "image": "https://www.steamgriddb.com/grid/372014",
+        "platform": "pc",
+        "status": "retired",
+        "statusText": "Aposentado",
+        "statusOverlay": "Aposentado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": "Já joguei no PC, Xbox One e Celular",
+        "version": null,
+        "storeUrl": "https://www.roblox.com"
+    },
+    {
         "id": 108,
         "title": "Minecraft",
         "image": "https://www.steamgriddb.com/grid/36537",
