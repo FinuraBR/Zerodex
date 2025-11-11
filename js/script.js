@@ -423,14 +423,16 @@ function renderGames(gamesArray, gridSelector) {
 
         for (let i = currentIndex; i < endIndex; i++) {
             const game = gamesArray[i];
-            const platformText = PLATFORM_DISPLAY_NAMES[game.platform] || game.platform.toUpperCase();
+            const platformText = game.platform
+    .map(slug => PLATFORM_DISPLAY_NAMES[slug] || slug.toUpperCase())
+    .join(',');
             const platformHTML = game.storeUrl ? `<a href="${game.storeUrl}" target="_blank">${platformText}</a>` : platformText;
             const guideLinks = game.guide.map(g => `<a href="${g.url}" target="_blank">${g.title}</a>`).join(' | ');
             const guideHTML = game.guide.length > 0 ? `<p><strong>Guia:</strong> ${guideLinks}</p>` : '<p><strong>Guia:</strong> Não utilizado</p>';
             
             const cardElement = document.createElement('div');
             cardElement.className = 'game-card';
-            cardElement.dataset.platform = game.platform;
+            cardElement.dataset.platform = game.platform.join(',');
 
             cardElement.innerHTML = `
                 <div class="card-image-container">
@@ -532,19 +534,18 @@ function renderFilterButtons() {
     const filterContainer = document.querySelector('#filter-container');
     if (!filterContainer) return;
 
-    // `new Set()` cria uma coleção de itens únicos, removendo plataformas duplicadas.
-    // O spread operator `...` transforma o Set de volta em um array.
-    const platforms = ['all', ...new Set(gamesData.map(g => g.platform))];
+    // A MÁGICA ACONTECE AQUI:
+    // flatMap percorre todos os jogos e, para cada jogo, retorna seu array de plataformas.
+    // O resultado é um único array com todas as plataformas de todos os jogos.
+    // O 'new Set()' então pega apenas os valores únicos.
+    const allPlatforms = gamesData.flatMap(g => g.platform);
+    const uniquePlatforms = ['all', ...new Set(allPlatforms)];
     
-    // Gera o HTML de cada botão a partir do array de plataformas.
-    const buttonsHTML = platforms.map(slug => {
-        // Se o slug for 'all', o texto é 'Todos'.
-        // Para os outros, pega o nome do mapa ou usa o slug em maiúsculas como fallback.
+    const buttonsHTML = uniquePlatforms.map(slug => {
         const displayName = slug === 'all' ? 'Todos' : (PLATFORM_DISPLAY_NAMES[slug] || slug.toUpperCase());
         return `<button class="filter-btn" data-platform="${slug}">${displayName}</button>`;
     }).join('');
     
-    // Adiciona os botões de filtro e também os botões de ação ("Surpreenda", "Adicionar").
     filterContainer.innerHTML = buttonsHTML + `
         <button id="surprise-btn">Me Surpreenda!</button>
         <a href="adicionar.html" id="add-game-btn" class="cta-button">Adicionar Jogo</a>
@@ -565,7 +566,8 @@ function applyFilters() {
 
     allCards.forEach(card => {
         // Verifica se o card atual corresponde aos filtros selecionados.
-        const platformMatch = currentPlatform === 'all' || card.dataset.platform === currentPlatform;
+        const cardPlatforms = card.dataset.platform.split(',');
+        const platformMatch = currentPlatform === 'all' || cardPlatforms.includes(currentPlatform);
         
         // Pega o título do card para a busca. '.textContent.toLowerCase()' é rápido.
         const title = card.querySelector('.game-title').textContent.toLowerCase();

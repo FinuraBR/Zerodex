@@ -623,6 +623,21 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin: 2
 #copy-code-btn { display: block; width: 100%; margin-top: 15px; }
 .edit-btn { width: 100%; margin-top: 15px; }
 
+/* --- ESTILO PARA A CAIXA DE SELEÇÃO MÚLTIPLA DE PLATAFORMAS --- */
+#game-platform {
+    height: 150px; /* Define uma altura fixa para a caixa */
+}
+
+#game-platform option {
+    padding: 8px; /* Adiciona um respiro em cada opção */
+    cursor: pointer;
+}
+
+/* Estilo para as opções selecionadas */
+#game-platform option:checked {
+    background-color: var(--color-accent);
+    color: #fff;
+}
 
 /* ===================================================================================
 // --- 6. CLASSES UTILITÁRIAS E ANIMAÇÕES --------------------------------------------
@@ -800,3 +815,4 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin: 2
     color: var(--color-text-secondary);
     max-width: none;
 }
+

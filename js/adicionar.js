@@ -124,6 +124,8 @@ function displayResults(games) {
 `).join('');
 }
 
+// SUBSTITUA A FUNÇÃO populateForm INTEIRA PELA VERSÃO ABAIXO
+
 async function populateForm(gameData) {
     gameEntryForm.reset();
     tempGuides = [];
@@ -138,17 +140,13 @@ async function populateForm(gameData) {
 
     document.getElementById('form-game-release').textContent = `Lançamento: ${gameData.released || 'Não informado'}`;
     
+    // --- LÓGICA DAS LOJAS (permanece a mesma) ---
     const storeSelect = document.getElementById('game-store-select');
     const storeUrlInput = document.getElementById('game-store-url-manual');
     storeSelect.innerHTML = '<option value="manual">-- Inserir Manualmente --</option>';
-    
     if (gameData.stores) {
-        gameData.stores.forEach(storeWrapper => {
-            const store = storeWrapper.store;
-            storeSelect.innerHTML += `<option value="${storeWrapper.url}">${store.name}</option>`;
-        });
+        gameData.stores.forEach(sw => storeSelect.innerHTML += `<option value="${sw.url}">${sw.store.name}</option>`);
     }
-    
     if (gameData.stores && gameData.stores.length > 0) {
         storeSelect.value = gameData.stores[0].url;
         storeUrlInput.value = gameData.stores[0].url;
@@ -156,26 +154,37 @@ async function populateForm(gameData) {
         storeUrlInput.value = '';
     }
 
+    // --- NOVA LÓGICA PARA O SELECT MÚLTIPLO DE PLATAFORMAS ---
+    const platformSelect = document.getElementById('game-platform');
+    platformSelect.innerHTML = ''; // Limpa a lista
+
+    // Preenche a lista com todas as opções do nosso mapa global
+    Object.entries(PLATFORM_DISPLAY_NAMES).forEach(([slug, name]) => {
+        platformSelect.innerHTML += `<option value="${slug}">${name}</option>`;
+    });
+
+    // Se os dados vieram da API, pré-seleciona as opções corretas
+    if (gameData.platforms) {
+        const platformSlugs = gameData.platforms.map(p => p.platform.slug);
+        Array.from(platformSelect.options).forEach(option => {
+            if (platformSlugs.includes(option.value)) {
+                option.selected = false;
+            }
+        });
+    }
+
+    // --- RESTANTE DO FORMULÁRIO (permanece o mesmo) ---
     const statusSelect = document.getElementById('game-status');
     statusSelect.innerHTML = `<option value="playing">Jogando</option><option value="completed">Finalizado</option><option value="completed-100">100% Concluído</option><option value="retired">Aposentado</option><option value="archived">Arquivado</option><option value="abandonado">Abandonado</option>`;
     
-    const platformSelect = document.getElementById('game-platform');
-    if (gameData.platforms) {
-        platformSelect.innerHTML = gameData.platforms.map(p => `<option value="${p.platform.slug}">${p.platform.name}</option>`).join('');
-    } else {
-        platformSelect.innerHTML = Object.entries(PLATFORM_DISPLAY_NAMES)
-            .map(([slug, name]) => `<option value="${slug}">${name}</option>`)
-            .join('');
-    }
-
     formContainer.style.display = 'block';
     formContainer.scrollIntoView({ behavior: 'smooth' });
-}
 
-function updateGuidesList() {
-    guidesList.innerHTML = tempGuides.map(g => `
-        <div class="guide-item"><span>${g.title} - <a href="${g.url}" target="_blank">Link</a></span></div>`
-    ).join('');
+    function updateGuidesList() {
+        guidesList.innerHTML = tempGuides.map(g => `
+            <div class="guide-item"><span>${g.title} - <a href="${g.url}" target="_blank">Link</a></span></div>`
+        ).join('');
+    }
 }
 
 // --- [EVENT LISTENERS] ---
@@ -200,7 +209,8 @@ resultsContainer.addEventListener('click', async (event) => {
     try {
         // --- A MÁGICA ACONTECE AQUI ---
         // Faz a segunda chamada, desta vez usando o parâmetro "details" que seu Worker entende
-        const response = await fetch(`${CLOUDFLARE_WORKER_URL}?details=${slug}`);
+        // CÓDIGO CORRETO
+        const response = await fetch(`${CLOUDFLARE_WORKER_URL}/${slug}`);
         if (!response.ok) throw new Error('Falha ao buscar detalhes completos do jogo');
         
         // A resposta agora contém todos os dados, incluindo as URLs das lojas
@@ -264,8 +274,8 @@ gameEntryForm.addEventListener('submit', (event) => {
     const newGame = {
         id: parseInt(document.getElementById('game-id').value),
         title: formGameTitleInput.value,
-        image: imageUrl || "imagens/placeholder.jpg",
-        platform: document.getElementById('game-platform').value,
+        image: imageUrl || "imagens/favicon.jpg",
+        platform: Array.from(document.getElementById('game-platform').selectedOptions).map(option => option.value),
         status: statusValue,
         statusText: statusMap[statusValue].text,
         statusOverlay: statusMap[statusValue].overlay,
@@ -335,18 +345,30 @@ function fillFormWithExistingData(game) {
     document.getElementById('form-game-image').src = game.image;
     document.getElementById('game-image-url').value = game.image;
 
+    // Lógica de Lojas
     const storeSelect = document.getElementById('game-store-select');
     const storeUrlInput = document.getElementById('game-store-url-manual');
     storeSelect.innerHTML = '<option value="manual">-- Inserir Manualmente --</option>';
     storeUrlInput.value = game.storeUrl || '';
     
+    // Lógica de Status
     const statusSelect = document.getElementById('game-status');
     statusSelect.innerHTML = `<option value="playing">Jogando</option><option value="completed">Finalizado</option><option value="completed-100">100% Concluído</option><option value="retired">Aposentado</option><option value="archived">Arquivado</option><option value="abandonado">Abandonado</option>`;
     statusSelect.value = game.status;
 
+    // --- NOVA LÓGICA PARA PRÉ-SELECIONAR PLATAFORMAS NO MODO DE EDIÇÃO ---
     const platformSelect = document.getElementById('game-platform');
-    platformSelect.innerHTML = `<option value="${game.platform}">${PLATFORM_DISPLAY_NAMES[game.platform] || game.platform.toUpperCase()}</option>`;
+    platformSelect.innerHTML = ''; // Limpa
+    Object.entries(PLATFORM_DISPLAY_NAMES).forEach(([slug, name]) => {
+        platformSelect.innerHTML += `<option value="${slug}">${name}</option>`;
+    });
+    Array.from(platformSelect.options).forEach(option => {
+        if (game.platform.includes(option.value)) {
+            option.selected = true;
+        }
+    });
     
+    // Restante do formulário
     if (game.translation.includes("Feita por Fã")) {
         translationSelect.value = 'fan';
         fanTranslationGroup.style.display = 'flex';
