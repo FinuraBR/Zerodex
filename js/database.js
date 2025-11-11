@@ -107,6 +107,20 @@
 
 const gamesData = [
     {
+        "id": 104,
+        "title": "Limbo",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/48000/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/48000/LIMBO/"
+    },
+    {
         "id": 103,
         "title": "I Didn't Cheat (v.1.2)",
         "image": "https://img.itch.zone/aW1nLzE4MjkyNjUzLnBuZw==/original/uUlJOy.png",

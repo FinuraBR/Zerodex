@@ -41,7 +41,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // Isso torna a função do tooltip universal para a página inicial e o catálogo.
     if (document.querySelector('.game-grid')) {
         setupTooltipLogic();
-    }    
+    }
+    
+    // --- REGISTRO DO SERVICE WORKER ---
+    // Verifica se o navegador suporta Service Workers
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js') // Registra o nosso arquivo
+                .then(registration => {
+                    console.log('Service Worker registrado com sucesso:', registration);
+                })
+                .catch(error => {
+                    console.log('Falha ao registrar o Service Worker:', error);
+                });
+        });
+    }
 });
 
 
