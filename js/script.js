@@ -71,15 +71,6 @@ let currentSort = 'id-desc';     // A ordenação escolhida (ex: 'id-desc', 'tit
 // --- SEÇÃO: LÓGICA DA PÁGINA INICIAL (INDEX.HTML) ----------------------------------
 // ===================================================================================
 
-// Mapa para traduzir os 'slugs' das plataformas para nomes legíveis.
-// Declarado aqui fora para ser acessível por múltiplas funções.
-const PLATFORM_DISPLAY_NAMES = {
-    'pc': 'PC',
-    'nintendo-switch': 'Switch',
-    'android': 'Celular',
-    // Adicione outras plataformas aqui conforme necessário
-};
-
 /**
  * Preenche as diferentes seções ("estantes") da página inicial.
  * Cada estante corresponde a um status de jogo (Jogando, Arquivados, etc.).

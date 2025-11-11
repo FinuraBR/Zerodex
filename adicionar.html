@@ -1,20 +1,13 @@
 <!DOCTYPE html>
-<!-- Define o tipo de documento como HTML5 -->
 <html lang="pt-BR">
-
 <head>
-    <!-- Metadados do documento -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionar Jogo ao Zerodex</title>
-
-    <!-- Links para CSS e Favicon -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/jpg" href="imagens/favicon.jpg">
 </head>
-
 <body>
-    <!-- ======================= CABEÇALHO ======================= -->
     <header>
         <div class="header-container">
             <h1>Adicionar Jogo</h1>
@@ -25,77 +18,70 @@
                     <li><a href="sobre.html">Sobre</a></li>
                 </ul>
             </nav>
+            <!-- BOTÃO DE TEMA ADICIONADO AQUI -->
+            <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Tema">
+                <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.061 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.894 17.894a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.591 1.59a.75.75 0 010 1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75-.75zM5.106 17.894a.75.75 0 010-1.06l1.591-1.59a.75.75 0 111.06 1.06l-1.59 1.591a.75.75 0 01-1.061 0zM4.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H5a.75.75 0 01-.75-.75zM6.106 5.106a.75.75 0 011.06 0l1.59 1.591a.75.75 0 11-1.06 1.06L6.106 6.167a.75.75 0 010-1.06z"/></svg>
+                <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 004.463-.945a.75.75 0 01.981.652A11.25 11.25 0 0112 21a11.25 11.25 0 01-11.25-11.25 11.25 11.25 0 012.718-7.528a.75.75 0 01.819.162z" clip-rule="evenodd" /></svg>
+            </button>
         </div>
     </header>
 
-    <!-- ======================= CONTEÚDO PRINCIPAL ======================= -->
     <main>
         <section id="add-game-section">
-            <h2>Buscar Jogo na Base de Dados</h2>
+            <h2>Adicionar Jogo</h2>
+
+            <div class="direct-manual-add-container">
+                <p>Busque na base de dados ou, se preferir, adicione todas as informações do zero.</p>
+                <button id="direct-manual-add-btn" class="secondary-btn">Adicionar Manualmente</button>
+            </div>
             
-            <!-- Passo 1: Busca na API externa -->
             <div id="search-container">
-                <input type="text" id="api-search-bar" placeholder="Digite o nome de um jogo...">
+                <input type="text" id="api-search-bar" placeholder="Digite o nome de um jogo para buscar...">
                 <button id="api-search-button" class="cta-button">Buscar</button>
             </div>
 
-            <!-- Passo 2: Exibição dos resultados da busca -->
-            <div id="api-results-container">
+            <div id="api-results-container" style="display: none;">
                 <h3>Resultados da Busca</h3>
-                <!-- O JavaScript preencherá os resultados da API aqui dentro -->
-                <div class="results-grid">
-                    <p>Os resultados da busca aparecerão aqui.</p>
-                </div>
+                <div class="results-grid"></div>
             </div>
-
-            <!-- Opção para adicionar um jogo que não foi encontrado na busca -->
+            
             <div class="manual-entry-link">
-                <button id="manual-entry-button" class="secondary-btn" style="display: none;">Não encontrou? Adicione manualmente</button>
+                <button id="manual-entry-button" class="secondary-btn" style="display: none;">Não encontrou nos resultados? Adicione manualmente</button>
             </div>
 
-            <!-- ======================= FORMULÁRIO DE ADIÇÃO ======================= -->
-            <!-- Este contêiner começa escondido e só aparece após selecionar um jogo ou clicar em "Adicionar manualmente". -->
             <div id="add-form-container" style="display: none;">
                 <form id="game-entry-form">
-                    <!-- Parte 1: Dados preenchidos pela API (ou manualmente) -->
                     <div class="form-api-data">
-                        <!-- A imagem da capa do jogo -->
-                        <img id="form-game-image" src="" alt="Capa do Jogo" width="150">
+                        <img id="form-game-image" src="imagens/placeholder.jpg" alt="Capa do Jogo" width="150">
                         <div>
-                            <!-- Título do Jogo -->
                             <div class="form-group">
                                 <label for="form-game-title-input">Título do Jogo:</label>
                                 <input type="text" id="form-game-title-input" required>
                             </div>
-                            <!-- Data de lançamento (texto informativo) -->
                             <p id="form-game-release">Lançamento: </p>
                         </div>
                     </div>
                     <hr>
-                    <!-- Parte 2: Dados que você precisa preencher -->
                     <div class="form-user-data">
-                        <div class="form-group-inline">
-                            <!-- ID do Jogo (gerado automaticamente) -->
-                            <div class="form-group">
-                                <label for="game-id">ID do Jogo:</label>
-                                <input type="number" id="game-id" required>
-                            </div>
-                            <!-- URL da Loja (opcional, ex: Steam, PSN) -->
-                            <div class="form-group">
-                                <label for="game-store-url">URL da Loja (opcional):</label>
-                                <input type="text" id="game-store-url" placeholder="https://...">
+                        <div class="form-group">
+                            <label for="game-id">ID do Jogo:</label>
+                            <input type="number" id="game-id" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="game-store-select">Loja (opcional):</label>
+                            <div class="form-group-inline">
+                                <select id="game-store-select"></select>
+                                <input type="text" id="game-store-url-manual" placeholder="Ou cole a URL manualmente...">
                             </div>
                         </div>
-                        <!-- Campo para a URL da imagem, caso queira usar uma diferente da API -->
-                        <div class="form-group" id="manual-image-group">
+
+                        <div class="form-group">
                             <label for="game-image-url">URL da Imagem da Capa:</label>
                             <input type="text" id="game-image-url" placeholder="https://...">
                         </div>
-                        <!-- Status do Jogo (Jogando, Finalizado, etc.) -->
                         <div class="form-group"><label for="game-status">Status:</label><select id="game-status" required></select></div>
-                        <!-- Plataforma onde você jogou -->
                         <div class="form-group"><label for="game-platform">Plataforma em que joguei:</label><select id="game-platform" required></select></div>
-                        <!-- Detalhes sobre a Tradução -->
                         <div class="form-group-inline">
                             <div class="form-group">
                                 <label for="game-translation">Tradução:</label>
@@ -105,16 +91,13 @@
                                     <option value="fan">Feita por Fã</option>
                                 </select>
                             </div>
-                            <!-- Campo para o link da tradução de fã (só aparece se a opção for selecionada) -->
                             <div class="form-group" id="fan-translation-link-group" style="display: none;">
                                 <label for="fan-translation-link">Link da Tradução:</label>
                                 <input type="text" id="fan-translation-link" placeholder="https://...">
                             </div>
                         </div>
-                        <!-- Seção para adicionar guias/tutoriais (opcional) -->
                         <div class="form-group">
                             <label>Guias (opcional):</label>
-                            <!-- A lista de guias adicionados aparecerá aqui -->
                             <div id="guides-list"></div>
                             <div class="form-group-inline" style="margin-top: 5px;">
                                 <input type="text" id="guide-title" placeholder="Nome do Guia (ex: IGN)">
@@ -122,7 +105,6 @@
                             </div>
                             <button type="button" id="add-guide-btn" class="secondary-btn">Adicionar Guia</button>
                         </div>
-                        <!-- Versão do jogo (Demo, Beta, etc.) -->
                         <div class="form-group">
                             <label for="game-version">Versão (opcional):</label>
                             <select id="game-version">
@@ -132,18 +114,15 @@
                                 <option value="Beta">Beta</option>
                             </select>
                         </div>
-                        <!-- Seu comentário ou mini-review sobre o jogo -->
                         <div class="form-group">
                             <label for="game-review">Seu Comentário (opcional):</label>
                             <textarea id="game-review" rows="3"></textarea>
                         </div>
-                        <!-- Botão para gerar o código do objeto do jogo -->
                         <button type="submit" class="cta-button">Salvar no Zerodex</button>
                     </div>
                 </form>
             </div>
 
-            <!-- Passo Final: Área de Resultado com o Código Gerado -->
             <div id="output-container" style="display: none; margin-top: 30px;">
                 <h3>Código Gerado para database.js</h3>
                 <p>Copie o código abaixo e cole no topo da lista `gamesData`.</p>
@@ -153,12 +132,10 @@
         </section>
     </main>
     
-    <!-- ======================= SCRIPTS ======================= -->
-    <!-- Carrega o contador de ID primeiro -->
-    <script src="js/id_counter.js"></script>
-    <!-- Carrega o banco de dados (embora não seja usado diretamente aqui, é bom para consistência) -->
     <script src="js/database.js"></script>
-    <!-- **NOVO** Link para o arquivo JavaScript externo que controla esta página -->
+    <script src="js/id_counter.js"></script>
     <script src="js/adicionar.js"></script>
+
+    <button id="back-to-top" title="Voltar ao topo">↑</button>
 </body>
 </html>

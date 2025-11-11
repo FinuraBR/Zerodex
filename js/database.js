@@ -1,3 +1,15 @@
+// =============================================================================
+// === CONFIGURAÇÕES GLOBAIS ===================================================
+// =============================================================================
+// Mapa para traduzir os 'slugs' das plataformas para nomes legíveis.
+// Declarado aqui para ser acessível por todos os scripts.
+const PLATFORM_DISPLAY_NAMES = {
+    'pc': 'PC',
+    'nintendo-switch': 'Switch',
+    'android': 'Celular',
+    // Adicione outras plataformas aqui conforme necessário
+};
+
 // ===================================================================================
 // === MEU ZERODEX - BANCO DE DADOS DE JOGOS (database.js) ===========================
 // ===================================================================================
@@ -84,7 +96,7 @@
 */
 /*
 {
-    id: 104,
+    id: 1,
     title: "",
     image: "",
     platform: "pc",
@@ -106,6 +118,53 @@
  */
 
 const gamesData = [
+    {
+        "id": 107,
+        "title": "Integer",
+        "image": "https://img.itch.zone/aW1nLzQ5NjExNzcucG5n/original/%2B47CRP.png",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://aiet.itch.io/integer"
+    },
+    {
+        "id": 106,
+        "title": "Infinite Monkeys",
+        "image": "https://img.itch.zone/aW1hZ2UvMTI4MTU4MS83NDkzODQ3LnBuZw==/original/mRvGHP.png",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://skullbutton.itch.io/infinite-monkeys"
+    },
+    {
+        "id": 105,
+        "title": "[Nightmare Files] Clap Clap",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933290/7c0a2c87b7602ad18dfbbc2fdbe0a229a2f584d0/library_600x900_2x.jpg",
+        "platform": "pc",
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Feita por Fã (<a href=\"https://github.com/bbepis/XUnity.AutoTranslator\" target=\"_blank\">baixar</a>)",
+        "guide": [
+            {
+                "title": "Youtube",
+                "url": "https://youtu.be/0wjeN8PeoOM?si=p_LW7dbMEAKUNIkx"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2933290/Nightmare_Files_Clap_Clap/"
+    },
     {
         "id": 104,
         "title": "Limbo",

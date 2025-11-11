@@ -121,7 +121,7 @@ main {
 }
 
 section {
-    margin-bottom: 40px; /* Espaçamento vertical entre as seções. */
+    margin-bottom: 0px; /* Espaçamento vertical entre as seções. */
 }
 
 h2 {
@@ -597,28 +597,31 @@ footer {
 
 
 /* --- PÁGINA ADICIONAR JOGO (adicionar.html) --- */
-#add-game-section { max-width: 800px; margin: 0 auto; }
+.direct-manual-add-container { text-align: center; margin-bottom: 25px; }
+.direct-manual-add-container p { margin: 0 auto 15px auto; color: var(--color-text-secondary); }
 #add-game-section h2 { text-align: center; }
-#search-container { display: flex; gap: 15px; margin-bottom: 40px; }
+#search-container { display: flex; gap: 15px; margin-bottom: 25px; }
 #api-search-bar { flex-grow: 1; padding: 10px 15px; border: 1px solid var(--color-border); background-color: transparent; color: var(--color-text-primary); border-radius: 8px; font-size: 1em; outline: none; transition: all 0.3s ease; }
 #api-search-bar:focus { border-color: var(--color-accent); box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2); }
-#api-search-button { padding: 10px 20px; border: 1px solid var(--color-accent); background-color: var(--color-accent); color: #fff; border-radius: 8px; cursor: pointer; font-weight: bold; transition: background-color 0.3s ease; }
-#api-results-container h3 { margin-bottom: 20px; text-align: center; }
+#api-results-container h3 { margin-bottom: 25px; text-align: center; }
 .results-grid { display: grid; gap: 15px; }
 .api-result-item { display: flex; align-items: center; gap: 20px; padding: 15px; border-radius: 8px; background-color: var(--color-background-light); cursor: pointer; transition: all 0.2s ease; border: 1px solid transparent; }
 .api-result-item:hover { transform: translateY(-3px); border-color: var(--color-accent); }
 .api-result-item img { width: 100px; height: 133px; object-fit: cover; border-radius: 4px; }
-.api-result-item h3 { text-align: left; margin-bottom: 5px; }
-.api-result-item p { text-align: left; color: var(--color-text-secondary); font-size: 0.9em; }
+.api-result-item h3, .api-result-item p { text-align: left; }
 .manual-entry-link { text-align: center; margin: 20px 0; }
 #add-form-container { background-color: var(--color-background-light); padding: 25px; border-radius: 8px; margin-top: 30px; }
 .form-api-data { display: flex; gap: 20px; align-items: center; margin-bottom: 20px; }
-hr { border: none; height: 1px; background-color: var(--color-border); margin-bottom: 20px; }
+hr { border: none; height: 1px; background-color: var(--color-border); margin: 25px 0; }
 .form-group { margin-bottom: 15px; }
 .form-group label { display: block; margin-bottom: 5px; color: var(--color-text-secondary); }
 .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; background-color: var(--color-background-dark); border: 1px solid var(--color-border); color: var(--color-text-primary); border-radius: 4px; font-size: 1em; }
 .form-group-inline { display: flex; gap: 15px; align-items: flex-end; }
-.form-group-inline .form-group { flex: 1; margin-bottom: 0; }
+#output-container { background-color: var(--color-background-light); padding: 25px; border-radius: 8px; margin-top: 30px; }
+#output-container h3, #output-container p { text-align: center; max-width: none; }
+#output-code { width: 100%; background-color: var(--color-background-dark); border: 1px solid var(--color-border); color: var(--color-text-primary); border-radius: 4px; padding: 15px; font-family: 'Consolas', 'Menlo', 'Courier New', monospace; font-size: 0.9em; line-height: 1.5; resize: vertical; }
+#copy-code-btn { display: block; width: 100%; margin-top: 15px; }
+.edit-btn { width: 100%; margin-top: 15px; }
 
 
 /* ===================================================================================

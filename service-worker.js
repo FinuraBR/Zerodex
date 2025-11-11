@@ -13,7 +13,7 @@ const urlsToCache = [
     './css/style.css',
     './js/database.js',
     './js/script.js',
-    './js/add_game.js',
+    './js/adicionar.js',
     './js/id_counter.js'
     // Adicione aqui outros arquivos importantes.
 ];
