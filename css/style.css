@@ -16,8 +16,9 @@
 //     5.2. Página do Catálogo (jogos.html)
 //     5.3. Página Sobre (sobre.html)
 //     5.4. Página Adicionar (adicionar.html)
-// 6.  CLASSES UTILITÁRIAS E ANIMAÇÕES
-// 7.  RESPONSIVIDADE (Media Queries)
+// 6.  ESTILOS PARA O TEMA CLARO (Light Mode)
+// 7.  CLASSES UTILITÁRIAS E ANIMAÇÕES
+// 8.  RESPONSIVIDADE (Media Queries)
 //
 // =================================================================================== */
 
@@ -27,24 +28,18 @@
 // =================================================================================== */
 
 /* --- 1.1. Importação de Fontes --- */
-/* A regra @import busca a fonte 'Inter' do Google Fonts para ser utilizada no site. */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
 /* --- 1.2. Variáveis de Cor (CSS Variables) --- */
-/*
-  O seletor :root refere-se à raiz do documento (<html>). Definir variáveis aqui
-  as torna globais e permite a criação de um sistema de temas (claro/escuro)
-  de forma centralizada e eficiente.
-*/
 :root {
     /* Tema Escuro (Padrão) */
-    --color-background-dark: #141518;    /* Fundo principal e mais escuro do site. */
-    --color-background-light: #1F2125;   /* Fundo de elementos elevados como cards e cabeçalho. */
-    --color-border: #2C2E33;             /* Cor para bordas, divisórias e inputs. */
-    --color-text-primary: #E1E1E1;       /* Cor principal para textos e títulos. */
-    --color-text-secondary: #888;        /* Cor para textos de apoio, placeholders e legendas. */
-    --color-accent: #28a745;             /* Cor de destaque para links, botões principais e elementos ativos. */
-    --color-surprise: #F9A825;           /* Cor de destaque secundária para o botão "Surpreenda-me". */
+    --color-background-dark: #141518;
+    --color-background-light: #1F2125;
+    --color-border: #2C2E33;
+    --color-text-primary: #E1E1E1;
+    --color-text-secondary: #888;
+    --color-accent: #28a745;
+    --color-surprise: #F9A825;
 }
 
 
@@ -53,14 +48,9 @@
 // =================================================================================== */
 
 /* --- 2.1. Reset Básico --- */
-/* O seletor universal (*) aplica estas regras a TODOS os elementos. */
 * {
     margin: 0;
     padding: 0;
-    /*
-      Propriedade essencial: garante que 'padding' e 'border' não aumentem
-      o tamanho final do elemento, facilitando a criação de layouts previsíveis.
-    */
     box-sizing: border-box;
 }
 
@@ -68,20 +58,8 @@
 body {
     background-color: var(--color-background-dark);
     color: var(--color-text-primary);
-    font-family: 'Inter', sans-serif; /* Define a fonte padrão. 'sans-serif' é o fallback caso 'Inter' não carregue. */
-}
-
-/* --- 2.3. Tema Claro --- */
-/*
-  Quando o <body> tem a classe 'light-mode' (adicionada via JS), estas variáveis
-  SOBRESCREVEM as definidas no :root, trocando todo o esquema de cores do site.
-*/
-body.light-mode {
-    --color-background-dark: #F5F5F7;
-    --color-background-light: #FFFFFF;
-    --color-border: #E0E0E0;
-    --color-text-primary: #1D1D1F;
-    --color-text-secondary: #6E6E73;
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 
@@ -94,15 +72,16 @@ header {
     padding: 20px 0;
     background-color: var(--color-background-light);
     border-bottom: 1px solid var(--color-border);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .header-container {
     display: flex;
-    justify-content: space-between; /* Empurra o logo para a esquerda e a navegação/botão para a direita. */
-    align-items: center;            /* Alinha todos os itens verticalmente. */
+    justify-content: space-between;
+    align-items: center;
     max-width: 1100px;
-    margin: 0 auto;                 /* Centraliza o contêiner na página. */
-    padding: 0 20px;                /* Adiciona um respiro nas laterais em telas menores. */
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .header-container h1 {
@@ -113,15 +92,15 @@ header {
 /* --- 3.2. Navegação Principal (Nav) --- */
 .header-container nav ul {
     display: flex;
-    gap: 30px;          /* Espaçamento entre os links da navegação. */
-    list-style: none;   /* Remove os marcadores de lista (bolinhas). */
+    gap: 30px;
+    list-style: none;
 }
 
 .header-container nav a {
     color: var(--color-text-primary);
-    text-decoration: none;  /* Remove o sublinhado dos links. */
+    text-decoration: none;
     font-weight: bold;
-    transition: color 0.2s ease-in-out; /* Animação suave da mudança de cor no hover. */
+    transition: color 0.2s ease-in-out;
 }
 
 .header-container nav a:hover {
@@ -131,12 +110,12 @@ header {
 /* --- 3.3. Conteúdo Principal (Main) --- */
 main {
     max-width: 1100px;
-    margin: 40px auto; /* 40px de margem vertical e centralização horizontal. */
+    margin: 40px auto;
     padding: 0 20px;
 }
 
 section {
-    margin-bottom: 40px; /* Espaçamento padrão entre as seções. */
+    margin-bottom: 40px;
 }
 
 h2 {
@@ -146,8 +125,8 @@ h2 {
 }
 
 p {
-    line-height: 1.7; /* Aumenta o espaço entre as linhas para melhor legibilidade. */
-    max-width: 720px; /* Evita que as linhas de texto fiquem muito longas. */
+    line-height: 1.7;
+    max-width: 720px;
 }
 
 /* --- 3.4. Rodapé (Footer) --- */
@@ -157,6 +136,7 @@ footer {
     border-top: 1px solid var(--color-border);
     text-align: center;
     color: var(--color-text-secondary);
+    transition: border-color 0.3s ease;
 }
 
 .footer-container {
@@ -165,7 +145,6 @@ footer {
     padding: 0 20px;
 }
 
-/* Remove a limitação de largura dos parágrafos apenas dentro do rodapé. */
 .footer-container p {
     max-width: none;
 }
@@ -177,30 +156,29 @@ footer {
 
 /* --- 4.1. Botões --- */
 .cta-button,
-#add-game-btn { /* ID mantido para especificidade, caso o JS o utilize para seleção. */
+#add-game-btn {
     display: inline-block;
     padding: 10px 20px;
     border: 1px solid var(--color-accent);
     border-radius: 8px;
     background-color: var(--color-accent);
-    color: #fff !important; /* '!important' garante que a cor seja branca, mesmo que outra regra tente mudá-la. */
+    color: #fff !important;
     font-weight: bold;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
-    transition: all 0.3s ease; /* Anima todas as propriedades que mudam no hover. */
+    transition: all 0.3s ease;
 }
 
 .cta-button:hover,
 #add-game-btn:hover {
     background-color: #2fbf4f;
     border-color: #2fbf4f;
-    transform: translateY(-2px); /* Efeito de "levantar" o botão ao passar o mouse. */
+    transform: translateY(-2px);
 }
 
 .secondary-btn {
     padding: 8px 15px;
-    margin-top: 10px;
     border: 1px solid var(--color-border);
     border-radius: 4px;
     background-color: transparent;
@@ -218,20 +196,13 @@ footer {
 
 /* --- 4.2. Grid de Jogos --- */
 .game-grid {
-    position: relative; /* Define o contexto de posicionamento para o tooltip de review. */
+    position: relative;
     display: grid;
-    /*
-      Cria colunas responsivas:
-      - 'repeat': Repete o padrão de coluna.
-      - 'auto-fill': Preenche o espaço com quantas colunas couberem.
-      - 'minmax(200px, 1fr)': Cada coluna terá no mínimo 200px e no máximo 1 fração do espaço disponível.
-    */
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 25px;
-    padding: 10px; /* Garante espaço para a sombra e o crescimento do card no hover. */
+    padding: 10px;
 }
 
-/* Efeito de transição suave ao filtrar/ordenar. */
 .game-grid.reloading {
     opacity: 0.5;
     transition: opacity 0.2s ease-out;
@@ -239,25 +210,19 @@ footer {
 
 /* --- 4.3. Card de Jogo --- */
 .game-card {
-    position: relative; /* Contexto de posicionamento para elementos internos como número e overlay. */
-    z-index: 1;         /* Define a ordem de empilhamento base. */
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* Garante que a imagem ampliada no hover não ultrapasse as bordas arredondadas. */
+    overflow: hidden;
     border: 1px solid var(--color-border);
     border-radius: 8px;
     background-color: var(--color-background-light);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    /*
-      Transições:
-      - 'transform' e 'box-shadow' são animados suavemente.
-      - 'z-index' não é animado, mas tem um delay para mudar apenas quando o card estiver "sobre" os outros.
-    */
-    transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0s 0.3s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0s 0.3s, background-color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Classe para esconder cards durante a filtragem via JS. */
 .game-card.hidden {
     display: none;
 }
@@ -266,7 +231,7 @@ footer {
     position: relative;
     width: 100%;
     height: 100%;
-    background-color: var(--color-border); /* Cor de fundo enquanto a imagem carrega. */
+    background-color: var(--color-border);
 }
 
 .game-card img {
@@ -282,13 +247,12 @@ footer {
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 2; /* Fica acima da imagem, mas abaixo do overlay de hover. */
+    z-index: 2;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
     padding: 15px;
-    /* Gradiente garante a legibilidade do texto sobre qualquer imagem. */
     background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0) 100%);
     transition: opacity 0.3s ease-in-out;
 }
@@ -296,7 +260,6 @@ footer {
 .game-info-default .game-title {
     font-size: 1.1em;
     font-weight: bold;
-    /* As 3 propriedades abaixo criam o efeito "ellipsis" (...) se o título for muito longo. */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -314,11 +277,11 @@ footer {
     width: 32px;
     height: 32px;
     background: rgba(20, 21, 24, 0.85);
-    backdrop-filter: blur(2px); /* Efeito de vidro fosco, desfocando o que está atrás. */
+    backdrop-filter: blur(2px);
     border-bottom-right-radius: 8px;
     font-size: 0.9em;
     font-weight: bold;
-    transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out, background-color 0.3s ease, color 0.3s ease;
 }
 
 .game-version-badge {
@@ -327,7 +290,7 @@ footer {
     right: 0;
     z-index: 2;
     padding: 4px 8px;
-    background-color: #9C27B0; /* Roxo para indicar versão especial (Demo, Beta, etc.). */
+    background-color: #9C27B0;
     color: #fff;
     font-size: 0.8em;
     font-weight: bold;
@@ -336,7 +299,7 @@ footer {
 }
 
 .status-badge {
-    flex-shrink: 0; /* Impede que o badge seja "esmagado" se o título for grande. */
+    flex-shrink: 0;
     padding: 4px 8px;
     border-radius: 5px;
     color: #fff;
@@ -345,20 +308,19 @@ footer {
     text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
 }
 
-/* Cores para cada tipo de status */
-.status-completed-100 { background-color: #4CAF50; } /* Verde */
-.status-completed     { background-color: #03A9F4; } /* Azul */
-.status-playing       { background-color: #F9A825; } /* Amarelo */
-.status-retired       { background-color: #607D8B; } /* Cinza */
-.status-archived      { background-color: #FF9800; } /* Laranja */
-.status-abandoned     { background-color: #f44336; } /* Vermelho */
+.status-completed-100 { background-color: #4CAF50; }
+.status-completed     { background-color: #03A9F4; }
+.status-playing       { background-color: #F9A825; }
+.status-retired       { background-color: #607D8B; }
+.status-archived      { background-color: #FF9800; }
+.status-abandoned     { background-color: #f44336; }
 
 /* --- 4.3.3. Overlay de Detalhes (Aparece no Hover) --- */
 .game-overlay {
-    position: absolute; /* Preenche todo o '.game-card'. */
+    position: absolute;
     top: 0;
     left: 0;
-    z-index: 3; /* Fica na frente de todos os outros elementos do card. */
+    z-index: 3;
     width: 100%;
     height: 100%;
     display: flex;
@@ -366,9 +328,9 @@ footer {
     padding: 20px;
     background-color: rgba(10, 10, 10, 0.85);
     backdrop-filter: blur(4px);
-    opacity: 0; /* Começa invisível. */
-    overflow-y: auto; /* Adiciona barra de rolagem se o conteúdo for maior que o card. */
-    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+    overflow-y: auto;
+    transition: opacity 0.3s ease-in-out, background-color 0.3s ease;
 }
 
 .game-overlay h3 { font-size: 1.3em; margin-bottom: 15px; }
@@ -377,43 +339,40 @@ footer {
 .game-overlay a { color: var(--color-accent); text-decoration: none; font-weight: bold; }
 .game-overlay a:hover { text-decoration: underline; }
 
-/* Posiciona o botão de comentário no final do overlay. */
+.game-review {
+    margin-top: 15px;
+}
 .review-trigger {
     width: 100%;
     margin-top: auto;
 }
 
 /* --- 4.3.4. Efeitos de Interação do Card (Hover e Destaque) --- */
-/* Efeito padrão de hover para qualquer card. */
 .game-card:hover {
     z-index: 10;
     transform: scale(1.05);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
-/* Efeito do brilho amarelo para o card surpresa (sem hover). */
 .game-card.highlight {
-    z-index: 5; /* Garante que o brilho não seja cortado por cards adjacentes. */
+    z-index: 5;
     box-shadow: 0 0 20px 5px var(--color-surprise);
 }
 
-/* Efeito combinado: hover em um card que JÁ é o surpresa. */
 .game-card.highlight:hover {
-    z-index: 11; /* Mais alto para garantir que fique na frente de tudo. */
-    transform: scale(1.08); /* Efeito de crescimento um pouco maior. */
+    z-index: 11;
+    transform: scale(1.08);
     box-shadow: 0 0 25px 7px var(--color-surprise);
 }
 
-/* Ações visuais que ocorrem em QUALQUER hover. */
 .game-card:hover .card-image-container img {
-    transform: scale(1.1); /* Efeito de zoom na imagem. */
+    transform: scale(1.1);
 }
 
 .game-card:hover .game-overlay {
-    opacity: 1; /* Torna o overlay de detalhes visível. */
+    opacity: 1;
 }
 
-/* Esconde os elementos padrão para dar espaço ao overlay. */
 .game-card:hover .game-number,
 .game-card:hover .game-info-default,
 .game-card:hover .game-version-badge {
@@ -422,7 +381,7 @@ footer {
 
 /* --- 4.4. Tooltip de Comentário --- */
 .review-card {
-    position: absolute; /* Posicionado em relação ao '.game-grid'. */
+    position: absolute;
     z-index: 20;
     width: 280px;
     padding: 20px;
@@ -432,7 +391,7 @@ footer {
     box-shadow: 0 5px 20px rgba(0,0,0,0.5);
     opacity: 0;
     transform: scale(0.95);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     overflow-wrap: break-word;
 }
 
@@ -441,7 +400,6 @@ footer {
     transform: scale(1);
 }
 
-/* Seta indicadora (triângulo) criada com bordas. */
 .review-card::before {
     content: '';
     position: absolute;
@@ -449,16 +407,15 @@ footer {
     width: 0;
     height: 0;
     border-style: solid;
+    transition: border-color 0.3s ease;
 }
 
-/* Seta apontando para a esquerda (quando o tooltip está à direita do card). */
 .review-card.on-right::before {
     left: -10px;
     border-width: 10px 10px 10px 0;
     border-color: transparent var(--color-border) transparent transparent;
 }
 
-/* Seta apontando para a direita (quando o tooltip está à esquerda do card). */
 .review-card.on-left::before {
     right: -10px;
     border-width: 10px 0 10px 10px;
@@ -492,6 +449,7 @@ footer {
     background: linear-gradient(180deg, rgba(31, 33, 37, 0.5) 0%, rgba(20, 21, 24, 0.8) 100%), var(--color-background-dark);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     text-align: center;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .hero-title {
@@ -507,19 +465,17 @@ footer {
     margin: 0 auto 40px auto;
 }
 
-/* Permite quebra de linha no subtítulo. */
 .hero-subtitle span {
     display: block;
     margin-bottom: 1.5em;
 }
 
-/* Estilo para as "estantes" de jogos. */
 .homepage-shelf {
     padding: 25px;
     border: 1px solid var(--color-border);
     border-radius: 12px;
     background-color: var(--color-background-light);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .homepage-shelf:hover {
@@ -528,14 +484,13 @@ footer {
 }
 
 .homepage-shelf h2 {
-    display: inline-block; /* Faz a borda se ajustar ao tamanho do texto. */
+    display: inline-block;
     padding-bottom: 15px;
     margin-bottom: 25px;
     font-size: 1.6em;
     border-bottom: 2px solid var(--color-accent);
 }
 
-/* Navegação rápida que fica fixa no topo. */
 #shelf-nav {
     position: fixed;
     top: 0;
@@ -550,10 +505,9 @@ footer {
     background-color: rgba(20, 21, 24, 0.85);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--color-border);
-    transition: transform 0.4s ease-in-out;
+    transition: transform 0.4s ease-in-out, background-color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Controla a visibilidade da navegação (começa fora da tela). */
 #shelf-nav.shelf-nav-hidden { transform: translateY(-100%); }
 #shelf-nav.shelf-nav-visible { transform: translateY(0); }
 
@@ -623,7 +577,7 @@ footer {
 #search-bar:focus,
 #sort-options:focus {
     border-color: var(--color-accent);
-    box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.3); /* Brilho de foco para acessibilidade. */
+    box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.3);
 }
 #search-bar::placeholder { color: var(--color-text-secondary); }
 
@@ -641,7 +595,7 @@ footer {
 .filter-btn {
     padding: 10px 25px;
     border: 1px solid var(--color-border);
-    border-radius: 30px; /* Formato de pílula. */
+    border-radius: 30px;
     background-color: transparent;
     color: var(--color-text-secondary);
     font-weight: bold;
@@ -651,13 +605,13 @@ footer {
 .filter-btn:hover {
     background-color: var(--color-border);
     color: var(--color-text-primary);
-    transform: translateY(-2px); /* Efeito de "pop". */
+    transform: translateY(-2px);
 }
 .filter-btn.active {
     background-color: var(--color-accent);
     color: #fff;
     border-color: var(--color-accent);
-    box-shadow: 0 0 15px rgba(40, 167, 69, 0.5); /* Brilho para o estado ativo. */
+    box-shadow: 0 0 15px rgba(40, 167, 69, 0.5);
 }
 #surprise-btn {
     padding: 10px 25px;
@@ -678,19 +632,17 @@ footer {
 
 
 /* --- 5.3. PÁGINA SOBRE (sobre.html) --- */
-/* Estilo base para as seções em formato de card na página "Sobre". */
 .about-section-card {
     padding: 30px;
     border: 1px solid var(--color-border);
     border-radius: 12px;
     background-color: var(--color-background-light);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 .about-section-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
-/* Título com borda inferior, centralizado. */
 .about-section-card h2,
 #dynamic-stats .section-title {
     display: block;
@@ -710,10 +662,9 @@ footer {
 main#about-page #sobre-mim p {
     font-size: 1.1em;
     color: var(--color-text-secondary);
-    text-align: center; /* Centraliza o texto de introdução. */
+    text-align: center;
     max-width: none;
 }
-/* Layout para as colunas de Setup. */
 .setup-container {
     display: flex;
     justify-content: space-around;
@@ -742,7 +693,6 @@ main#about-page #sobre-mim p {
     font-size: 0.9em;
     color: var(--color-text-secondary);
 }
-/* Estilos para a legenda e estatísticas. */
 .legend-list { list-style: none; max-width: none; }
 .legend-item {
     display: flex;
@@ -756,7 +706,6 @@ main#about-page #sobre-mim p {
 }
 .legend-item:hover { background-color: var(--color-border); }
 .legend-item .status-badge { margin-right: 15px; }
-/* Grid para as caixas de estatísticas. */
 #stats-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -775,7 +724,6 @@ main#about-page #sobre-mim p {
 .stat-item a { text-decoration: none; color: inherit; display: block; margin: 0 -8px; padding: 0px 8px; border-radius: 4px; transition: background-color 0.2s ease; }
 .stat-item a:hover { background-color: rgba(255, 255, 255, 0.05); }
 
-/* Contêiner dos gráficos. */
 .charts-wrapper {
     display: flex;
     justify-content: center;
@@ -793,7 +741,6 @@ main#about-page #sobre-mim p {
 }
 .chart-box canvas { max-height: 250px; }
 
-/* Links Externos */
 #links-externos ul { list-style: none; padding: 0; }
 #links-externos li a {
     display: block;
@@ -851,7 +798,6 @@ main#about-page #sobre-mim p {
 }
 #api-search-button { padding: 12px 20px; }
 
-/* Resultados da API */
 #api-results-container h3 { margin-bottom: 25px; color: var(--color-text-secondary); text-align: center; }
 .results-grid { display: grid; gap: 15px; }
 .api-result-item {
@@ -875,7 +821,6 @@ main#about-page #sobre-mim p {
 .api-result-item p { font-size: 0.9em; color: var(--color-text-secondary); text-align: left; }
 .manual-entry-link { margin: 20px 0; text-align: center; }
 
-/* Formulário de Adição */
 #add-form-container { margin-top: 30px; }
 .form-api-data {
     display: flex;
@@ -888,7 +833,7 @@ main#about-page #sobre-mim p {
 }
 hr { border: none; height: 1px; background-color: var(--color-border); margin: 30px 0; }
 
-/* Estilo unificado para inputs, selects e textareas do formulário. */
+.form-group { margin-bottom: 15px; }
 .form-group input[type="text"],
 .form-group input[type="number"],
 .form-group select,
@@ -916,11 +861,10 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin: 3
     font-size: 0.9em;
     font-weight: bold;
 }
-.form-group-inline { display: flex; gap: 15px; align-items: flex-end; }
-/* Grid condensado para campos de ID, URL, etc. */
+.form-group-inline { display: flex; gap: 15px; align-items: flex-end; margin-bottom: 15px;}
 .form-group-grid-condensed {
     display: grid;
-    grid-template-columns: 120px 1fr 1fr; /* Coluna ID fixa, as outras dividem o espaço. */
+    grid-template-columns: 120px 1fr 1fr;
     gap: 15px;
     align-items: flex-end;
     margin-bottom: 15px;
@@ -938,7 +882,6 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin: 3
 #game-platform option { padding: 8px; cursor: pointer; }
 #game-platform option:checked { background-color: var(--color-accent); color: #fff; }
 
-/* Seção de Código Gerado */
 #output-container {
     padding: 25px;
     margin-top: 30px;
@@ -958,7 +901,7 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin: 3
     font-family: 'Consolas', 'Menlo', 'Courier New', monospace;
     font-size: 0.9em;
     line-height: 1.6;
-    resize: vertical; /* Permite que o usuário redimensione a caixa na vertical. */
+    resize: vertical;
 }
 #copy-code-btn,
 .edit-btn {
@@ -971,10 +914,130 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin: 3
 
 
 /* ===================================================================================
-// --- 6. CLASSES UTILITÁRIAS E ANIMAÇÕES --------------------------------------------
+// --- 6. ESTILOS PARA O TEMA CLARO (Light Mode) -------------------------------------
 // =================================================================================== */
 
-/* --- 6.1. Botão de Tema --- */
+body.light-mode {
+    --color-background-dark: #f5f5f7;
+    --color-background-light: #ffffff;
+    --color-border: #d2d2d7;
+    --color-text-primary: #1d1d1f;
+    --color-text-secondary: #6e6e73;
+    --color-accent: #0071e3;
+    --color-surprise: #ff9500;
+}
+
+/* --- 6.1. Componentes de Layout no Tema Claro --- */
+.light-mode #hero {
+    background: linear-gradient(180deg, #ffffff 0%, #f5f5f7 100%);
+    border-color: #e5e5e5;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+.light-mode .hero-title { text-shadow: none; }
+.light-mode #shelf-nav {
+    background-color: rgba(255, 255, 255, 0.85);
+}
+.light-mode #shelf-nav a:hover {
+    background-color: #e9e9eb;
+}
+
+/* --- 6.2. Cards no Tema Claro --- */
+.light-mode .game-card,
+.light-mode .about-section-card,
+.light-mode .homepage-shelf,
+.light-mode .stat-item,
+.light-mode .chart-box {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-color: #e5e5e5;
+}
+.light-mode .game-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+.light-mode .homepage-shelf:hover,
+.light-mode .about-section-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+.light-mode .game-info-default {
+    background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);
+}
+.light-mode .game-info-default .game-title {
+    color: var(--color-text-primary);
+}
+.light-mode .game-number {
+    background: rgba(255, 255, 255, 0.75);
+    color: var(--color-text-primary);
+}
+.light-mode .game-overlay {
+    background-color: rgba(255, 255, 255, 0.85);
+}
+.light-mode .game-overlay p strong { color: var(--color-text-secondary); }
+.light-mode .review-card {
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+.light-mode .review-card.on-right::before {
+    border-color: transparent var(--color-border) transparent transparent;
+}
+.light-mode .review-card.on-left::before {
+    border-color: transparent transparent transparent var(--color-border);
+}
+
+/* --- 6.3. Controles e Formulários no Tema Claro --- */
+.light-mode #search-bar,
+.light-mode #sort-options {
+    background-color: #eff0f1;
+}
+.light-mode #search-bar:focus,
+.light-mode #sort-options:focus {
+    box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.2);
+    background-color: var(--color-background-light);
+}
+.light-mode .filter-btn:hover {
+    background-color: #e9e9eb;
+}
+.light-mode .filter-btn.active {
+    box-shadow: 0 0 15px rgba(0, 113, 227, 0.4);
+}
+.light-mode #surprise-btn:hover {
+    color: #fff;
+    box-shadow: 0 0 15px rgba(255, 149, 0, 0.5);
+}
+.light-mode .cta-button:hover {
+    background-color: #0077ed;
+    border-color: #0077ed;
+}
+.light-mode .stat-item a:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.light-mode #links-externos li a:hover {
+    background-color: #e9e9eb;
+}
+.light-mode .form-group input[type="text"],
+.light-mode .form-group input[type="number"],
+.light-mode .form-group select,
+.light-mode .form-group textarea {
+    background-color: #eff0f1;
+}
+.light-mode .form-group input:focus,
+.light-mode .form-group select:focus,
+.light-mode .form-group textarea:focus {
+    box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.2);
+}
+.light-mode #output-container { background-color: #f5f5f7; }
+.light-mode #copy-code-btn, .light-mode .edit-btn {
+    background-color: #e9e9eb;
+    border-color: #d2d2d7;
+    color: var(--color-text-primary);
+}
+.light-mode #copy-code-btn:hover, .light-mode .edit-btn:hover {
+    background-color: #d2d2d7;
+    border-color: #c6c6c8;
+}
+
+/* ===================================================================================
+// --- 7. CLASSES UTILITÁRIAS E ANIMAÇÕES --------------------------------------------
+// =================================================================================== */
+
+/* --- 7.1. Botão de Tema --- */
 .theme-toggle-btn {
     display: flex;
     align-items: center;
@@ -988,18 +1051,17 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin: 3
 .theme-toggle-btn:hover { background-color: var(--color-border); }
 .theme-toggle-btn svg { width: 24px; height: 24px; fill: var(--color-text-primary); }
 
-/* Controla qual ícone (sol/lua) é exibido com base no tema. */
 .light-mode #sun-icon { display: none; }
-#moon-icon { display: none; } /* Começa oculto por padrão (tema escuro). */
+#moon-icon { display: none; }
 .light-mode #moon-icon { display: block; }
 
-/* --- 6.2. Botão Voltar ao Topo --- */
+/* --- 7.2. Botão Voltar ao Topo --- */
 #back-to-top {
     position: fixed;
     bottom: 20px;
     right: 20px;
     z-index: 100;
-    display: none; /* Controlado via JS. */
+    display: none;
     width: 50px;
     height: 50px;
     border: none;
@@ -1009,20 +1071,18 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin: 3
     font-size: 24px;
     opacity: 0.8;
     cursor: pointer;
-    transition: opacity 0.3s;
+    transition: opacity 0.3s, background-color 0.3s ease;
 }
 #back-to-top:hover { opacity: 1; }
 
-/* --- 6.3. Utilitários Diversos --- */
-/* Mensagem exibida quando nenhum jogo corresponde ao filtro. */
+/* --- 7.3. Utilitários Diversos --- */
 .no-results-message {
-    grid-column: 1 / -1; /* Ocupa todas as colunas da grade. */
+    grid-column: 1 / -1;
     padding: 40px;
     color: var(--color-text-secondary);
     font-size: 1.2em;
     text-align: center;
 }
-/* Acessibilidade: Esconde texto visualmente, mas mantém para leitores de tela. */
 .visually-hidden {
     position: absolute;
     width: 1px;
@@ -1034,29 +1094,27 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin: 3
     border: 0;
 }
 
-/* --- 6.4. Animação de Entrada --- */
+/* --- 7.4. Animação de Entrada --- */
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
 }
 .card-enter-animation {
-    opacity: 0; /* Começa invisível para a animação funcionar. */
-    animation: fadeInUp 0.5s ease forwards; /* 'forwards' mantém o estado final da animação. */
+    opacity: 0;
+    animation: fadeInUp 0.5s ease forwards;
 }
 
 
 /* ===================================================================================
-// --- 7. RESPONSIVIDADE (Media Queries) ---------------------------------------------
+// --- 8. RESPONSIVIDADE (Media Queries) ---------------------------------------------
 // =================================================================================== */
 
-/* Estas regras só se aplicam em telas com largura máxima de 700px. */
 @media (max-width: 700px) {
-    /* Faz os controles do catálogo (busca e ordenação) ficarem empilhados. */
     #controls-container {
         flex-direction: column;
-        align-items: stretch; /* Estica os itens para ocuparem a largura total. */
+        align-items: stretch;
     }
     .form-group-grid-condensed {
-        grid-template-columns: 1fr; /* Muda para uma única coluna em telas pequenas. */
+        grid-template-columns: 1fr;
     }
 }

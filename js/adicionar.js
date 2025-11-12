@@ -246,6 +246,9 @@ function fillFormWithExistingData(game) {
     gameImagePreview.src = game.image;
     gameImageUrlInput.value = game.image;
     gameStoreUrlInput.value = game.storeUrl || '';
+    Object.entries(PLATFORM_DISPLAY_NAMES).forEach(([slug, name]) => {
+        platformSelect.innerHTML += `<option value="${slug}">${name}</option>`;
+    });
 
     // Define o status correto.
     statusSelect.innerHTML = `<option value="playing">Jogando</option><option value="completed">Finalizado</option><option value="completed-100">100% Concluído</option><option value="retired">Aposentado</option><option value="archived">Arquivado</option><option value="abandoned">Abandonado</option>`;

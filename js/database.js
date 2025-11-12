@@ -123,16 +123,52 @@ const PLATFORM_DISPLAY_NAMES = {
 
 const gamesData = [
     {
+        "id": 111,
+        "title": "03.04",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/952950/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "archived",
+        "statusText": "Arquivado",
+        "statusOverlay": "Arquivado",
+        "translation": "Não possui",
+        "guide": [],
+        "review": "dropei, pois n tem traduçao e quando percebi ja tava bem avançado no jogo e n tava entendo nada da historia",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/952950/0304/"
+    },
+    {
+        "id": 110,
+        "title": "TRY AGAIN",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2448340/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Feita por Fã (<a href=\"https://github.com/bbepis/XUnity.AutoTranslator\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2448340/TRY_AGAIN/"
+    },
+    {
         "id": 109,
         "title": "Roblox",
-        "image": "https://www.steamgriddb.com/grid/372014",
-        "platform": ["pc"],
+        "image": "https://cdn2.steamgriddb.com/thumb/4d3767318b2f7769ae8413ac4c145f57.jpg",
+        "platform": [
+            "pc",
+            "android",
+            "xbox-one"
+        ],
         "status": "retired",
         "statusText": "Aposentado",
         "statusOverlay": "Aposentado",
         "translation": "Oficial",
         "guide": [],
-        "review": "Já joguei no PC, Xbox One e Celular",
+        "review": null,
         "version": null,
         "storeUrl": "https://www.roblox.com"
     },
