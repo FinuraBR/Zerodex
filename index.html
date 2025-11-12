@@ -1,38 +1,52 @@
 <!DOCTYPE html>
-<!-- Define o tipo do documento como HTML5 e o idioma principal como Português do Brasil. -->
+<!-- 
+  Define o tipo de documento como HTML5 e o idioma principal como Português do Brasil.
+  Isso é importante para os navegadores e para tecnologias assistivas.
+-->
 <html lang="pt-BR">
 
 <head>
-    <!-- ======================= METADADOS E LINKS ESSENCIAIS ======================= -->
-    <!-- A tag <head> contém informações importantes sobre a página que não são visíveis diretamente. -->
+    <!-- =================================================================================== -->
+    <!-- ======================= METADADOS E LINKS ESSENCIAIS ============================== -->
+    <!-- A tag <head> contém informações cruciais sobre a página que não são visíveis    -->
+    <!-- diretamente, mas são essenciais para o funcionamento, SEO e aparência do site.     -->
+    <!-- =================================================================================== -->
 
-    <!-- Define o conjunto de caracteres como UTF-8, garantindo a exibição correta de acentos e símbolos. -->
+    <!-- Define o conjunto de caracteres como UTF-8, o padrão universal que garante
+         a exibição correta de acentos, cedilhas e outros símbolos especiais. -->
     <meta charset="UTF-8">
 
-    <!-- Garante que a página seja responsiva, adaptando-se à largura da tela de qualquer dispositivo. -->
+    <!-- Garante que a página seja responsiva, instruindo o navegador a ajustar a largura
+         da página à largura da tela do dispositivo e a iniciar com um nível de zoom de 100%. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- O título que aparece na aba ou janela do navegador. -->
+    <!-- O título que aparece na aba ou na janela do navegador. É um fator importante
+         para a identificação da página e para os motores de busca (SEO). -->
     <title>Zerodex do FinuraBR</title>
 
-    <!-- Link para a folha de estilos principal (CSS) que define a aparência do site. -->
+    <!-- Link para a folha de estilos principal (CSS). O arquivo 'style.css'
+         contém todas as regras visuais que definem a aparência do site. -->
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- Define o ícone (favicon) que aparece na aba do navegador. -->
+    <!-- Define o ícone (favicon) que aparece na aba do navegador, adicionando uma
+         identidade visual à página. -->
     <link rel="icon" type="image/jpg" href="imagens/favicon.jpg">
 </head>
 
 <body>
     <!-- A tag <body> contém todo o conteúdo visível da página web. -->
 
-    <!-- ======================= CABEÇALHO ======================= -->
-    <!-- O cabeçalho é consistente em todas as páginas, contendo o título, a navegação principal e o botão de tema. -->
+    <!-- =================================================================================== -->
+    <!-- ======================= CABEÇALHO (HEADER) ======================================== -->
+    <!-- O cabeçalho é consistente em todas as páginas, contendo o título principal,
+         a navegação e o botão de alternância de tema. -->
+    <!-- =================================================================================== -->
     <header>
         <div class="header-container">
-            <!-- Título principal do site. -->
+            <!-- Título principal do site, que serve como identidade visual. -->
             <h1>Meu Zerodex</h1>
 
-            <!-- Menu de Navegação Principal -->
+            <!-- Menu de Navegação Principal, encapsulado na tag semântica <nav>. -->
             <nav>
                 <ul>
                     <li><a href="index.html">Início</a></li>
@@ -41,34 +55,44 @@
                 </ul>
             </nav>
 
-            <!-- Botão para alternar entre o tema claro e escuro. A lógica é controlada pelo JavaScript. -->
-            <!-- 'aria-label' melhora a acessibilidade para leitores de tela. -->
+            <!-- 
+              Botão para alternar entre o tema claro e escuro.
+              - A lógica de funcionamento é controlada pelo JavaScript (script.js).
+              - 'title' fornece uma dica de ferramenta ao passar o mouse.
+              - 'aria-label' melhora a acessibilidade para leitores de tela, descrevendo
+                a função do botão para usuários com deficiência visual.
+            -->
             <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Tema" aria-label="Alternar Tema">
-                <!-- Ícone de Sol (visível no tema escuro) -->
+                <!-- Ícone de Sol (visível no tema escuro). Oculto por padrão e exibido via CSS. -->
                 <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.061 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.894 17.894a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.591 1.59a.75.75 0 010 1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75-.75zM5.106 17.894a.75.75 0 010-1.06l1.591-1.59a.75.75 0 111.06 1.06l-1.59 1.591a.75.75 0 01-1.061 0zM4.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H5a.75.75 0 01-.75-.75zM6.106 5.106a.75.75 0 011.06 0l1.59 1.591a.75.75 0 11-1.06 1.06L6.106 6.167a.75.75 0 010-1.06z"/></svg>
-                <!-- Ícone de Lua (visível no tema claro) -->
+                <!-- Ícone de Lua (visível no tema claro). -->
                 <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 004.463-.945a.75.75 0 01.981.652A11.25 11.25 0 0112 21a11.25 11.25 0 01-11.25-11.25 11.25 11.25 0 012.718-7.528a.75.75 0 01.819.162z" clip-rule="evenodd" /></svg>
             </button>
         </div>
     </header>
 
-    <!-- ======================= CONTEÚDO PRINCIPAL ======================= -->
-    <!-- A tag <main> define o conteúdo principal e único desta página. -->
+    <!-- =================================================================================== -->
+    <!-- ======================= CONTEÚDO PRINCIPAL (MAIN) ================================= -->
+    <!-- A tag <main> define o conteúdo principal e único desta página específica. -->
+    <!-- =================================================================================== -->
     <main>
         <!-- SEÇÃO "HERO" (CHAMADA PRINCIPAL) -->
-        <!-- Esta é a primeira seção que o visitante vê, com um título de impacto e um chamado para ação (Call to Action - CTA). -->
+        <!-- Esta é a primeira seção que o visitante vê, com um título de impacto e um
+             "Call to Action" (CTA) que convida à ação. -->
         <section id="hero" aria-labelledby="hero-title">
             <h2 id="hero-title" class="hero-title">Bem-vindo ao meu universo de games.</h2>
             <p class="hero-subtitle">
                 <span>*AINDA ESTOU MIGRANDO MINHAS ESTATÍSTICAS PARA ESSE PROJETO*</span>
                 Este é o meu espaço para documentar cada jornada, cada mundo explorado e cada história concluída.
             </p>
-            <!-- O botão CTA leva o usuário para a página de catálogo completo. -->
+            <!-- O botão CTA (Call to Action) leva o usuário para a página de catálogo completo. -->
             <a href="jogos.html" class="cta-button">Explorar Catálogo Completo</a>
         </section>
 
         <!-- SEÇÃO DE NAVEGAÇÃO RÁPIDA (STICKY) -->
-        <!-- Este menu fica fixo no topo da tela após o usuário rolar a página para baixo, servindo como um atalho para as seções de jogos. -->
+        <!-- Este menu de navegação fica fixo no topo da tela após o usuário rolar a página
+             para baixo, servindo como um atalho para as seções de jogos abaixo.
+             Seu estado (oculto/visível) é controlado via JavaScript. -->
         <nav id="shelf-nav" class="shelf-nav-hidden" aria-label="Navegação Rápida para Seções">
             <a href="#currently-playing">Jogando</a>
             <a href="#archived-games">Arquivados</a>
@@ -78,12 +102,13 @@
             <a href="#abandoned-games">Abandonados</a>
         </nav>
 
-        <!-- ========================================================= -->
-        <!-- ====== ESTRUTURA DE "ESTANTES" DE JOGOS ================= -->
-        <!-- ========================================================= -->
-        <!-- Cada seção a seguir representa uma categoria ("estante") de jogos. -->
-        <!-- O ID de cada seção (ex: "currently-playing") permite a navegação direta a partir do menu rápido. -->
-        <!-- O JavaScript irá popular dinamicamente as divs '.game-grid' com os cards dos jogos correspondentes. -->
+        <!-- =================================================================================== -->
+        <!-- ====== ESTRUTURA DAS "ESTANTES" DE JOGOS ========================================== -->
+        <!-- Cada seção a seguir representa uma categoria ("estante") de jogos.
+             - O ID de cada seção (ex: "currently-playing") permite a navegação direta a partir do menu rápido.
+             - O JavaScript irá popular dinamicamente as divs '.game-grid' com os cards dos jogos
+               correspondentes, lidos do arquivo 'database.js'. -->
+        <!-- =================================================================================== -->
 
         <!-- Estante: Jogando Atualmente -->
         <section id="currently-playing" class="homepage-shelf" aria-labelledby="currently-playing-title">
@@ -134,27 +159,44 @@
         </section>
     </main>
 
-    <!-- ======================= RODAPÉ ======================= -->
+    <!-- =================================================================================== -->
+    <!-- ======================= RODAPÉ (FOOTER) =========================================== -->
+    <!-- O rodapé contém informações de copyright e é consistente em todas as páginas. -->
+    <!-- =================================================================================== -->
     <footer>
         <div class="footer-container">
-            <!-- '&copy;' gera o símbolo de copyright © -->
+            <!-- '&copy;' gera o símbolo de copyright ©. O ano é estático. -->
             <p>&copy; 2025 - Desenvolvido por FinuraBR</p>
         </div>
     </footer>
 
-    <!-- ======================= ELEMENTOS E SCRIPTS FINAIS ======================= -->
+    <!-- =================================================================================== -->
+    <!-- ======================= ELEMENTOS E SCRIPTS FINAIS ================================ -->
+    <!-- Elementos interativos e scripts são geralmente colocados no final do <body>
+         para melhorar a performance de carregamento da página. -->
+    <!-- =================================================================================== -->
     
     <!-- Botão "Voltar ao Topo" -->
-    <!-- Este botão (controlado via JS/CSS) aparece quando o usuário rola a página para baixo. -->
+    <!-- Este botão (controlado via JS/CSS) aparece quando o usuário rola a página para baixo,
+         oferecendo um atalho conveniente para retornar ao início. -->
     <button id="back-to-top" title="Voltar ao topo">↑</button>
 
     <!-- SCRIPTS -->
-    <!-- Colocar os scripts no final do <body> melhora a performance de carregamento da página. -->
-    <!-- O atributo 'defer' garante que os scripts sejam executados na ordem correta, após o HTML ser analisado, sem bloquear a renderização da página. -->
+    <!--
+      Colocar os scripts no final do <body> é uma prática de performance. O navegador
+      carrega e exibe todo o conteúdo HTML e CSS primeiro, e só depois executa o JavaScript.
+      Isso resulta em uma percepção de carregamento mais rápido para o usuário.
+
+      O atributo 'defer' garante que os scripts sejam executados na ordem em que aparecem,
+      após o HTML ser completamente analisado, sem bloquear a renderização da página.
+    -->
     
-    <!-- 1. Carrega o banco de dados dos jogos. -->
+    <!-- 1. Carrega o banco de dados dos jogos. Este arquivo deve vir PRIMEIRO, pois o
+           script.js depende dos dados contidos nele. -->
     <script src="js/database.js" defer></script>
-    <!-- 2. Carrega o script principal que controla toda a lógica da página. -->
+    
+    <!-- 2. Carrega o script principal que controla toda a lógica da página (exibição dos jogos,
+           troca de tema, navegação, etc.). -->
     <script src="js/script.js" defer></script>
 </body>
 </html>

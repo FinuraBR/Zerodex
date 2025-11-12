@@ -5,11 +5,11 @@
 // Declarado aqui para ser acessível por todos os scripts.
 const PLATFORM_DISPLAY_NAMES = {
     'pc': 'PC',
-    'nintendo-switch': 'Switch',
     'android': 'Android',
     'ios': 'iOS',
     'xbox360': 'Xbox 360',
     'xbox-one': 'Xbox One',
+    'nintendo-switch': 'Switch',
     // Adicione outras plataformas aqui conforme necessário
 };
 
@@ -50,10 +50,6 @@ const PLATFORM_DISPLAY_NAMES = {
 |   Valores Padrão: ["pc"], ["nintendo-switch"], ["android"], "playstation-5"
 |   Exemplo: ["pc"]
 |
-| storeUrl: (Opcional | String ou null)
-|   O link para a página do jogo na loja (Steam, Epic, PSN, etc.).
-|   Se não houver link, use o valor `null`.
-|   Exemplo: "https://store.steampowered.com/app/12345"
 |
 | status: (Obrigatório | String)
 |   A classe interna que define a cor do 'badge' e a categoria do jogo.
@@ -93,6 +89,11 @@ const PLATFORM_DISPLAY_NAMES = {
 |   Se for a versão padrão/completa, use `null`.
 |   Exemplo: "Demo"
 |
+| storeUrl: (Opcional | String ou null)
+|   O link para a página do jogo na loja (Steam, Epic, PSN, etc.).
+|   Se não houver link, use o valor `null`.
+|   Exemplo: "https://store.steampowered.com/app/12345"
+|
 |--------------------------------------------------------------------------
 | Template Limpo para Copiar
 |--------------------------------------------------------------------------
@@ -103,14 +104,14 @@ const PLATFORM_DISPLAY_NAMES = {
     title: "",
     image: "",
     platform: ["pc"],
-    storeUrl: null,
     status: "completed",
     statusText: "Finalizado",
-    statusOverlay: "Campanha Finalizada",
+    statusOverlay: "Finalizado",
     translation: "Oficial",
     guide: [],
     review: null,
     version: null,
+    storeUrl: null,
 },
 */
 

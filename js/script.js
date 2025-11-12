@@ -1,84 +1,99 @@
 // ===================================================================================
-// === MEU ZERODEX - SCRIPT PRINCIPAL ================================================
+// === MEU ZERODEX - SCRIPT PRINCIPAL (script.js) ====================================
 // ===================================================================================
-// Este arquivo controla toda a interatividade do site, desde a exibição dos jogos
-// até a troca de tema e os botões de navegação.
+//
+// INDÍCE DO ARQUIVO:
+//
+// 1. INICIALIZAÇÃO GERAL E EVENTOS
+// 2. VARIÁVEIS DE ESTADO DO CATÁLOGO
+// 3. SEÇÃO: LÓGICA DA PÁGINA INICIAL (index.html)
+// 4. SEÇÃO: LÓGICA DO CATÁLOGO (jogos.html)
+//    - Funções de Filtragem e Ordenação
+//    - Manipulação da URL
+//    - Configuração dos Controles
+// 5. SEÇÃO: LÓGICA DO TOOLTIP DE COMENTÁRIOS
+// 6. SEÇÃO: FUNÇÕES DE RENDERIZAÇÃO (CRIAM HTML)
+//    - Renderização Principal dos Jogos
+//    - Lazy Loading de Imagens
+//    - Renderização de Botões e Inicialização
+// 7. SEÇÃO: LÓGICA DA PÁGINA SOBRE (sobre.html)
+//    - Cálculo e Renderização de Estatísticas
+// 8. SEÇÃO: UTILITÁRIOS GLOBAIS
+//
+// ===================================================================================
 
-// --- [INICIALIZAÇÃO GERAL] ---------------------------------------------------------
+
+// ===================================================================================
+// --- 1. INICIALIZAÇÃO GERAL E EVENTOS ----------------------------------------------
+// ===================================================================================
 
 /**
- * O evento 'DOMContentLoaded' aguarda o HTML da página ser completamente carregado
- * antes de executar qualquer script. Isso garante que todos os elementos (botões,
- * divs, etc.) que o JavaScript tentará acessar já existem na página, evitando erros.
- * É o ponto de partida de toda a lógica do site.
+ * O evento 'DOMContentLoaded' é o ponto de partida de toda a lógica do site.
+ * Ele garante que o JavaScript só será executado após o HTML da página ser
+ * completamente carregado, evitando erros de elementos não encontrados.
  */
 document.addEventListener('DOMContentLoaded', () => {
     // --- Funções Globais (rodam em todas as páginas) ---
-    setupThemeToggle();      // Configura o botão de troca de tema (claro/escuro).
-    setupBackToTopButton();  // Configura o botão "Voltar ao Topo".
+    setupThemeToggle();
+    setupBackToTopButton();
 
     // --- Lógica Específica para Cada Página ---
     // O código verifica qual página está ativa procurando por um elemento com um ID específico.
+    // Esta abordagem modular mantém o código organizado e performático.
 
-    // Se encontrar o elemento '#catalogo', significa que estamos na página de jogos (jogos.html).
-    if (document.querySelector('#catalogo')) {
-        initializeCatalog();             // Exibe os jogos na tela, aplicando os filtros lidos.
-    }
-    
-    // Se encontrar '#dynamic-stats', estamos na página "Sobre" (sobre.html).
-    if (document.querySelector('#dynamic-stats')) {
-        renderStatistics();          // Calcula e exibe as estatísticas e o gráfico.
-    }
-
-    // Se encontrar '.homepage-shelf', estamos na página inicial (index.html).
+    // Se estiver na página inicial (index.html).
     if (document.querySelector('.homepage-shelf')) {
-        setupHomepageShelves();      // Preenche as "estantes" de jogos (Jogando, Finalizados, etc.).
-        setupStickyShelfNav();       // Ativa o menu de navegação que fica fixo ao rolar a página.
+        setupHomepageShelves();
+        setupStickyShelfNav();
         setupSmoothShelfScrolling();
     }
 
-    // Se QUALQUER página tiver uma grade de jogos (uma '.game-grid'), ativa a lógica do tooltip.
-    // Isso torna a função do tooltip universal para a página inicial e o catálogo.
+    // Se estiver na página do catálogo de jogos (jogos.html).
+    if (document.querySelector('#catalogo')) {
+        initializeCatalog();
+    }
+    
+    // Se estiver na página "Sobre" (sobre.html).
+    if (document.querySelector('#dynamic-stats')) {
+        renderStatistics();
+    }
+
+    // Se QUALQUER página tiver uma grade de jogos, ativa a lógica do tooltip.
+    // Isso torna a função universal para a página inicial e o catálogo.
     if (document.querySelector('.game-grid')) {
         setupTooltipLogic();
     }
     
-    // --- REGISTRO DO SERVICE WORKER ---
-    // Verifica se o navegador suporta Service Workers
+    // --- REGISTRO DO SERVICE WORKER (para funcionalidade offline) ---
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./service-worker.js') // Registra o nosso arquivo
-                .then(registration => {
-                    console.log('Service Worker registrado com sucesso:', registration);
-                })
-                .catch(error => {
-                    console.log('Falha ao registrar o Service Worker:', error);
-                });
+            navigator.serviceWorker.register('./service-worker.js')
+                .then(registration => console.log('Service Worker registrado com sucesso:', registration))
+                .catch(error => console.log('Falha ao registrar o Service Worker:', error));
         });
     }
 });
 
 
-// --- [VARIÁVEIS DE ESTADO DO CATÁLOGO] ---------------------------------------------
-// Estas variáveis guardam o estado atual dos filtros na página do catálogo.
-// Elas funcionam como a "memória" da página sobre o que o usuário selecionou.
-let currentSearchTerm = '';      // O texto digitado na barra de busca.
-let currentPlatform = 'all';     // A plataforma selecionada (ex: 'pc', 'switch', 'all').
-let currentSort = 'id-desc';     // A ordenação escolhida (ex: 'id-desc', 'title-asc').
+// ===================================================================================
+// --- 2. VARIÁVEIS DE ESTADO DO CATÁLOGO --------------------------------------------
+// ===================================================================================
+// Guardam o estado atual dos filtros, funcionando como a "memória" da página.
+let currentSearchTerm = '';
+let currentPlatform = 'all';
+let currentSort = 'id-desc';
 
 
 // ===================================================================================
-// --- SEÇÃO: LÓGICA DA PÁGINA INICIAL (INDEX.HTML) ----------------------------------
+// --- 3. SEÇÃO: LÓGICA DA PÁGINA INICIAL (index.html) -------------------------------
 // ===================================================================================
 
 /**
- * Preenche as diferentes seções ("estantes") da página inicial.
- * Cada estante corresponde a um status de jogo (Jogando, Arquivados, etc.).
- * Se uma estante não tiver jogos, a seção inteira e seu link no menu são escondidos.
- * MODIFICADO: Agora limita o número de jogos exibidos em cada estante.
+ * Preenche as seções ("estantes") da página inicial com os jogos correspondentes.
+ * Cada estante exibe um número limitado de jogos (MAX_GAMES_PER_SHELF).
+ * Se uma categoria não tiver jogos, a seção inteira é ocultada.
  */
 function setupHomepageShelves() {
-    // Array que mapeia o seletor da seção no HTML ao status correspondente no 'gamesData'.
     const homepageShelves = [
         { selector: '#currently-playing', status: 'playing' },
         { selector: '#archived-games', status: 'archived' },
@@ -88,27 +103,24 @@ function setupHomepageShelves() {
         { selector: '#abandoned-games', status: 'abandoned' },
     ];
     
-    const MAX_GAMES_PER_SHELF = 8; // Define o número máximo de jogos por estante
+    const MAX_GAMES_PER_SHELF = 8;
 
-    // Itera sobre cada estante definida acima.
     homepageShelves.forEach(shelf => {
         const sectionElement = document.querySelector(shelf.selector);
         const navLink = document.querySelector(`#shelf-nav a[href="${shelf.selector}"]`);
 
-        // Se o elemento da seção ou o link de navegação não existir, pula para o próximo.
         if (!sectionElement || !navLink) return;
 
-        // Filtra a lista principal de jogos ('gamesData'), que já está ordenada por ID decrescente (mais recentes primeiro),
-        // e limita o número de resultados com slice().
-        const gamesForShelf = gamesData.filter(game => game.status === shelf.status).slice(0, MAX_GAMES_PER_SHELF);
+        // Filtra os jogos pelo status e limita a quantidade com slice().
+        const gamesForShelf = gamesData
+            .filter(game => game.status === shelf.status)
+            .slice(0, MAX_GAMES_PER_SHELF);
 
         if (gamesForShelf.length > 0) {
-            // Se encontrou jogos para esta estante:
-            navLink.style.display = ''; // Garante que o link no menu de navegação apareça.
-            const gridSelector = `${shelf.selector} .game-grid`; // Define onde os jogos serão renderizados.
-            renderGames(gamesForShelf, gridSelector); // Chama a função para criar o HTML dos jogos.
+            navLink.style.display = '';
+            renderGames(gamesForShelf, `${shelf.selector} .game-grid`);
         } else {
-            // Se não há jogos com este status, esconde a seção inteira e o link do menu.
+            // Se não há jogos, esconde a seção e o link de navegação.
             sectionElement.style.display = 'none';
             navLink.style.display = 'none';
         }
@@ -117,66 +129,43 @@ function setupHomepageShelves() {
 
 /**
  * Controla o menu de navegação fixo ('shelf-nav') da página inicial.
- * Ele aparece quando o usuário rola a página para além da primeira seção ('hero').
+ * Ele se torna visível quando o usuário rola a página para além da seção inicial.
  */
 function setupStickyShelfNav() {
     const shelfNav = document.getElementById('shelf-nav');
     const heroSection = document.getElementById('hero');
-
-    // Se os elementos não existirem, a função não faz nada.
     if (!shelfNav || !heroSection) return;
 
-    // Função que verifica a posição da rolagem da página.
     const checkScroll = () => {
-        // Calcula a posição onde a seção 'hero' termina.
         const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
         
-        // Se a posição de rolagem vertical (window.scrollY) ultrapassou o final da seção hero...
+        // Adiciona ou remove a classe que controla a visibilidade do menu.
         if (window.scrollY > heroBottom) {
-            shelfNav.classList.add('shelf-nav-visible'); // Adiciona a classe que torna o menu visível.
+            shelfNav.classList.add('shelf-nav-visible');
             shelfNav.classList.remove('shelf-nav-hidden');
         } else {
-            shelfNav.classList.remove('shelf-nav-visible'); // Remove a classe, escondendo o menu.
+            shelfNav.classList.remove('shelf-nav-visible');
             shelfNav.classList.add('shelf-nav-hidden');
         }
     };
     
-    // Adiciona um "ouvinte" que executa 'checkScroll' toda vez que o usuário rolar a página.
     window.addEventListener('scroll', checkScroll);
-    // Executa a função uma vez no carregamento para definir o estado inicial correto.
-    checkScroll();
+    checkScroll(); // Verifica a posição no carregamento da página.
 }
 
 /**
  * Adiciona uma animação de rolagem suave para os links da navegação de seções.
- * Captura o clique, previne o salto padrão e rola a página de forma animada.
  */
 function setupSmoothShelfScrolling() {
-    // Seleciona todos os links <a> que estão dentro da navegação #shelf-nav
-    const shelfLinks = document.querySelectorAll('#shelf-nav a');
-
-    // Itera sobre cada link encontrado
-    shelfLinks.forEach(link => {
-        // Adiciona um "ouvinte" de evento de clique para cada link
+    document.querySelectorAll('#shelf-nav a').forEach(link => {
         link.addEventListener('click', function(event) {
-            // 1. Previne o comportamento padrão do navegador (o salto instantâneo)
-            event.preventDefault();
-
-            // 2. Pega o valor do atributo 'href' do link clicado (ex: "#finished-games")
+            event.preventDefault(); // Previne o salto padrão do navegador.
             const targetId = this.getAttribute('href');
-
-            // 3. Encontra o elemento na página que possui esse ID
             const targetSection = document.querySelector(targetId);
 
-            // 4. Se o elemento for encontrado...
             if (targetSection) {
-                // ...rola a página suavemente até ele.
-                // 'behavior: smooth' é o que cria a animação.
-                // 'block: start' garante que o topo da seção alinhe com o topo da tela.
-                targetSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                // Rola a página suavemente até a seção de destino.
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
     });
@@ -184,140 +173,191 @@ function setupSmoothShelfScrolling() {
 
 
 // ===================================================================================
-// --- SEÇÃO: LÓGICA DO CATÁLOGO (JOGOS.HTML) ----------------------------------------
+// --- 4. SEÇÃO: LÓGICA DO CATÁLOGO (jogos.html) -------------------------------------
 // ===================================================================================
 
-/**
- * Função que é chamada APENAS quando a ORDENAÇÃO muda.
- * Ela filtra, ordena e RE-RENDERIZA os cards na nova ordem.
- */
-function sortAndReRender() {
-    let filteredGames = [...gamesData]; 
+// --- Funções de Filtragem e Ordenação ---
 
-    // A filtragem aqui garante que a ordenação seja aplicada apenas nos itens visíveis.
+/**
+ * NOVO: Função auxiliar que centraliza a lógica de filtragem dos DADOS.
+ * Retorna um array de jogos filtrado com base no estado atual das variáveis globais.
+ * @returns {Array<Object>} Uma lista de jogos que correspondem aos filtros.
+ */
+function getFilteredGames() {
+    let games = [...gamesData]; // Começa com uma cópia para não modificar o array original.
+
+    // 1. Aplica filtro de plataforma.
     if (currentPlatform !== 'all') {
-        filteredGames = filteredGames.filter(g => g.platform === currentPlatform);
+        // CORREÇÃO: `platform` é um array, então usamos `includes`.
+        games = games.filter(game => game.platform.includes(currentPlatform));
     }
+
+    // 2. Aplica filtro de busca (termo de pesquisa).
     if (currentSearchTerm) {
-        filteredGames = filteredGames.filter(g => g.title.toLowerCase().includes(currentSearchTerm));
+        const searchTerm = currentSearchTerm.toLowerCase();
+        games = games.filter(game => game.title.toLowerCase().includes(searchTerm));
     }
     
-    // Ordena a lista já filtrada.
-    switch (currentSort) {
-        case 'title-asc':
-            filteredGames.sort((a, b) => a.title.localeCompare(b.title));
-            break;
-        case 'title-desc':
-            filteredGames.sort((a, b) => b.title.localeCompare(a.title));
-            break;
-        case 'id-desc':
-        default:
-            filteredGames.sort((a, b) => b.id - a.id);
-            break;
-    }
-    
-    // Re-renderiza os jogos na nova ordem.
-    renderGames(filteredGames, '#catalogo .game-grid');
-    updateURL();
+    return games;
 }
 
 /**
- * Lê os parâmetros da URL (ex: ?platform=pc&sort=title-asc) quando a página carrega.
+ * Aplica filtros de forma eficiente, escondendo ou mostrando os cards já existentes no DOM.
+ * Isso torna a filtragem por texto ou plataforma instantânea, sem recarregar a grade.
+ */
+function applyFilters() {
+    const allCards = document.querySelectorAll('#catalogo .game-grid .game-card');
+    const gameGrid = document.querySelector('#catalogo .game-grid');
+    let visibleGameCount = 0;
+
+    if (gameGrid) gameGrid.classList.add('reloading'); // Efeito visual de recarga.
+
+    allCards.forEach(card => {
+        const cardPlatforms = card.dataset.platform.split(',');
+        const platformMatch = currentPlatform === 'all' || cardPlatforms.includes(currentPlatform);
+        
+        const title = card.querySelector('.game-title').textContent.toLowerCase();
+        const searchMatch = currentSearchTerm === '' || title.includes(currentSearchTerm);
+
+        // Se o card corresponde a ambos os filtros, ele fica visível.
+        if (platformMatch && searchMatch) {
+            card.classList.remove('hidden');
+            visibleGameCount++;
+        } else {
+            card.classList.add('hidden');
+        }
+    });
+
+    setTimeout(() => {
+        if (gameGrid) gameGrid.classList.remove('reloading');
+    }, 200);
+
+    // Mostra ou esconde a mensagem de "Nenhum jogo encontrado".
+    const noResultsMessage = document.querySelector('#catalogo .no-results-message');
+    if (noResultsMessage) {
+        noResultsMessage.style.display = visibleGameCount === 0 ? 'block' : 'none';
+    }
+}
+
+/**
+ * Ordena os jogos e re-renderiza completamente a grade.
+ * Esta função é chamada apenas quando o critério de ordenação é alterado,
+ * pois exige a reconstrução do DOM na nova ordem.
+ */
+function sortAndReRender() {
+    // Usa a função auxiliar para obter a lista de jogos já filtrada.
+    let gamesToRender = getFilteredGames(); 
+    
+    // Aplica a ordenação escolhida.
+    switch (currentSort) {
+        case 'title-asc':
+            gamesToRender.sort((a, b) => a.title.localeCompare(b.title));
+            break;
+        case 'title-desc':
+            gamesToRender.sort((a, b) => b.title.localeCompare(a.title));
+            break;
+        case 'id-desc':
+        default:
+            gamesToRender.sort((a, b) => b.id - a.id);
+            break;
+    }
+    
+    renderGames(gamesToRender, '#catalogo .game-grid');
+    updateURL(); // Atualiza a URL para refletir o novo estado.
+}
+
+
+// --- Manipulação da URL ---
+
+/**
+ * Lê os parâmetros da URL (ex: ?platform=pc) ao carregar a página.
  * Isso permite que um link compartilhado já aplique os filtros automaticamente.
  */
 function readURLAndSetupControls() {
     const params = new URLSearchParams(window.location.search);
-    // Pega o valor de cada parâmetro da URL. Se não existir, usa o valor padrão.
     currentPlatform = params.get('platform') || 'all';
     currentSearchTerm = params.get('search') || '';
     currentSort = params.get('sort') || 'id-desc';
-    // Atualiza os elementos visuais (barra de busca, menu de ordenação, botões) para corresponderem aos valores da URL.
+    
+    // Atualiza os elementos visuais para corresponderem aos valores da URL.
     document.getElementById('search-bar').value = currentSearchTerm;
     document.getElementById('sort-options').value = currentSort;
     document.querySelectorAll('.filter-btn').forEach(btn => {
-        // Adiciona a classe 'active' ao botão de filtro que corresponde à plataforma na URL.
         btn.classList.toggle('active', btn.dataset.platform === currentPlatform);
     });
     
-    // Após ler os valores iniciais, configura os "ouvintes de eventos" para os controles.
-    setupControls();
+    setupControls(); // Após ler os valores, configura os "ouvintes de eventos".
 }
 
 /**
  * Atualiza a URL na barra de endereço do navegador sem recarregar a página.
- * Usa a History API do navegador para uma experiência de usuário mais fluida.
+ * Isso cria uma experiência de usuário mais fluida e URLs compartilháveis.
  */
 function updateURL() {
     const params = new URLSearchParams();
-    // Adiciona os parâmetros à URL apenas se eles não forem os valores padrão.
     if (currentPlatform !== 'all') params.set('platform', currentPlatform);
     if (currentSearchTerm) params.set('search', currentSearchTerm);
     if (currentSort !== 'id-desc') params.set('sort', currentSort);
 
-    // Constrói a nova URL com os parâmetros.
     const newUrl = `${window.location.pathname}${params.toString() ? `?${params.toString()}` : ''}`;
-    // Altera a URL na barra de endereço. O 'null' e '' são parâmetros de estado que não usamos aqui.
     history.pushState(null, '', newUrl);
 }
 
+// --- Configuração dos Controles ---
+
 /**
  * Configura os "ouvintes de eventos" para os controles de filtro, busca e ordenação.
- * OTIMIZADO para usar a função 'applyFilters' para uma resposta instantânea.
  */
 function setupControls() {
-    // Barra de pesquisa: agora chama applyFilters para uma resposta instantânea.
+    // Barra de pesquisa: resposta instantânea usando applyFilters.
     document.getElementById('search-bar').addEventListener('keyup', e => {
         currentSearchTerm = e.target.value.toLowerCase();
-        applyFilters(); // Super rápido!
+        applyFilters();
         updateURL();
     });
     
-    // Menu de ordenação: esta é a ÚNICA ação que ainda precisa re-renderizar tudo.
+    // Menu de ordenação: a única ação que precisa re-renderizar tudo.
     document.getElementById('sort-options').addEventListener('change', e => {
         currentSort = e.target.value;
-        sortAndReRender(); // CORRETO: a ordenação exige reconstrução.
+        sortAndReRender();
     });
 
-    // Botões de filtro de plataforma: agora chamam applyFilters para uma resposta instantânea.
+    // Botões de filtro: resposta instantânea usando applyFilters.
     document.querySelectorAll('#filter-container .filter-btn').forEach(button => {
         button.addEventListener('click', () => {
             currentPlatform = button.dataset.platform;
-            
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
-            
-            applyFilters(); // Super rápido!
+            applyFilters();
             updateURL();
         });
     });
 
-    // Botão "Me Surpreenda!": continua funcionando perfeitamente.
+    // Botão "Me Surpreenda!".
     document.getElementById('surprise-btn').addEventListener('click', () => {
         const visibleCards = document.querySelectorAll('#catalogo .game-card:not(.hidden)');
         if (visibleCards.length === 0) return;
 
+        // Remove destaque anterior, se houver.
         const currentHighlight = document.querySelector('.highlight');
-        if (currentHighlight) {
-            currentHighlight.classList.remove('highlight');
-        }
+        if (currentHighlight) currentHighlight.classList.remove('highlight');
 
         const randomIndex = Math.floor(Math.random() * visibleCards.length);
         const randomCard = visibleCards[randomIndex];
 
         randomCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
         randomCard.classList.add('highlight');
-        setTimeout(() => {
-            randomCard.classList.remove('highlight');
-        }, 5000);
+        setTimeout(() => randomCard.classList.remove('highlight'), 5000);
     });
 
-     // Botão "Editar Jogo": continua funcionando perfeitamente.
+    // Delegação de evento para o botão "Editar Jogo" dentro da grade.
     document.querySelector('#catalogo .game-grid').addEventListener('click', (event) => {
         if (event.target.classList.contains('edit-btn')) {
             const gameId = parseInt(event.target.dataset.editId);
             const gameToEdit = gamesData.find(game => game.id === gameId);
 
             if (gameToEdit) {
+                // Salva os dados do jogo no localStorage e redireciona para a página de edição.
                 localStorage.setItem('gameToEdit', JSON.stringify(gameToEdit));
                 window.location.href = 'adicionar.html';
             }
@@ -327,79 +367,38 @@ function setupControls() {
 
 
 // ===================================================================================
-// --- SEÇÃO: LÓGICA DO TOOLTIP DE COMENTÁRIOS --------------------------------------
+// --- 5. SEÇÃO: LÓGICA DO TOOLTIP DE COMENTÁRIOS ------------------------------------
 // ===================================================================================
 
 /**
  * Configura a lógica para exibir um tooltip com o comentário do jogo.
- * O tooltip agora é posicionado de forma inteligente para não sair da tela.
+ * O tooltip é posicionado de forma inteligente para não sair da tela.
  */
 function setupTooltipLogic() {
-    const allGameGrids = document.querySelectorAll('.game-grid');
-    if (allGameGrids.length === 0) return;
-
-    // Função para remover qualquer tooltip que esteja aberto.
-    const removeExistingTooltip = () => {
-        const existingTooltip = document.querySelector('.review-card');
-        if (existingTooltip) {
-            existingTooltip.classList.remove('active');
-            setTimeout(() => existingTooltip.remove(), 300);
-        }
-    };
-
-    allGameGrids.forEach(grid => {
-        // Usa delegação de eventos na grade.
+    document.querySelectorAll('.game-grid').forEach(grid => {
+        // Usa delegação de eventos para performance.
         grid.addEventListener('click', (event) => {
             const trigger = event.target.closest('.review-trigger');
             if (!trigger) return;
 
+            removeExistingTooltip(); // Fecha qualquer tooltip que já esteja aberto.
+
             const card = trigger.closest('.game-card');
             const gameId = parseInt(card.querySelector('.game-number').textContent);
-            const tooltipAlreadyExists = document.querySelector(`.review-card[data-tooltip-for-id="${gameId}"]`);
+            const gameData = gamesData.find(g => g.id === gameId);
 
-            if (tooltipAlreadyExists) {
-                removeExistingTooltip();
-            } else {
-                removeExistingTooltip();
+            if (gameData && gameData.review) {
+                const tooltip = createTooltipElement(gameData, card);
+                grid.appendChild(tooltip);
+                positionTooltip(tooltip, card);
                 
-                const gameData = gamesData.find(g => g.id === gameId);
-
-                if (gameData && gameData.review) {
-                    const tooltip = document.createElement('div');
-                    tooltip.className = 'review-card';
-                    tooltip.setAttribute('data-tooltip-for-id', gameId);
-                    tooltip.innerHTML = `<h3>Comentário</h3><p>${gameData.review}</p>`;
-
-                    // Adiciona o tooltip à grade (que é o contexto de posicionamento).
-                    grid.appendChild(tooltip);
-
-                    // --- Lógica de Posicionamento Inteligente ---
-                    const cardRect = card.getBoundingClientRect();
-                    const tooltipWidth = tooltip.offsetWidth;
-                    const margin = 15;
-
-                    const spaceRight = window.innerWidth - cardRect.right;
-
-                    // Decide se o tooltip ficará à direita ou à esquerda do card.
-                    if (spaceRight > (tooltipWidth + margin)) {
-                        tooltip.classList.add('on-right');
-                        tooltip.style.left = `${card.offsetLeft + card.offsetWidth + margin}px`;
-                    } else {
-                        tooltip.classList.add('on-left');
-                        tooltip.style.left = `${card.offsetLeft - tooltipWidth - margin}px`;
-                    }
-
-                    // Posiciona verticalmente (alinhado ao topo do card).
-                    tooltip.style.top = `${card.offsetTop}px`;
-
-                    // Anima a entrada do tooltip.
-                    setTimeout(() => tooltip.classList.add('active'), 10);
-                }
+                // Anima a entrada do tooltip.
+                setTimeout(() => tooltip.classList.add('active'), 10);
             }
         });
     });
 
-    // Adiciona um listener para fechar o tooltip ao clicar fora.
+    // Adiciona um listener para fechar o tooltip ao clicar fora dele.
     document.addEventListener('click', (event) => {
         if (!event.target.closest('.game-card') && !event.target.closest('.review-card')) {
             removeExistingTooltip();
@@ -407,17 +406,65 @@ function setupTooltipLogic() {
     });
 }
 
+/** Função auxiliar para remover o tooltip ativo. */
+function removeExistingTooltip() {
+    const existingTooltip = document.querySelector('.review-card');
+    if (existingTooltip) {
+        existingTooltip.classList.remove('active');
+        setTimeout(() => existingTooltip.remove(), 300); // Remove do DOM após a animação.
+    }
+}
+
+/** Função auxiliar para criar o elemento HTML do tooltip. */
+function createTooltipElement(gameData, card) {
+    const tooltip = document.createElement('div');
+    tooltip.className = 'review-card';
+    tooltip.setAttribute('data-tooltip-for-id', gameData.id);
+    tooltip.innerHTML = `<h3>Comentário</h3><p>${gameData.review}</p>`;
+    return tooltip;
+}
+
+/** Função auxiliar para posicionar o tooltip de forma inteligente. */
+function positionTooltip(tooltip, card) {
+    const cardRect = card.getBoundingClientRect();
+    const tooltipWidth = tooltip.offsetWidth;
+    const margin = 15;
+    const spaceRight = window.innerWidth - cardRect.right;
+
+    // Decide se o tooltip ficará à direita ou à esquerda.
+    if (spaceRight > (tooltipWidth + margin)) {
+        tooltip.classList.add('on-right');
+        tooltip.style.left = `${card.offsetLeft + card.offsetWidth + margin}px`;
+    } else {
+        tooltip.classList.add('on-left');
+        tooltip.style.left = `${card.offsetLeft - tooltipWidth - margin}px`;
+    }
+    // Alinha verticalmente com o topo do card.
+    tooltip.style.top = `${card.offsetTop}px`;
+}
+
 
 // ===================================================================================
-// --- SEÇÃO: FUNÇÕES DE RENDERIZAÇÃO (CRIAM HTML) -----------------------------------
+// --- 6. SEÇÃO: FUNÇÕES DE RENDERIZAÇÃO (CRIAM HTML) --------------------------------
 // ===================================================================================
 
 /**
- * Gera e insere o HTML dos cards de jogos na grade especificada.
- * VERSÃO FINAL AVANÇADA: Usa renderização assíncrona em lotes e
- * garante que o lazy loading seja ativado APÓS a conclusão de todos os lotes.
+ * Orquestra a inicialização da página do catálogo.
+ */
+function initializeCatalog() {
+    renderFilterButtons();
+    readURLAndSetupControls();
+    // Inicia a renderização. A própria `renderGames` aplicará o filtro inicial
+    // lido da URL no final do processo, garantindo que tudo apareça corretamente.
+    renderGames(gamesData, '#catalogo .game-grid');
+}
+
+/**
+ * Gera e insere o HTML dos cards de jogos na grade.
+ * Utiliza renderização assíncrona em lotes com `requestAnimationFrame` para
+ * evitar que a página congele ao renderizar muitos jogos de uma vez.
  * @param {Array} gamesArray - A lista de jogos a ser exibida.
- * @param {string} gridSelector - O seletor CSS da grade onde os jogos serão inseridos.
+ * @param {string} gridSelector - O seletor CSS da grade de destino.
  */
 function renderGames(gamesArray, gridSelector) {
     const gameGrid = document.querySelector(gridSelector);
@@ -427,24 +474,23 @@ function renderGames(gamesArray, gridSelector) {
     if (gamesArray.length === 0) return;
 
     let currentIndex = 0;
-    const batchSize = 10; 
+    const batchSize = 10; // Processa 10 jogos por frame.
 
     function processBatch() {
-        const fragment = document.createDocumentFragment();
+        const fragment = document.createDocumentFragment(); // Mais eficiente para adicionar múltiplos elementos.
         const endIndex = Math.min(currentIndex + batchSize, gamesArray.length);
 
         for (let i = currentIndex; i < endIndex; i++) {
             const game = gamesArray[i];
-            const platformText = game.platform
-    .map(slug => PLATFORM_DISPLAY_NAMES[slug] || slug.toUpperCase())
-    .join(',');
-            const platformHTML = game.storeUrl ? `<a href="${game.storeUrl}" target="_blank">${platformText}</a>` : platformText;
-            const guideLinks = game.guide.map(g => `<a href="${g.url}" target="_blank">${g.title}</a>`).join(' | ');
-            const guideHTML = game.guide.length > 0 ? `<p><strong>Guia:</strong> ${guideLinks}</p>` : '<p><strong>Guia:</strong> Não utilizado</p>';
-            
             const cardElement = document.createElement('div');
             cardElement.className = 'game-card';
             cardElement.dataset.platform = game.platform.join(',');
+            
+            // Lógica para criar o HTML de cada card.
+            const platformText = game.platform.map(slug => PLATFORM_DISPLAY_NAMES[slug] || slug.toUpperCase()).join(', ');
+            const platformHTML = game.storeUrl ? `<a href="${game.storeUrl}" target="_blank" rel="noopener noreferrer">${platformText}</a>` : platformText;
+            const guideLinks = game.guide.map(g => `<a href="${g.url}" target="_blank" rel="noopener noreferrer">${g.title}</a>`).join(' | ');
+            const guideHTML = game.guide.length > 0 ? `<p><strong>Guia:</strong> ${guideLinks}</p>` : '<p><strong>Guia:</strong> Não utilizado</p>';
 
             cardElement.innerHTML = `
                 <div class="card-image-container">
@@ -467,89 +513,55 @@ function renderGames(gamesArray, gridSelector) {
                     </div>
                     ${game.review ? `<div class="game-review"><button class="review-trigger secondary-btn">Ver Comentário</button></div>` : ''}
                 </div>`;
-
             fragment.appendChild(cardElement);
         }
 
         gameGrid.appendChild(fragment);
-        
         currentIndex = endIndex;
 
         if (currentIndex < gamesArray.length) {
-            requestAnimationFrame(processBatch);
+            requestAnimationFrame(processBatch); // Agenda o próximo lote.
         } else {
-            // Todos os cards estão no DOM. Agora é a hora de finalizar.
-            
-            // 1. Aplica a animação de entrada em todos os cards de uma vez.
-            gameGrid.querySelectorAll('.game-card').forEach(card => {
-            card.classList.add('card-enter-animation');
-            });
-            
-            // 2. Ativa o lazy loading para as imagens.
+            // Finalização: todos os cards estão no DOM.
+            gameGrid.querySelectorAll('.game-card').forEach(card => card.classList.add('card-enter-animation'));
             setupLazyLoading();
-
-            // 3. APLICA O FILTRO INICIAL que foi lido da URL.
-            applyFilters(); 
+            if (document.querySelector('#catalogo')) applyFilters(); // Aplica o filtro inicial se estiver no catálogo.
         }
     }
-    requestAnimationFrame(processBatch);
+    requestAnimationFrame(processBatch); // Inicia o processo.
 }
 
 /**
- * Orquestra a inicialização da página do catálogo. Prepara os botões,
- * lê o estado da URL e inicia o processo de renderização.
- */
-function initializeCatalog() {
-    renderFilterButtons();
-    readURLAndSetupControls(); // Define o estado (currentPlatform, etc.) e os listeners
-    
-    // Inicia a renderização de TODOS os jogos. A própria renderGames
-    // irá aplicar o filtro inicial no final do processo.
-    renderGames(gamesData, '#catalogo .game-grid');
-}
-
-/**
- * Configura o Intersection Observer para carregar imagens sob demanda (lazy loading).
- * Esta função encontra todas as imagens com a classe 'lazy-image' e as observa.
- * Quando uma imagem está prestes a entrar na tela, ela troca o 'data-src' pelo 'src'.
+ * Configura o Intersection Observer para carregar imagens sob demanda (lazy loading),
+ * melhorando a performance de carregamento inicial da página.
  */
 function setupLazyLoading() {
     const lazyImages = document.querySelectorAll('.lazy-image');
     if (lazyImages.length === 0) return;
-
-    // Opções: Carrega a imagem quando ela estiver a 250px de distância da tela.
-    const observerOptions = {
-        rootMargin: '0px 0px 250px 0px'
-    };
 
     const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const image = entry.target;
                 image.src = image.dataset.src; // A mágica acontece aqui!
-                image.classList.remove('lazy-image'); // Remove a classe para não observar de novo.
-                observer.unobserve(image); // Para de observar esta imagem.
+                image.classList.remove('lazy-image');
+                observer.unobserve(image); // Para de observar a imagem após o carregamento.
             }
         });
-    }, observerOptions);
+    }, { rootMargin: '0px 0px 250px 0px' }); // Carrega a imagem 250px antes de ela entrar na tela.
 
-    lazyImages.forEach(image => {
-        imageObserver.observe(image);
-    });
+    lazyImages.forEach(image => imageObserver.observe(image));
 }
 
 /**
- * Cria dinamicamente os botões de filtro de plataforma no catálogo.
- * Isso evita ter que adicionar novos botões manualmente no HTML quando uma nova plataforma é adicionada.
+ * Cria dinamicamente os botões de filtro de plataforma no catálogo,
+ * tornando o sistema extensível a novas plataformas sem alterar o HTML.
  */
 function renderFilterButtons() {
     const filterContainer = document.querySelector('#filter-container');
     if (!filterContainer) return;
 
-    // A MÁGICA ACONTECE AQUI:
-    // flatMap percorre todos os jogos e, para cada jogo, retorna seu array de plataformas.
-    // O resultado é um único array com todas as plataformas de todos os jogos.
-    // O 'new Set()' então pega apenas os valores únicos.
+    // Extrai todas as plataformas únicas de todos os jogos.
     const allPlatforms = gamesData.flatMap(g => g.platform);
     const uniquePlatforms = ['all', ...new Set(allPlatforms)];
     
@@ -564,72 +576,23 @@ function renderFilterButtons() {
     `;
 }
 
-/**
- * Aplica filtros de forma eficiente, escondendo ou mostrando os cards existentes
- * sem a necessidade de recriar tudo. Isso torna a filtragem instantânea.
- */
-function applyFilters() {
-    const allCards = document.querySelectorAll('#catalogo .game-grid .game-card');
-    const gameGrid = document.querySelector('#catalogo .game-grid'); // Pega o contêiner da grade
-    let visibleGameCount = 0;
 
-    // Adiciona a classe para iniciar o efeito de esmaecer
-    if (gameGrid) gameGrid.classList.add('reloading');
-
-    allCards.forEach(card => {
-        // Verifica se o card atual corresponde aos filtros selecionados.
-        const cardPlatforms = card.dataset.platform.split(',');
-        const platformMatch = currentPlatform === 'all' || cardPlatforms.includes(currentPlatform);
-        
-        // Pega o título do card para a busca. '.textContent.toLowerCase()' é rápido.
-        const title = card.querySelector('.game-title').textContent.toLowerCase();
-        const searchMatch = currentSearchTerm === '' || title.includes(currentSearchTerm);
-
-        // Se o card corresponde a AMBOS os filtros, ele deve ser visível.
-        if (platformMatch && searchMatch) {
-            card.classList.remove('hidden');
-            visibleGameCount++;
-        } else {
-            // Caso contrário, ele deve ser escondido.
-            card.classList.add('hidden');
-        }
-    });
-
-    // Remove a classe após um pequeno atraso para o efeito ser visível
-    setTimeout(() => {
-        if (gameGrid) gameGrid.classList.remove('reloading');
-    }, 200); // 200ms é um bom tempo para o efeito ser notado
-
-    // Mostra ou esconde a mensagem de "Nenhum jogo encontrado".
-    const noResultsMessage = document.querySelector('#catalogo .no-results-message');
-    if (noResultsMessage) {
-        noResultsMessage.style.display = visibleGameCount === 0 ? 'block' : 'none';
-    }
-}
-
-/**
- * Calcula e exibe as estatísticas e o gráfico na página "Sobre".
- */
-// em script.js
+// ===================================================================================
+// --- 7. SEÇÃO: LÓGICA DA PÁGINA SOBRE (sobre.html) ---------------------------------
+// ===================================================================================
 
 /**
  * Calcula e exibe as estatísticas e os gráficos na página "Sobre".
  */
 function renderStatistics() {
-    // Pega os contêineres e os elementos <canvas> do HTML.
     const platformChartCanvas = document.getElementById('platform-chart');
     const statusChartCanvas = document.getElementById('status-chart');
-
-    // Se algum dos canvas não for encontrado, interrompe a função.
     if (!platformChartCanvas || !statusChartCanvas || gamesData.length === 0) return;
 
-    // Calcula a contagem de jogos por plataforma, tratando cada plataforma em um array individualmente.
+    // Calcula a contagem de jogos por plataforma.
     const platformCounts = gamesData.reduce((acc, game) => {
-        // Garante que game.platform seja sempre um array para evitar erros.
-        const platforms = Array.isArray(game.platform) ? game.platform : [game.platform];
-        
-        platforms.forEach(platformSlug => {
-            acc[platformSlug] = (acc[platformSlug] || 0) + 1;
+        (Array.isArray(game.platform) ? game.platform : [game.platform]).forEach(slug => {
+            acc[slug] = (acc[slug] || 0) + 1;
         });
         return acc;
     }, {});
@@ -640,90 +603,62 @@ function renderStatistics() {
         return acc;
     }, {});
 
-    // --- PREENCHE AS CAIXAS DE ESTATÍSTICAS DE TEXTO ---
-    // Gera o HTML para a lista de plataformas usando nosso mapa de nomes.
+    // Preenche as caixas de estatísticas de texto.
     const platformsHTML = Object.entries(platformCounts).map(([slug, count]) => {
-        // Para cada 'slug' (ex: 'nintendo-switch'), pegamos o nome bonito do nosso mapa.
-        // Se não encontrar, usa o slug em maiúsculas como fallback.
         const displayName = PLATFORM_DISPLAY_NAMES[slug] || slug.toUpperCase();
         return `<a href="jogos.html?platform=${slug}"><p>${displayName}: <span>${count}</span></p></a>`;
     }).join('');
     document.getElementById('platform-stats-list').innerHTML = platformsHTML;
 
-    // Gera o HTML para a lista de status e insere no local correto.
     const statusHTML = Object.entries(statusCounts).map(([s, c]) => `<p>${s}: <span>${c}</span></p>`).join('');
     document.getElementById('status-stats-list').innerHTML = statusHTML;
 
-    // Gera o HTML para as estatísticas gerais e insere no local correto.
     const generalHTML = `<p>Total de Jogos Catalogados: <span>${gamesData.length}</span></p>`;
     document.getElementById('general-stats-list').innerHTML = generalHTML;
 
-    // --- GRÁFICO 1: Plataformas (Tipo Rosca) ---
+    // Renderiza o gráfico de Plataformas.
     new Chart(platformChartCanvas, {
         type: 'doughnut',
         data: {
-            // Usa o mapa para criar os rótulos do gráfico também.
             labels: Object.keys(platformCounts).map(slug => PLATFORM_DISPLAY_NAMES[slug] || slug.toUpperCase()),
             datasets: [{
-                label: 'Jogos por Plataforma',
                 data: Object.values(platformCounts),
-                backgroundColor: ['rgba(76, 175, 80, 0.8)','rgba(3, 169, 244, 0.8)','rgba(249, 168, 37, 0.8)','rgba(96, 125, 139, 0.8)','rgba(255, 152, 0, 0.8)','rgba(244, 67, 54, 0.8)'],
+                backgroundColor: ['#4CAF50', '#03A9F4', '#F9A825', '#607D8B', '#FF9800', '#f44336'],
                 borderColor: 'rgba(20, 21, 24, 0.5)',
                 borderWidth: 2
             }]
         },
-        options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                    labels: { color: getComputedStyle(document.body).getPropertyValue('--color-text-primary') }
-                }
-            }
-        }
+        options: { plugins: { legend: { position: 'top', labels: { color: getComputedStyle(document.body).getPropertyValue('--color-text-primary') } } } }
     });
 
-    // --- GRÁFICO 2: Status (Tipo Pizza) ---
+    // Renderiza o gráfico de Status.
     const statusColorMap = {
-        'Finalizado 100%': '#4CAF50', 'Finalizado': '#03A9F4', 'Jogando': '#F9A825',
-        'Pausado': '#607D8B', 'Arquivado': '#FF9800', 'Abandonado': '#f44336'
+        '100%': '#4CAF50', 'Finalizado': '#03A9F4', 'Jogando': '#F9A825',
+        'Aposentado': '#607D8B', 'Arquivado': '#FF9800', 'Abandonado': '#f44336'
     };
-
     new Chart(statusChartCanvas, {
         type: 'pie',
         data: {
             labels: Object.keys(statusCounts),
             datasets: [{
-                label: 'Jogos por Status',
                 data: Object.values(statusCounts),
                 backgroundColor: Object.keys(statusCounts).map(status => statusColorMap[status] || '#cccccc'),
                 borderColor: 'rgba(20, 21, 24, 0.5)',
                 borderWidth: 2
             }]
         },
-        options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                    labels: { color: getComputedStyle(document.body).getPropertyValue('--color-text-primary') }
-                }
-            }
-        }
+        options: { plugins: { legend: { position: 'top', labels: { color: getComputedStyle(document.body).getPropertyValue('--color-text-primary') } } } }
     });
 }
 
 
-
 // ===================================================================================
-// --- SEÇÃO: UTILITÁRIOS GLOBAIS ----------------------------------------------------
+// --- 8. SEÇÃO: UTILITÁRIOS GLOBAIS -------------------------------------------------
 // ===================================================================================
 
 /**
  * Configura o botão de alternância de tema (claro/escuro).
- * Salva a preferência do usuário no `localStorage` para que a escolha seja lembrada.
+ * Salva a preferência do usuário no `localStorage`.
  */
 function setupThemeToggle() {
     const themeToggle = document.getElementById('theme-toggle');
@@ -731,49 +666,34 @@ function setupThemeToggle() {
     const sunIcon = document.getElementById('sun-icon');
     const moonIcon = document.getElementById('moon-icon');
 
-    // Função interna para aplicar um tema específico.
     const applyTheme = (theme) => {
         const isLight = theme === 'light';
-        // Adiciona ou remove a classe 'light-mode' do body, que ativa as cores claras no CSS.
         body.classList.toggle('light-mode', isLight);
-        // Alterna qual ícone (sol ou lua) está visível.
         sunIcon.style.display = isLight ? 'none' : 'block';
         moonIcon.style.display = isLight ? 'block' : 'none';
     };
 
-    // No carregamento da página, aplica o tema salvo no localStorage. Se não houver, usa 'dark' como padrão.
     applyTheme(localStorage.getItem('theme') || 'dark');
 
-    // Adiciona o evento de clique para o botão.
     themeToggle.addEventListener('click', () => {
-        // Verifica qual tema está ativo e define o novo tema como o oposto.
         const newTheme = body.classList.contains('light-mode') ? 'dark' : 'light';
-        // Salva a nova preferência no localStorage.
         localStorage.setItem('theme', newTheme);
-        // Aplica o novo tema.
         applyTheme(newTheme);
     });
 }
 
 /**
- * Configura o botão "Voltar ao Topo".
- * Ele aparece quando o usuário rola a página para baixo e some quando está no topo.
+ * Configura o botão "Voltar ao Topo", que aparece ao rolar a página.
  */
 function setupBackToTopButton() {
     const backToTopButton = document.getElementById('back-to-top');
     if (!backToTopButton) return;
 
-    // Função que é executada toda vez que o usuário rola a página.
     window.onscroll = () => {
-        // Se a posição de rolagem for maior que 100 pixels, mostra o botão.
-        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-            backToTopButton.style.display = "block";
-        } else {
-            backToTopButton.style.display = "none";
-        }
+        const isScrolled = document.body.scrollTop > 100 || document.documentElement.scrollTop > 100;
+        backToTopButton.style.display = isScrolled ? "block" : "none";
     };
     
-    // Adiciona o evento de clique para rolar suavemente de volta ao topo da página.
     backToTopButton.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });

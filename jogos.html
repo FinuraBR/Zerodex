@@ -3,22 +3,23 @@
 <html lang="pt-BR">
 
 <head>
-    <!-- ======================= METADADOS E LINKS ======================= -->
-    <!-- A tag <head> contém informações importantes sobre a página que não são visíveis diretamente. -->
+    <!-- ======================= METADADOS E LINKS ESSENCIAIS ======================= -->
+    <!-- A tag <head> contém informações importantes sobre a página que não são visíveis diretamente,
+         como o conjunto de caracteres, a configuração da janela de visualização e links para folhas de estilo. -->
 
-    <!-- Define o conjunto de caracteres como UTF-8, garantindo a exibição correta de acentos e símbolos. -->
+    <!-- Define o conjunto de caracteres como UTF-8, que suporta a maioria dos caracteres e símbolos globais. -->
     <meta charset="UTF-8">
 
-    <!-- Garante que a página seja responsiva, adaptando-se à largura da tela de qualquer dispositivo. -->
+    <!-- Garante que a página se adapte corretamente a diferentes tamanhos de tela (essencial para design responsivo). -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- O título que aparece na aba ou janela do navegador. -->
+    <!-- O título que aparece na aba do navegador. É crucial para SEO e identificação da página. -->
     <title>Catálogo de Jogos - Meu Zerodex</title>
 
-    <!-- Link para a folha de estilos principal (CSS) que define a aparência do site. -->
+    <!-- Link para a folha de estilos (CSS) principal que define toda a aparência do site. -->
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- Define o ícone (favicon) que aparece na aba do navegador. -->
+    <!-- Define o ícone (favicon) que aparece na aba do navegador, representando o site. -->
     <link rel="icon" type="image/jpg" href="imagens/favicon.jpg">
 </head>
 
@@ -26,10 +27,11 @@
     <!-- A tag <body> contém todo o conteúdo visível da página web. -->
 
     <!-- ======================= CABEÇALHO ======================= -->
-    <!-- O cabeçalho é consistente em todas as páginas, contendo o título, a navegação principal e o botão de tema. -->
+    <!-- O cabeçalho é uma seção consistente em todas as páginas, contendo a identidade visual,
+         a navegação principal e controles globais como o botão de tema. -->
     <header>
         <div class="header-container">
-            <!-- Título principal do site. -->
+            <!-- Título principal do site, visível no cabeçalho. -->
             <h1>Meu Zerodex</h1>
 
             <!-- Menu de Navegação Principal -->
@@ -41,19 +43,21 @@
                 </ul>
             </nav>
 
-            <!-- Botão para alternar entre o tema claro e escuro. A lógica é controlada pelo JavaScript. -->
+            <!-- Botão para alternar o tema (claro/escuro). A lógica de funcionamento está no script.js. -->
+            <!-- 'aria-label' melhora a acessibilidade para leitores de tela, descrevendo a função do botão. -->
             <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Tema" aria-label="Alternar Tema">
-                <!-- Ícone de Sol (visível no tema escuro) -->
+                <!-- Ícone de Sol (visível no tema escuro, controlado via CSS) -->
                 <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.061 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.894 17.894a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.591 1.59a.75.75 0 010 1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75-.75zM5.106 17.894a.75.75 0 010-1.06l1.591-1.59a.75.75 0 111.06 1.06l-1.59 1.591a.75.75 0 01-1.061 0zM4.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H5a.75.75 0 01-.75-.75zM6.106 5.106a.75.75 0 011.06 0l1.59 1.591a.75.75 0 11-1.06 1.06L6.106 6.167a.75.75 0 010-1.06z"/></svg>
-                <!-- Ícone de Lua (visível no tema claro) -->
+                <!-- Ícone de Lua (visível no tema claro, controlado via CSS) -->
                 <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 004.463-.945a.75.75 0 01.981.652A11.25 11.25 0 0112 21a11.25 11.25 0 01-11.25-11.25 11.25 11.25 0 012.718-7.528a.75.75 0 01.819.162z" clip-rule="evenodd" /></svg>
             </button>
         </div>
     </header>
 
     <!-- ======================= CONTEÚDO PRINCIPAL ======================= -->
+    <!-- A tag <main> agrupa todo o conteúdo específico desta página. -->
     <main>
-        <!-- Seção dedicada a todo o catálogo de jogos. -->
+        <!-- Seção dedicada a todo o catálogo de jogos, contendo os filtros e a grade de exibição. -->
         <section id="catalogo">
 
             <!-- Cabeçalho específico da seção do catálogo. -->
@@ -66,12 +70,13 @@
 
             <!-- Controles de Pesquisa, Filtro e Ordenação -->
             <div id="controls-container">
-                <!-- Barra de Pesquisa -->
-                <!-- A tag <label> melhora a acessibilidade. A classe 'visually-hidden' a esconde visualmente, mas leitores de tela a identificam. -->
+                <!-- Barra de Pesquisa por nome do jogo. -->
+                <!-- A tag <label> melhora a acessibilidade. A classe 'visually-hidden' a esconde visualmente,
+                     mas leitores de tela a identificam, informando o propósito do campo de texto. -->
                 <label for="search-bar" class="visually-hidden">Pesquisar por nome do jogo</label>
                 <input type="text" id="search-bar" placeholder="Pesquisar por nome...">
 
-                <!-- Opções de Ordenação -->
+                <!-- Menu dropdown para selecionar as opções de ordenação. -->
                 <label for="sort-options" class="visually-hidden">Ordenar jogos por</label>
                 <select id="sort-options">
                     <option value="id-desc">Ordenar por: Mais Recentes</option>
@@ -81,27 +86,30 @@
             </div>
 
             <!-- Contêiner para os Botões de Filtro -->
-            <!-- Este contêiner será preenchido dinamicamente pelo JavaScript com os botões de filtro (por plataforma, etc.). -->
+            <!-- Este contêiner será preenchido dinamicamente pelo JavaScript com os botões de filtro
+                 (por plataforma, etc.), tornando a manutenção mais fácil. -->
             <div id="filter-container"></div>
 
             <!-- Grade de Jogos -->
-            <!-- Esta é a área principal onde os cards dos jogos serão exibidos. O JavaScript irá gerar e inserir os jogos aqui. -->
+            <!-- Esta é a área principal onde os cards dos jogos serão exibidos.
+                 O JavaScript irá gerar e inserir os jogos aqui com base nos filtros e na ordenação. -->
             <div class="game-grid">
                 <!-- 
                   EXEMPLO DE CARD DE JOGO (GERADO PELO JAVASCRIPT):
-                  Este bloco comentado serve como referência de como a estrutura de um card é montada.
+                  Este bloco comentado serve como um guia visual e estrutural de como o JavaScript
+                  monta cada card de jogo, facilitando o desenvolvimento e a manutenção do CSS e do script.
 
-                  <div class="game-card" data-platform="pc">
+                  <div class="game-card" data-platform="pc,nintendo-switch">
                       <div class="card-image-container">
                           <div class="game-number">103</div>
-                          <img data-src="url_da_imagem.jpg" alt="Capa do jogo" class="lazy-image">
+                          <img data-src="url_da_imagem.jpg" alt="Capa do Jogo X" class="lazy-image">
                       </div>
                       <div class="game-info-default">
                           <p class="game-title">Nome do Jogo</p>
                           <span class="status-badge status-completed">Finalizado</span>
                       </div>
                       <div class="game-overlay">
-                          ... detalhes do jogo ...
+                          ... mais detalhes do jogo ...
                       </div>
                   </div>
                 -->
@@ -110,6 +118,7 @@
     </main>
 
     <!-- ======================= RODAPÉ ======================= -->
+    <!-- O rodapé contém informações de copyright e é consistente em todas as páginas. -->
     <footer>
         <div class="footer-container">
             <!-- '&copy;' gera o símbolo de copyright © -->
@@ -117,17 +126,19 @@
         </div>
     </footer>
     
-    <!-- ======================= SCRIPTS E ELEMENTOS EXTRAS ======================= -->
-    <!-- Scripts são colocados no final do <body> para garantir que o HTML seja totalmente carregado antes que o JS tente manipulá-lo. -->
+    <!-- ======================= SCRIPTS E ELEMENTOS FINAIS ======================= -->
+    <!-- Scripts são colocados no final do <body> para garantir que o HTML seja totalmente carregado
+         antes que o JavaScript tente manipulá-lo. Isso melhora a performance de carregamento da página. -->
 
-    <!-- Carrega o banco de dados dos jogos. Deve vir antes do script principal. -->
+    <!-- 1. Carrega o banco de dados dos jogos. Deve vir antes do script principal, que depende desses dados. -->
     <script src="js/database.js"></script>
     
-    <!-- Carrega o script principal que controla toda a lógica da página (renderização, filtros, busca, etc.). -->
+    <!-- 2. Carrega o script principal que controla toda a lógica da página (renderização, filtros, busca, etc.). -->
     <script src="js/script.js"></script>
     
     <!-- Botão "Voltar ao Topo" -->
-    <!-- Este botão (controlado via JS/CSS) aparece quando o usuário rola a página para baixo. -->
+    <!-- Este botão (controlado via CSS e JS) aparece quando o usuário rola a página para baixo,
+         oferecendo um atalho conveniente para retornar ao início. -->
     <button id="back-to-top" title="Voltar ao topo">↑</button>
 
 </body>
