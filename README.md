@@ -4,7 +4,7 @@ Bem-vindo ao Meu Zerodex, um catálogo pessoal de jogos projetado para registrar
 
 **[➡️ Acesse a versão ao vivo aqui!](https://finurabr.github.io/Zerodex/)**
 
-![Prévia do Zerodex em tema escuro e claro](<img width="1920" height="1079" alt="image(1)" src="https://github.com/user-attachments/assets/b096af2f-8577-4dd0-b119-35ebd5316533" />)
+![Prévia do Zerodex em tema escuro e claro](https://finurabr.github.io/Zerodex/imagens/demo.png)
 
 
 ## 🎮 Sobre o Projeto
