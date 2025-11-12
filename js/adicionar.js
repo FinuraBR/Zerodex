@@ -137,23 +137,10 @@ async function populateForm(gameData) {
     
     document.getElementById('form-game-image').src = gameData.background_image || 'imagens/placeholder.jpg';
     document.getElementById('game-image-url').value = gameData.background_image || '';
+    document.getElementById('game-store-url-manual').value = '';
 
     document.getElementById('form-game-release').textContent = `Lançamento: ${gameData.released || 'Não informado'}`;
     
-    // --- LÓGICA DAS LOJAS (permanece a mesma) ---
-    const storeSelect = document.getElementById('game-store-select');
-    const storeUrlInput = document.getElementById('game-store-url-manual');
-    storeSelect.innerHTML = '<option value="manual">-- Inserir Manualmente --</option>';
-    if (gameData.stores) {
-        gameData.stores.forEach(sw => storeSelect.innerHTML += `<option value="${sw.url}">${sw.store.name}</option>`);
-    }
-    if (gameData.stores && gameData.stores.length > 0) {
-        storeSelect.value = gameData.stores[0].url;
-        storeUrlInput.value = gameData.stores[0].url;
-    } else {
-        storeUrlInput.value = '';
-    }
-
     // --- NOVA LÓGICA PARA O SELECT MÚLTIPLO DE PLATAFORMAS ---
     const platformSelect = document.getElementById('game-platform');
     platformSelect.innerHTML = ''; // Limpa a lista
@@ -251,16 +238,6 @@ addGuideBtn.addEventListener('click', () => {
     }
 });
 
-document.getElementById('game-store-select').addEventListener('change', (event) => {
-    const manualInput = document.getElementById('game-store-url-manual');
-    if (event.target.value === 'manual') {
-        manualInput.value = '';
-        manualInput.focus();
-    } else {
-        manualInput.value = event.target.value;
-    }
-});
-
 gameEntryForm.addEventListener('submit', (event) => {
     event.preventDefault();
     let translationValue = translationSelect.value;
@@ -344,13 +321,8 @@ function fillFormWithExistingData(game) {
     formGameTitleInput.value = game.title;
     document.getElementById('form-game-image').src = game.image;
     document.getElementById('game-image-url').value = game.image;
+    document.getElementById('game-store-url-manual').value = game.storeUrl || '';
 
-    // Lógica de Lojas
-    const storeSelect = document.getElementById('game-store-select');
-    const storeUrlInput = document.getElementById('game-store-url-manual');
-    storeSelect.innerHTML = '<option value="manual">-- Inserir Manualmente --</option>';
-    storeUrlInput.value = game.storeUrl || '';
-    
     // Lógica de Status
     const statusSelect = document.getElementById('game-status');
     statusSelect.innerHTML = `<option value="playing">Jogando</option><option value="completed">Finalizado</option><option value="completed-100">100% Concluído</option><option value="retired">Aposentado</option><option value="archived">Arquivado</option><option value="abandonado">Abandonado</option>`;

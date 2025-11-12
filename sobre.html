@@ -50,9 +50,9 @@
 
     <!-- ======================= CONTEÚDO PRINCIPAL ======================= -->
     <!-- A tag <main> agrupa todo o conteúdo específico desta página. -->
-    <main>
+    <main id="about-page">
         <!-- SEÇÃO 1: SOBRE MIM - Uma breve introdução pessoal. -->
-        <section id="sobre-mim">
+        <section id="sobre-mim" class="about-section-card">
             <h2>Sobre Mim</h2>
             <p>
                 Meu nome é Igor, sou um entusiasta em programação e games.
@@ -62,7 +62,7 @@
 
         <!-- SEÇÃO 2: ESTATÍSTICAS DINÂMICAS - Esta seção é preenchida automaticamente pelo JavaScript (script.js). -->
         <section id="dynamic-stats">
-            <h2>Estatísticas Dinâmicas</h2>
+            <h2 class="section-title">Estatísticas Dinâmicas</h2>
 
             <!-- Contêiner para as caixas de estatísticas em texto (layout em grid). -->
             <div id="stats-container">
@@ -100,7 +100,7 @@
         </section>
 
         <!-- SEÇÃO 3: MEU SETUP - Apresenta as especificações do PC e periféricos. -->
-        <section id="pc-setup">
+        <section id="pc-setup" class="about-section-card">
             <h2>Meu Setup</h2>
             <!-- Contêiner principal para o layout de duas colunas. -->
             <div class="setup-container">
@@ -134,33 +134,33 @@
         </section>
 
         <!-- SEÇÃO 4: LEGENDA DE STATUS - Explica o significado de cada status de jogo. -->
-        <section id="status-legend">
+        <section id="status-legend" class="about-section-card">
             <h2>Legenda de Status</h2>
             <ul class="legend-list">
                 <!-- Cada item da legenda usa a mesma classe '.status-badge' dos cards de jogo para manter a consistência visual. -->
                 <li class="legend-item">
-                    <span class="status-badge status-completed-100">100%</span> - Jogo concluído com todos os objetivos principais, secundários e colecionáveis.
+                    <span class="status-badge status-completed-100">100%</span>Jogo concluído com todos os objetivos principais, secundários e colecionáveis.
                 </li>
                 <li class="legend-item">
-                    <span class="status-badge status-completed">Finalizado</span> - Terminou a campanha ou objetivo principal do jogo.
+                    <span class="status-badge status-completed">Finalizado</span>Terminou a campanha ou objetivo principal do jogo.
                 </li>
                 <li class="legend-item">
-                    <span class="status-badge status-playing">Jogando</span> - Jogo que estou jogando ativamente no momento.
+                    <span class="status-badge status-playing">Jogando</span>Jogo que estou jogando ativamente no momento.
                 </li>
                 <li class="legend-item">
-                    <span class="status-badge status-retired">Aposentado</span> - Terminou com um jogo que não tem um final (ex: multiplayer, sandbox).
+                    <span class="status-badge status-retired">Aposentado</span>Terminou com um jogo que não tem um final (ex: multiplayer, sandbox).
                 </li>
                 <li class="legend-item">
-                    <span class="status-badge status-archived">Arquivado</span> - Inacabado, mas com a intenção de retomar mais tarde.
+                    <span class="status-badge status-archived">Arquivado</span>Inacabado, mas com a intenção de retomar mais tarde.
                 </li>
                 <li class="legend-item">
-                    <span class="status-badge status-abandoned">Abandonado</span> - Inacabado e sem planos de voltar a jogar.
+                    <span class="status-badge status-abandoned">Abandonado</span>Inacabado e sem planos de voltar a jogar.
                 </li>
             </ul>
         </section>
 
         <!-- SEÇÃO 5: OBSERVAÇÕES DO CATÁLOGO - Uma nota sobre como DLCs são tratadas. -->
-        <section id="catalog-rules">
+        <section id="catalog-rules" class="about-section-card">
             <h2>Observações do Catálogo</h2>
             <div class="rules-container">
                 <p><strong>Uma nota sobre DLCs:</strong> Salvo alguma indicação contrária específica em um jogo, todos os títulos listados que possuem DLCs ou expansões de conteúdo foram jogados em suas versões completas e definitivas.</p>
@@ -168,7 +168,7 @@
         </section>
 
         <!-- SEÇÃO 6: LINKS EXTERNOS - Uma lista de links úteis e relacionados ao projeto. -->
-        <section id="links-externos">
+        <section id="links-externos" class="about-section-card">
             <h2>Links Úteis</h2>
             <ul>
                 <!-- target="_blank" faz com que o link abra em uma nova aba. -->

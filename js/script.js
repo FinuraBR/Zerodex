@@ -75,6 +75,7 @@ let currentSort = 'id-desc';     // A ordenação escolhida (ex: 'id-desc', 'tit
  * Preenche as diferentes seções ("estantes") da página inicial.
  * Cada estante corresponde a um status de jogo (Jogando, Arquivados, etc.).
  * Se uma estante não tiver jogos, a seção inteira e seu link no menu são escondidos.
+ * MODIFICADO: Agora limita o número de jogos exibidos em cada estante.
  */
 function setupHomepageShelves() {
     // Array que mapeia o seletor da seção no HTML ao status correspondente no 'gamesData'.
@@ -86,6 +87,8 @@ function setupHomepageShelves() {
         { selector: '#retired-games', status: 'retired' },
         { selector: '#abandoned-games', status: 'abandoned' },
     ];
+    
+    const MAX_GAMES_PER_SHELF = 8; // Define o número máximo de jogos por estante
 
     // Itera sobre cada estante definida acima.
     homepageShelves.forEach(shelf => {
@@ -95,8 +98,9 @@ function setupHomepageShelves() {
         // Se o elemento da seção ou o link de navegação não existir, pula para o próximo.
         if (!sectionElement || !navLink) return;
 
-        // Filtra a lista principal de jogos ('gamesData') para pegar apenas os que correspondem ao status da estante.
-        const gamesForShelf = gamesData.filter(game => game.status === shelf.status);
+        // Filtra a lista principal de jogos ('gamesData'), que já está ordenada por ID decrescente (mais recentes primeiro),
+        // e limita o número de resultados com slice().
+        const gamesForShelf = gamesData.filter(game => game.status === shelf.status).slice(0, MAX_GAMES_PER_SHELF);
 
         if (gamesForShelf.length > 0) {
             // Se encontrou jogos para esta estante:
@@ -327,69 +331,77 @@ function setupControls() {
 // ===================================================================================
 
 /**
- * Configura a lógica para exibir um tooltip com o comentário do jogo ao clicar no botão "Ver Comentário".
- * Esta função é universal e funciona em qualquer grade de jogos do site.
+ * Configura a lógica para exibir um tooltip com o comentário do jogo.
+ * O tooltip agora é posicionado de forma inteligente para não sair da tela.
  */
 function setupTooltipLogic() {
     const allGameGrids = document.querySelectorAll('.game-grid');
-    if (allGameGrids.length === 0) return; // Se não houver grades na página, encerra.
+    if (allGameGrids.length === 0) return;
 
-    // Função auxiliar para remover qualquer tooltip que esteja aberto no momento.
+    // Função para remover qualquer tooltip que esteja aberto.
     const removeExistingTooltip = () => {
         const existingTooltip = document.querySelector('.review-card');
         if (existingTooltip) {
-            existingTooltip.classList.remove('active'); // Inicia a animação de saída.
-            setTimeout(() => existingTooltip.remove(), 300); // Remove o elemento do HTML após a animação.
+            existingTooltip.classList.remove('active');
+            setTimeout(() => existingTooltip.remove(), 300);
         }
     };
 
-    // Aplica a lógica de clique a todas as grades de jogos da página.
     allGameGrids.forEach(grid => {
-        // Usa delegação de eventos: o 'listener' está na grade, não em cada botão.
+        // Usa delegação de eventos na grade.
         grid.addEventListener('click', (event) => {
-            // '.closest()' encontra o elemento '.review-trigger' mais próximo do local do clique.
             const trigger = event.target.closest('.review-trigger');
-            if (!trigger) return; // Se o clique não foi no botão ou dentro dele, não faz nada.
+            if (!trigger) return;
 
-            // Descobre em qual card de jogo o botão clicado está.
             const card = trigger.closest('.game-card');
             const gameId = parseInt(card.querySelector('.game-number').textContent);
-
-            // Verifica se um tooltip para este mesmo jogo já está aberto.
             const tooltipAlreadyExists = document.querySelector(`.review-card[data-tooltip-for-id="${gameId}"]`);
 
             if (tooltipAlreadyExists) {
-                // Se o tooltip para este jogo já existe, simplesmente o fecha.
                 removeExistingTooltip();
             } else {
-                // Se é para um novo jogo, primeiro fecha qualquer outro tooltip que esteja aberto.
                 removeExistingTooltip();
                 
-                // Encontra os dados completos do jogo na base de dados 'gamesData'.
                 const gameData = gamesData.find(g => g.id === gameId);
 
-                // Se o jogo tem um comentário ('review'), cria e exibe o tooltip.
                 if (gameData && gameData.review) {
                     const tooltip = document.createElement('div');
                     tooltip.className = 'review-card';
                     tooltip.setAttribute('data-tooltip-for-id', gameId);
-                    tooltip.innerHTML = `
-                        <h3>Comentário</h3>
-                        <p>${gameData.review}</p>
-                    `;
-                    // Insere o tooltip no HTML, logo após o card do jogo.
-                    card.insertAdjacentElement('afterend', tooltip);
-                    // Adiciona a classe 'active' para iniciar a animação de entrada.
+                    tooltip.innerHTML = `<h3>Comentário</h3><p>${gameData.review}</p>`;
+
+                    // Adiciona o tooltip à grade (que é o contexto de posicionamento).
+                    grid.appendChild(tooltip);
+
+                    // --- Lógica de Posicionamento Inteligente ---
+                    const cardRect = card.getBoundingClientRect();
+                    const tooltipWidth = tooltip.offsetWidth;
+                    const margin = 15;
+
+                    const spaceRight = window.innerWidth - cardRect.right;
+
+                    // Decide se o tooltip ficará à direita ou à esquerda do card.
+                    if (spaceRight > (tooltipWidth + margin)) {
+                        tooltip.classList.add('on-right');
+                        tooltip.style.left = `${card.offsetLeft + card.offsetWidth + margin}px`;
+                    } else {
+                        tooltip.classList.add('on-left');
+                        tooltip.style.left = `${card.offsetLeft - tooltipWidth - margin}px`;
+                    }
+
+                    // Posiciona verticalmente (alinhado ao topo do card).
+                    tooltip.style.top = `${card.offsetTop}px`;
+
+                    // Anima a entrada do tooltip.
                     setTimeout(() => tooltip.classList.add('active'), 10);
                 }
             }
         });
     });
 
-    // Adiciona um 'listener' no documento inteiro para fechar o tooltip
-    // se o usuário clicar em qualquer lugar fora da grade de jogos.
+    // Adiciona um listener para fechar o tooltip ao clicar fora.
     document.addEventListener('click', (event) => {
-        if (!event.target.closest('.game-grid')) {
+        if (!event.target.closest('.game-card') && !event.target.closest('.review-card')) {
             removeExistingTooltip();
         }
     });
@@ -611,9 +623,14 @@ function renderStatistics() {
     // Se algum dos canvas não for encontrado, interrompe a função.
     if (!platformChartCanvas || !statusChartCanvas || gamesData.length === 0) return;
 
-    // Calcula a contagem de jogos por plataforma (USANDO O SLUG ORIGINAL como chave).
+    // Calcula a contagem de jogos por plataforma, tratando cada plataforma em um array individualmente.
     const platformCounts = gamesData.reduce((acc, game) => {
-        acc[game.platform] = (acc[game.platform] || 0) + 1; // Mantemos 'pc', 'nintendo-switch', etc.
+        // Garante que game.platform seja sempre um array para evitar erros.
+        const platforms = Array.isArray(game.platform) ? game.platform : [game.platform];
+        
+        platforms.forEach(platformSlug => {
+            acc[platformSlug] = (acc[platformSlug] || 0) + 1;
+        });
         return acc;
     }, {});
     

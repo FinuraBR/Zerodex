@@ -121,7 +121,7 @@ main {
 }
 
 section {
-    margin-bottom: 0px; /* Espaçamento vertical entre as seções. */
+    margin-bottom: 40px; /* Espaçamento vertical entre as seções. */
 }
 
 h2 {
@@ -208,6 +208,7 @@ footer {
     /* Garante que o grid tenha espaço para a "sombra"
     e o crescimento do card sem causar uma barra de rolagem desnecessária. */
     padding: 10px; 
+    position: relative; /* Make this the positioning context for the review card */
 }
 
 .game-card {
@@ -217,11 +218,12 @@ footer {
     background-color: var(--color-background-light);
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* Mantemos isso para a imagem interna */
+    overflow: hidden;
+    border: 1px solid var(--color-border); /* Subtle border */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Default shadow for depth */
 
     /* AJUSTE NA TRANSIÇÃO E Z-INDEX */
     z-index: 1;
-    /* Adicionamos box-shadow à transição */
     transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0s 0.3s;
 }
 
@@ -376,9 +378,9 @@ footer {
 
 /* Aplica-se a QUALQUER card quando o mouse está sobre ele. */
 .game-card:hover {
-    transform: scale(1.08);
+    transform: scale(1.05); /* Slightly less aggressive scale */
     z-index: 10;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra escura para "elevar" */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4); /* Softer, more refined shadow */
 }
 
 /* --- Destaque do Botão Surpresa (Estado Estático) --- */
@@ -416,40 +418,91 @@ footer {
 // =================================================================================== */
 
 /* --- PÁGINA INICIAL (index.html) --- */
+
+/* Estilo aprimorado para a seção Hero */
 #hero {
     text-align: center;
+    background: linear-gradient(180deg, rgba(31, 33, 37, 0.5) 0%, rgba(20, 21, 24, 0.8) 100%), var(--color-background-dark);
+    padding: 60px 30px;
+    border-radius: 16px;
+    border: 1px solid var(--color-border);
+    margin-bottom: 60px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
+
 .hero-title {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
+
 .hero-subtitle {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: var(--color-text-secondary);
     max-width: 700px;
-    margin: 0 auto 30px auto;
+    margin: 0 auto 40px auto;
+}
+
+.hero-subtitle span {
+    display: block;
+    margin-bottom: 1.5em; /* Cria espaço entre as duas linhas de texto */
+}
+
+/* Estilo para as "estantes" de jogos na página inicial */
+.homepage-shelf {
+    background-color: var(--color-background-light);
+    border-radius: 12px;
+    padding: 25px;
+    border: 1px solid var(--color-border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.homepage-shelf:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Título da estante */
+.homepage-shelf h2 {
+    font-size: 1.6em;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--color-accent);
+    display: inline-block; /* Faz a borda se ajustar ao tamanho do texto */
 }
 
 #shelf-nav {
-    position: fixed; /* Fixo na tela, não rola com a página. */
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 100;
-    background-color: var(--color-background-dark);
+    background-color: rgba(20, 21, 24, 0.85); /* Fundo com transparência */
+    backdrop-filter: blur(8px); /* Efeito de vidro fosco */
     border-bottom: 1px solid var(--color-border);
     padding: 15px 20px;
     display: flex;
     justify-content: center;
     gap: 20px;
-    flex-wrap: wrap; /* Permite que os links quebrem a linha em telas pequenas. */
+    flex-wrap: wrap;
     transition: transform 0.4s ease-in-out;
 }
 /* A navegação começa fora da tela (acima) e desliza para dentro. */
 #shelf-nav.shelf-nav-hidden { transform: translateY(-100%); }
 #shelf-nav.shelf-nav-visible { transform: translateY(0); }
-#shelf-nav a { color: var(--color-text-secondary); text-decoration: none; font-weight: bold; font-size: 0.9em; transition: color 0.2s ease; }
-#shelf-nav a:hover { color: var(--color-accent); }
+#shelf-nav a { 
+    color: var(--color-text-secondary); 
+    text-decoration: none; 
+    font-weight: bold; 
+    font-size: 0.9em; 
+    transition: color 0.2s ease, background-color 0.2s ease; 
+    padding: 5px 10px; 
+    border-radius: 5px;
+}
+#shelf-nav a:hover { 
+    color: var(--color-accent);
+    background-color: var(--color-border);
+}
 
 
 /* --- PÁGINA DE CATÁLOGO (jogos.html) --- */
@@ -458,7 +511,9 @@ footer {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 50px; /* Increased margin */
+    padding-bottom: 30px; /* Added padding */
+    border-bottom: 1px solid var(--color-border); /* Added border */
 }
 #catalogo .catalog-header h2 {
     margin-bottom: 8px !important;
@@ -481,20 +536,20 @@ footer {
     margin: 0 auto 50px auto;
 }
 #search-bar, #sort-options {
-    padding: 10px 15px;
+    padding: 12px 18px; /* Increased padding */
     border: 1px solid var(--color-border);
-    background-color: transparent;
+    background-color: var(--color-background-light); /* Changed background */
     color: var(--color-text-primary);
     border-radius: 8px;
-    font-size: 1em;
-    flex: 1; /* Permite que os inputs cresçam para preencher o espaço. */
+    font-size: 1.05em; /* Slightly larger font */
+    flex: 1; 
     min-width: 200px;
-    outline: none; /* Remove a borda azul padrão do navegador ao focar. */
+    outline: none; 
     transition: all 0.3s ease;
 }
-#search-bar:focus {
-    border-color: var(--color-accent); /* Destaca a borda ao focar. */
-    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2); /* Adiciona um brilho sutil. */
+#search-bar:focus, #sort-options:focus {
+    border-color: var(--color-accent); 
+    box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.3); /* Enhanced focus shadow */
 }
 #search-bar::placeholder { color: var(--color-text-secondary); }
 #sort-options { cursor: pointer; }
@@ -505,41 +560,98 @@ footer {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 40px; /* Increased margin */
     flex-wrap: wrap;
 }
-.filter-btn, #surprise-btn {
-    padding: 10px 20px;
+.filter-btn {
+    padding: 10px 25px; /* Adjusted padding */
     border: 1px solid var(--color-border);
     background-color: transparent;
-    color: var(--color-text-primary);
-    border-radius: 8px;
+    color: var(--color-text-secondary); /* Changed default color */
+    border-radius: 30px; /* Pill shape */
     cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.3s, color 0.3s;
+    transition: all 0.2s ease-in-out; /* Smoother transition */
 }
-.filter-btn:hover, #surprise-btn:hover {
+.filter-btn:hover {
     background-color: var(--color-border);
+    color: var(--color-text-primary);
+    transform: translateY(-2px); /* Pop effect */
 }
-/* Estilo para o botão de filtro que está atualmente selecionado. */
 .filter-btn.active {
     background-color: var(--color-accent);
     color: #fff;
     border-color: var(--color-accent);
+    box-shadow: 0 0 15px rgba(40, 167, 69, 0.5); /* Added glow for active state */
+}
+#surprise-btn {
+    padding: 10px 25px;
+    border: 1px solid #F9A825; /* Accent color for surprise */
+    background-color: transparent;
+    color: #F9A825;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
+}
+#surprise-btn:hover {
+    background-color: #F9A825;
+    color: var(--color-background-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(249, 168, 37, 0.5);
 }
 
-/* --- PÁGINA SOBRE (sobre.html) --- */
-#pc-setup h2, #status-legend h2, #catalog-rules h2 { text-align: center; }
+
+/* ===================================================================================
+// --- PÁGINA SOBRE (sobre.html) - ESTILOS MELHORADOS --------------------------------
+// =================================================================================== */
+main#about-page .about-section-card {
+    background-color: var(--color-background-light);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center; /* Centraliza os elementos filhos inline ou inline-block */
+}
+
+main#about-page .about-section-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+main#about-page .about-section-card h2,
+main#about-page #dynamic-stats h2.section-title {
+    display: inline-block; /* Permite que a borda se ajuste ao texto */
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--color-accent);
+}
+
+main#about-page #dynamic-stats h2.section-title {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    text-align: center;
+}
+
+main#about-page #sobre-mim p {
+    font-size: 1.1em;
+    color: var(--color-text-secondary);
+    text-align: left; /* Garante que os parágrafos permaneçam alinhados à esquerda */
+    max-width: none;
+}
+
 .setup-container { display: flex; justify-content: space-around; gap: 40px; flex-wrap: wrap; }
-.setup-column { flex: 1; min-width: 280px; background-color: var(--color-background-light); padding: 25px; border-radius: 8px; }
+.setup-column { flex: 1; min-width: 280px; background-color: var(--color-background-dark); padding: 25px; border-radius: 8px; border: 1px solid var(--color-border); text-align: left; }
 .setup-column h3 { color: var(--color-accent); margin-bottom: 20px; border-bottom: 1px solid var(--color-border); padding-bottom: 10px; }
 .setup-column ul { list-style: none; }
 .setup-column li { margin-bottom: 15px; }
 .setup-column li strong { color: var(--color-text-secondary); display: block; font-size: 0.9em; }
 
-.legend-list { list-style: none; max-width: 650px; margin: 0 auto; background-color: var(--color-background-light); padding: 15px 25px; border-radius: 8px; }
-.legend-item { display: flex; align-items: center; padding: 15px 0; }
-.legend-item:not(:last-child) { border-bottom: 1px solid var(--color-border); }
+.legend-list { list-style: none; max-width: none; margin: 0; background-color: transparent; padding: 0; border-radius: 0; }
+.legend-item { display: flex; align-items: center; padding: 15px; background-color: var(--color-background-dark); border-radius: 8px; transition: background-color 0.2s ease; text-align: left; }
+.legend-item:not(:last-child) { border-bottom: none; margin-bottom: 10px; }
+.legend-item:hover { background-color: var(--color-border); }
 .legend-item .status-badge { margin-right: 15px; }
 
 /* Contêiner das caixas de estatísticas de texto */
@@ -548,7 +660,8 @@ footer {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
     gap: 20px; 
     max-width: 960px;
-    margin: 0 auto 60px auto; /* Centraliza e adiciona espaço abaixo, antes dos gráficos. */
+    margin: 0 auto 40px auto; /* Centraliza e adiciona espaço abaixo, antes dos gráficos. */
+    text-align: left; /* Reseta o alinhamento para o conteúdo das caixas */
 }
 /* Estilo para cada caixa individual */
 .stat-item { 
@@ -578,50 +691,278 @@ footer {
     background-color: var(--color-background-light);
     padding: 20px;
     border-radius: 8px;
-    /* Define uma largura responsiva (100%) mas limita o tamanho máximo em telas grandes
-       para que os gráficos não fiquem enormes. */
     width: 100%;
-    max-width: 250px; /* Você ajustou para 250px para um visual mais compacto. */
+    max-width: 400px;
+}
+.chart-box canvas {
+    max-height: 250px;
 }
 
-/* Esconde o H3 que não existe mais no HTML dos gráficos. */
-.chart-box h3 { display: none; }
+.rules-container { max-width: none; margin: 0; background-color: transparent; padding: 0; border-radius: 0; text-align: left; }
+.rules-container p { max-width: none; }
 
-/* Limpa estilos desnecessários que o #chart-container possa ter herdado. */
-#chart-container {
+#links-externos ul {
+    list-style: none;
     padding: 0;
-    background-color: transparent;
+}
+#links-externos li a {
+    display: block;
+    background-color: var(--color-background-dark);
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: var(--color-text-primary);
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
+    border-left: 4px solid transparent;
+    text-align: left;
+}
+#links-externos li a:hover {
+    background-color: var(--color-border);
+    color: var(--color-accent);
+    transform: translateX(5px);
+    border-left-color: var(--color-accent);
+}
+#links-externos li:last-child a {
+    margin-bottom: 0;
 }
 
-.rules-container { max-width: 650px; margin: 0 auto; background-color: var(--color-background-light); padding: 25px; border-radius: 8px; text-align: center; }
 
+/* ===================================================================================
+// --- PÁGINA ADICIONAR JOGO (adicionar.html) - ESTILOS MELHORADOS --------------------
+// =================================================================================== */
 
-/* --- PÁGINA ADICIONAR JOGO (adicionar.html) --- */
-.direct-manual-add-container { text-align: center; margin-bottom: 25px; }
-.direct-manual-add-container p { margin: 0 auto 15px auto; color: var(--color-text-secondary); }
-#add-game-section h2 { text-align: center; }
-#search-container { display: flex; gap: 15px; margin-bottom: 25px; }
-#api-search-bar { flex-grow: 1; padding: 10px 15px; border: 1px solid var(--color-border); background-color: transparent; color: var(--color-text-primary); border-radius: 8px; font-size: 1em; outline: none; transition: all 0.3s ease; }
-#api-search-bar:focus { border-color: var(--color-accent); box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2); }
-#api-results-container h3 { margin-bottom: 25px; text-align: center; }
-.results-grid { display: grid; gap: 15px; }
-.api-result-item { display: flex; align-items: center; gap: 20px; padding: 15px; border-radius: 8px; background-color: var(--color-background-light); cursor: pointer; transition: all 0.2s ease; border: 1px solid transparent; }
-.api-result-item:hover { transform: translateY(-3px); border-color: var(--color-accent); }
-.api-result-item img { width: 100px; height: 133px; object-fit: cover; border-radius: 4px; }
-.api-result-item h3, .api-result-item p { text-align: left; }
+/* Transforma a seção principal em um card, como na página "Sobre" */
+#add-game-section {
+    background-color: var(--color-background-light);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    max-width: 800px; /* Limita a largura para melhor legibilidade */
+    margin: 40px auto; /* Centraliza o card */
+}
+
+#add-game-section h2 {
+    text-align: center;
+    border-bottom: 2px solid var(--color-accent);
+    display: inline-block;
+    padding-bottom: 10px;
+    /* Centraliza o título que é inline-block */
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Estiliza o container que oferece as duas opções iniciais */
+.direct-manual-add-container,
+#search-container {
+    border: 1px dashed var(--color-border);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+#search-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Melhora a barra de busca e o botão */
+#api-search-bar {
+    flex-grow: 1;
+    padding: 12px 18px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-background-dark);
+    color: var(--color-text-primary);
+    border-radius: 8px;
+    font-size: 1.05em;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#api-search-bar:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.3);
+}
+
+#api-search-button {
+    padding: 12px 20px;
+}
+
+/* Resultados da API */
+#api-results-container h3 {
+    margin-bottom: 25px;
+    text-align: center;
+    color: var(--color-text-secondary);
+}
+
+.results-grid {
+    display: grid;
+    gap: 15px;
+}
+
+.api-result-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: var(--color-background-dark);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid var(--color-border);
+}
+
+.api-result-item:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-accent);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.api-result-item img {
+    width: 80px;
+    height: 107px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.api-result-item h3 {
+    margin: 0 0 5px 0;
+    text-align: left;
+    color: var(--color-text-primary);
+}
+
+.api-result-item p {
+    text-align: left;
+    font-size: 0.9em;
+    color: var(--color-text-secondary);
+}
+
 .manual-entry-link { text-align: center; margin: 20px 0; }
-#add-form-container { background-color: var(--color-background-light); padding: 25px; border-radius: 8px; margin-top: 30px; }
-.form-api-data { display: flex; gap: 20px; align-items: center; margin-bottom: 20px; }
-hr { border: none; height: 1px; background-color: var(--color-border); margin: 25px 0; }
-.form-group { margin-bottom: 15px; }
-.form-group label { display: block; margin-bottom: 5px; color: var(--color-text-secondary); }
-.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; background-color: var(--color-background-dark); border: 1px solid var(--color-border); color: var(--color-text-primary); border-radius: 4px; font-size: 1em; }
-.form-group-inline { display: flex; gap: 15px; align-items: flex-end; }
-#output-container { background-color: var(--color-background-light); padding: 25px; border-radius: 8px; margin-top: 30px; }
+
+/* Formulário de Adição */
+#add-form-container {
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    margin-top: 30px;
+}
+
+.form-api-data {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: var(--color-background-dark);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: var(--color-border);
+    margin: 30px 0;
+}
+
+/* Estilo geral para inputs e selects */
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--color-background-dark);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    border-radius: 4px;
+    font-size: 1em;
+    transition: all 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.2);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--color-text-secondary);
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.form-group-inline {
+    display: flex;
+    gap: 15px;
+    align-items: flex-end;
+}
+
+/* Seção de Guias */
+#guides-list .guide-item {
+    background-color: var(--color-background-dark);
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+
+/* Botão de submissão do formulário */
+#game-entry-form button[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1em;
+    margin-top: 20px;
+}
+
+/* Seção de Código Gerado */
+#output-container {
+    background-color: var(--color-background-dark);
+    padding: 25px;
+    border-radius: 8px;
+    margin-top: 40px;
+    border: 1px solid var(--color-border);
+}
+
 #output-container h3, #output-container p { text-align: center; max-width: none; }
-#output-code { width: 100%; background-color: var(--color-background-dark); border: 1px solid var(--color-border); color: var(--color-text-primary); border-radius: 4px; padding: 15px; font-family: 'Consolas', 'Menlo', 'Courier New', monospace; font-size: 0.9em; line-height: 1.5; resize: vertical; }
-#copy-code-btn { display: block; width: 100%; margin-top: 15px; }
-.edit-btn { width: 100%; margin-top: 15px; }
+
+#output-code {
+    background-color: #0d0d0d;
+    color: #e0e0e0;
+    border: 1px solid #333;
+    line-height: 1.6;
+    font-family: 'Consolas', 'Menlo', 'Courier New', monospace;
+    padding: 15px;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+#copy-code-btn {
+    display: block;
+    width: 100%;
+    margin-top: 15px;
+    background-color: #333;
+    border-color: #444;
+}
+
+#copy-code-btn:hover {
+    background-color: #444;
+    border-color: #555;
+}
+
+.edit-btn {
+    width: 100%;
+    margin-top: 15px;
+}
+
 
 /* --- ESTILO PARA A CAIXA DE SELEÇÃO MÚLTIPLA DE PLATAFORMAS --- */
 #game-platform {
@@ -766,16 +1107,16 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin: 2
 // =================================================================================== */
 
 .review-card {
-    position: relative; /* Posição de referência para a seta. */
+    position: absolute;
+    z-index: 20;
+    width: 280px;
     background-color: var(--color-background-dark);
     border: 1px solid var(--color-border);
     border-radius: 8px;
     padding: 20px;
-    align-self: start;
-    overflow-wrap: break-word; /* Força a quebra de palavras longas. */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    overflow-wrap: break-word;
     word-wrap: break-word;
-
-    /* Animação de entrada */
     opacity: 0;
     transform: scale(0.95);
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -786,20 +1127,28 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin: 2
     transform: scale(1);
 }
 
-/* --- A Seta do "Balão de Fala" --- */
-/* O pseudo-elemento ::before cria um "elemento" extra via CSS.
-   Usamos um truque com bordas para desenhar um triângulo. */
-.review-card::before {
-    content: ''; /* Obrigatório para o pseudo-elemento aparecer. */
+.review-card.on-right::before {
+    content: '';
     position: absolute;
-    top: 25px;
-    left: -10px; /* Posiciona a seta para fora do card. */
+    top: 30px;
+    left: -10px;
     width: 0;
     height: 0;
     border-style: solid;
-    /* Apenas a borda direita tem cor, as outras são transparentes, formando o triângulo. */
     border-width: 10px 10px 10px 0;
     border-color: transparent var(--color-border) transparent transparent;
+}
+
+.review-card.on-left::before {
+    content: '';
+    position: absolute;
+    top: 30px;
+    right: -10px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 0 10px 10px;
+    border-color: transparent transparent transparent var(--color-border);
 }
 
 /* --- Conteúdo Interno do Tooltip --- */
@@ -816,3 +1165,17 @@ hr { border: none; height: 1px; background-color: var(--color-border); margin: 2
     max-width: none;
 }
 
+/* --- NOVO: Grupo de inputs condensado --- */
+.form-group-grid-condensed {
+    display: grid;
+    /* Coluna 1 (ID) com tamanho fixo, as outras 2 dividem o espaço restante */
+    grid-template-columns: 120px 1fr 1fr;
+    gap: 15px; /* Espaçamento entre os campos */
+    align-items: flex-end; /* Alinha os campos pela base */
+    margin-bottom: 15px; /* Adiciona espaçamento após o grupo */
+}
+
+/* Remove a margem inferior dos grupos dentro do grid, pois o 'gap' já cuida disso */
+.form-group-grid-condensed .form-group {
+    margin-bottom: 0;
+}
