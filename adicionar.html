@@ -1,52 +1,18 @@
 <!DOCTYPE html>
-<!-- 
-  Define o tipo de documento como HTML5 e o idioma principal como Português do Brasil.
-  Isso é importante para os navegadores e para tecnologias assistivas.
--->
 <html lang="pt-BR">
 
 <head>
-    <!-- =================================================================================== -->
-    <!-- ======================= METADADOS E LINKS ESSENCIAIS ============================== -->
-    <!-- A tag <head> contém informações cruciais sobre a página que não são visíveis    -->
-    <!-- diretamente, mas são essenciais para o funcionamento, SEO e aparência do site.     -->
-    <!-- =================================================================================== -->
-
-    <!-- Define o conjunto de caracteres como UTF-8, o padrão universal que garante
-         a exibição correta de acentos, cedilhas e outros símbolos especiais. -->
     <meta charset="UTF-8">
-
-    <!-- Garante que a página seja responsiva, instruindo o navegador a ajustar a largura
-         da página à largura do dispositivo e a iniciar com um nível de zoom de 100%. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- O título que aparece na aba ou na janela do navegador. É um fator importante
-         para a identificação da página e para os motores de busca (SEO). -->
     <title>Adicionar Jogo ao Zerodex</title>
-
-    <!-- Link para a folha de estilos principal (CSS). O arquivo 'style.css'
-         contém todas as regras visuais que definem a aparência do site. -->
     <link rel="stylesheet" href="css/style.css">
-
-    <!-- Define o ícone (favicon) que aparece na aba do navegador, adicionando uma
-         identidade visual à página. -->
     <link rel="icon" type="image/jpg" href="imagens/favicon.jpg">
 </head>
 
 <body>
-    <!-- A tag <body> contém todo o conteúdo visível da página web. -->
-
-    <!-- =================================================================================== -->
-    <!-- ======================= CABEÇALHO (HEADER) ======================================== -->
-    <!-- O cabeçalho é consistente em todas as páginas, contendo o título principal,
-         a navegação e o botão de alternância de tema. -->
-    <!-- =================================================================================== -->
     <header>
         <div class="header-container">
-            <!-- Título da página, indicando sua função. -->
             <h1>Adicionar Jogo</h1>
-
-            <!-- Menu de Navegação Principal, para fácil acesso a outras seções do site. -->
             <nav>
                 <ul>
                     <li><a href="index.html">Início</a></li>
@@ -54,43 +20,33 @@
                     <li><a href="sobre.html">Sobre</a></li>
                 </ul>
             </nav>
-
-            <!-- 
-              Botão para alternar entre o tema claro e escuro.
-              - A lógica de funcionamento é controlada pelo JavaScript (adicionar.js).
-              - 'title' fornece uma dica de ferramenta ao passar o mouse.
-              - 'aria-label' melhora a acessibilidade para leitores de tela.
-            -->
             <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Tema" aria-label="Alternar Tema">
-                <!-- Ícone de Sol (visível no tema escuro). -->
                 <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.061 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.894 17.894a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.591 1.59a.75.75 0 010 1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75-.75zM5.106 17.894a.75.75 0 010-1.06l1.591-1.59a.75.75 0 111.06 1.06l-1.59 1.591a.75.75 0 01-1.061 0zM4.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H5a.75.75 0 01-.75-.75zM6.106 5.106a.75.75 0 011.06 0l1.59 1.591a.75.75 0 11-1.06 1.06L6.106 6.167a.75.75 0 010-1.06z"/></svg>
-                <!-- Ícone de Lua (visível no tema claro). -->
                 <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 004.463-.945a.75.75 0 01.981.652A11.25 11.25 0 0112 21a11.25 11.25 0 01-11.25-11.25 11.25 11.25 0 012.718-7.528a.75.75 0 01.819.162z" clip-rule="evenodd" /></svg>
             </button>
         </div>
     </header>
 
-    <!-- =================================================================================== -->
-    <!-- ======================= CONTEÚDO PRINCIPAL (MAIN) ================================= -->
-    <!-- A tag <main> define o conteúdo principal e único desta página, focado em
-         adicionar ou editar um jogo no catálogo. -->
-    <!-- =================================================================================== -->
     <main>
         <section id="add-game-section">
             <h2>Adicionar Jogo</h2>
 
-            <!-- Bloco de Início Rápido: Oferece a opção de busca (preferencial) ou entrada manual direta. -->
-            <div class="direct-manual-add-container">
-                <p>Busque na base de dados ou, se preferir, adicione todas as informações do zero.</p>
-                <button id="direct-manual-add-btn" class="secondary-btn">Adicionar Manualmente</button>
-            </div>
-            
-            <!-- Ferramenta de Busca via API: Permite buscar jogos para preencher o formulário automaticamente. -->
+            <!-- Opção 1: Busca via RAWG -->
             <div id="search-container">
+                <h4>1. Buscar na base de dados (RAWG)</h4>
                 <input type="text" id="api-search-bar" placeholder="Digite o nome de um jogo para buscar...">
-                <button id="api-search-button" class="cta-button">Buscar</button>
+                <button id="api-search-button" class="cta-button">Buscar na RAWG</button>
             </div>
 
+            <div class="separator"><span>OU</span></div>
+
+            <!-- Opção 2: Busca direta na Steam -->
+            <div id="steam-search-container">
+                <h4>2. Buscar direto na Steam (Recomendado)</h4>
+                <input type="text" id="steam-search-bar" placeholder="Digite o AppID do jogo na Steam...">
+                <button id="steam-search-button" class="cta-button">Buscar por AppID</button>
+            </div>
+            
             <!-- Contêiner de Resultados da Busca: Exibe os jogos encontrados pela API. Fica oculto por padrão. -->
             <div id="api-results-container" style="display: none;">
                 <h3>Resultados da Busca</h3>
@@ -99,18 +55,19 @@
                 </div>
             </div>
             
-            <!-- Botão para Entrada Manual (Alternativa): Aparece após a busca, caso o jogo não seja encontrado. -->
+            <!-- Botão para Entrada Manual -->
             <div class="manual-entry-link">
-                <button id="manual-entry-button" class="secondary-btn" style="display: none;">Não encontrou nos resultados? Adicione manualmente</button>
+                 <button id="manual-entry-button" class="secondary-btn" style="display: none;">Não encontrou? Adicione manualmente</button>
             </div>
 
-            <!-- Contêiner do Formulário Principal: Onde os dados do jogo são inseridos ou editados. Oculto por padrão. -->
+            <!-- Contêiner do Formulário Principal -->
             <div id="add-form-container" style="display: none;">
                 <form id="game-entry-form">
-                    
-                    <!-- Bloco de Dados Pré-preenchidos pela API -->
                     <div class="form-api-data">
-                        <img id="form-game-image" src="imagens/placeholder.jpg" alt="Capa do Jogo" width="150">
+                        <div class="form-image-wrapper">
+                            <img id="form-game-image" src="imagens/placeholder.jpg" alt="Capa do Jogo" width="150">
+                            <button type="button" id="change-cover-btn" class="secondary-btn" style="display: none;">Trocar Capa</button>
+                        </div>
                         <div>
                             <div class="form-group">
                                 <label for="form-game-title-input">Título do Jogo:</label>
@@ -120,46 +77,31 @@
                         </div>
                     </div>
                     
-                    <!-- Divisor visual entre os dados da API e os dados do usuário. -->
                     <hr>
                     
-                    <!-- Bloco de Dados a serem preenchidos pelo usuário. -->
                     <div class="form-user-data">
-                        <!-- Grupo de campos essenciais (ID, URL da Loja, URL da Imagem) em um layout de grade. -->
                         <div class="form-group-grid-condensed">
                             <div class="form-group">
                                 <label for="game-id">ID do Jogo:</label>
                                 <input type="number" id="game-id" required>
                             </div>
-                            
                             <div class="form-group">
                                 <label for="game-store-url-manual">URL da Loja (opcional):</label>
-                                <input type="text" id="game-store-url-manual" placeholder="Cole a URL da página do jogo (Steam, Epic, etc)...">
+                                <input type="text" id="game-store-url-manual" placeholder="URL da página do jogo...">
                             </div>
-
                             <div class="form-group">
                                 <label for="game-image-url">URL da Imagem da Capa:</label>
                                 <input type="text" id="game-image-url" placeholder="https://...">
                             </div>
                         </div>
-
-                        <!-- Campo para selecionar o status do jogo. -->
                         <div class="form-group">
                             <label for="game-status">Status:</label>
-                            <select id="game-status" required>
-                                <!-- Opções são adicionadas via JavaScript para manter a consistência. -->
-                            </select>
+                            <select id="game-status" required></select>
                         </div>
-                        
-                        <!-- Campo para selecionar múltiplas plataformas. -->
                         <div class="form-group">
                             <label for="game-platform">Plataformas (segure Ctrl/Cmd para selecionar várias):</label>
-                            <select id="game-platform" multiple required>
-                                <!-- Opções são preenchidas via JavaScript com base no 'database.js'. -->
-                            </select>
+                            <select id="game-platform" multiple required></select>
                         </div>
-                        
-                        <!-- Grupo para informações de tradução, com um campo condicional para o link. -->
                         <div class="form-group-inline">
                             <div class="form-group">
                                 <label for="game-translation">Tradução:</label>
@@ -174,21 +116,15 @@
                                 <input type="text" id="fan-translation-link" placeholder="https://...">
                             </div>
                         </div>
-                        
-                        <!-- Seção para adicionar guias utilizados. -->
                         <div class="form-group">
                             <label>Guias (opcional):</label>
-                            <div id="guides-list">
-                                <!-- A lista de guias adicionados aparecerá aqui. -->
-                            </div>
+                            <div id="guides-list"></div>
                             <div class="form-group-inline" style="margin-top: 5px;">
                                 <input type="text" id="guide-title" placeholder="Nome do Guia (ex: IGN)">
                                 <input type="text" id="guide-url" placeholder="URL do Guia">
                             </div>
                             <button type="button" id="add-guide-btn" class="secondary-btn">Adicionar Guia</button>
                         </div>
-                        
-                        <!-- Campo para versões especiais do jogo (Demo, Beta, etc.). -->
                         <div class="form-group">
                             <label for="game-version">Versão (opcional):</label>
                             <select id="game-version">
@@ -198,20 +134,16 @@
                                 <option value="Beta">Beta</option>
                             </select>
                         </div>
-                        
-                        <!-- Campo de texto para um comentário ou mini-review pessoal. -->
                         <div class="form-group">
                             <label for="game-review">Seu Comentário (opcional):</label>
                             <textarea id="game-review" rows="3"></textarea>
                         </div>
-                        
-                        <!-- Botão principal para submeter o formulário e gerar o código. -->
                         <button type="submit" class="cta-button">Salvar no Zerodex</button>
                     </div>
                 </form>
             </div>
 
-            <!-- Contêiner de Saída: Exibe o código JSON gerado para ser copiado para a 'database.js'. -->
+            <!-- Contêiner de Saída -->
             <div id="output-container" style="display: none; margin-top: 30px;">
                 <h3>Código Gerado para database.js</h3>
                 <p>Copie o código abaixo e cole no topo da lista `gamesData`.</p>
@@ -221,22 +153,20 @@
         </section>
     </main>
     
-    <!-- =================================================================================== -->
-    <!-- ======================= SCRIPTS E ELEMENTOS FINAIS ================================ -->
-    <!-- Scripts são colocados no final do <body> para que a página carregue o conteúdo
-         visual primeiro, melhorando a performance percebida pelo usuário. -->
-    <!-- =================================================================================== -->
+    <!-- Modal da Galeria -->
+    <div id="gallery-overlay" class="gallery-overlay" style="display: none;"></div>
+    <div id="asset-gallery-modal" class="asset-gallery-modal" style="display: none;">
+        <div class="modal-header">
+            <h3>Selecionar Capa do Jogo</h3>
+            <button id="close-gallery-btn" class="close-gallery-btn">&times;</button>
+        </div>
+        <div id="asset-gallery-content" class="modal-content"></div>
+    </div>
     
-    <!-- 1. database.js: Carrega o banco de dados. Essencial para obter a lista de plataformas. -->
+    <!-- Scripts -->
     <script src="js/database.js"></script>
-    
-    <!-- 2. id_counter.js: Fornece o próximo ID sugerido para um novo jogo. -->
     <script src="js/id_counter.js"></script>
-    
-    <!-- 3. adicionar.js: Script principal com toda a lógica de interatividade desta página. -->
     <script src="js/adicionar.js"></script>
-
-    <!-- Botão "Voltar ao Topo": Oferece um atalho para retornar ao início da página. -->
     <button id="back-to-top" title="Voltar ao topo">↑</button>
 </body>
 </html>

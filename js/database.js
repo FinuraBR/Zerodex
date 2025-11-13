@@ -123,6 +123,22 @@ const PLATFORM_DISPLAY_NAMES = {
 
 const gamesData = [
     {
+        "id": 112,
+        "title": "112 Operator",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/793460/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/793460/112_Operator/"
+    },
+    {
         "id": 111,
         "title": "03.04",
         "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/952950/library_600x900_2x.jpg",
