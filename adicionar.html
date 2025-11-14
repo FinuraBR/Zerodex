@@ -31,41 +31,34 @@
         <section id="add-game-section">
             <h2>Adicionar Jogo</h2>
 
-            <!-- Opção 1: Busca via RAWG -->
             <div id="search-container">
-                <h4>1. Buscar na base de dados (RAWG)</h4>
+                <h4>1. Buscar por Nome (RAWG)</h4>
                 <input type="text" id="api-search-bar" placeholder="Digite o nome de um jogo para buscar...">
-                <button id="api-search-button" class="cta-button">Buscar na RAWG</button>
+                <button id="api-search-button" class="cta-button">Buscar</button>
             </div>
 
             <div class="separator"><span>OU</span></div>
 
-            <!-- Opção 2: Busca direta na Steam -->
             <div id="steam-search-container">
-                <h4>2. Buscar direto na Steam (Recomendado)</h4>
+                <h4>2. Buscar por AppID (Steam)</h4>
                 <input type="text" id="steam-search-bar" placeholder="Digite o AppID do jogo na Steam...">
                 <button id="steam-search-button" class="cta-button">Buscar por AppID</button>
             </div>
-            
-            <!-- Contêiner de Resultados da Busca: Exibe os jogos encontrados pela API. Fica oculto por padrão. -->
+
             <div id="api-results-container" style="display: none;">
                 <h3>Resultados da Busca</h3>
-                <div class="results-grid">
-                    <!-- O JavaScript preencherá esta área com os resultados. -->
-                </div>
+                <div class="results-grid"></div>
             </div>
             
-            <!-- Botão para Entrada Manual -->
             <div class="manual-entry-link">
-                 <button id="manual-entry-button" class="secondary-btn" style="display: none;">Não encontrou? Adicione manualmente</button>
+                <button id="manual-entry-button" class="secondary-btn" style="display: none;">Não encontrou? Adicione manualmente</button>
             </div>
 
-            <!-- Contêiner do Formulário Principal -->
             <div id="add-form-container" style="display: none;">
                 <form id="game-entry-form">
                     <div class="form-api-data">
                         <div class="form-image-wrapper">
-                            <img id="form-game-image" src="imagens/placeholder.jpg" alt="Capa do Jogo" width="150">
+                            <img id="form-game-image" src="imagens/favicon.jpg" alt="Capa do Jogo" width="150">
                             <button type="button" id="change-cover-btn" class="secondary-btn" style="display: none;">Trocar Capa</button>
                         </div>
                         <div>
@@ -143,7 +136,6 @@
                 </form>
             </div>
 
-            <!-- Contêiner de Saída -->
             <div id="output-container" style="display: none; margin-top: 30px;">
                 <h3>Código Gerado para database.js</h3>
                 <p>Copie o código abaixo e cole no topo da lista `gamesData`.</p>
@@ -153,9 +145,8 @@
         </section>
     </main>
     
-    <!-- Modal da Galeria -->
-    <div id="gallery-overlay" class="gallery-overlay" style="display: none;"></div>
-    <div id="asset-gallery-modal" class="asset-gallery-modal" style="display: none;">
+    <div id="gallery-overlay" class="gallery-overlay"></div>
+    <div id="asset-gallery-modal" class="asset-gallery-modal">
         <div class="modal-header">
             <h3>Selecionar Capa do Jogo</h3>
             <button id="close-gallery-btn" class="close-gallery-btn">&times;</button>
@@ -163,7 +154,6 @@
         <div id="asset-gallery-content" class="modal-content"></div>
     </div>
     
-    <!-- Scripts -->
     <script src="js/database.js"></script>
     <script src="js/id_counter.js"></script>
     <script src="js/adicionar.js"></script>

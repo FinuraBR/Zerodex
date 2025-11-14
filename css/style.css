@@ -561,6 +561,7 @@ footer {
     margin: 0 auto 50px auto;
 }
 #search-bar,
+#steam-search-bar,
 #sort-options {
     flex: 1;
     min-width: 200px;
@@ -574,11 +575,14 @@ footer {
     transition: all 0.3s ease;
 }
 #search-bar:focus,
+#steam-search-bar:focus,
 #sort-options:focus {
     border-color: var(--color-accent);
     box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.3);
 }
-#search-bar::placeholder { color: var(--color-text-secondary); }
+#search-bar::placeholder {
+    color: var(--color-text-secondary);
+}
 
 #sort-options { cursor: pointer; }
 #sort-options:hover { background-color: var(--color-border); }
@@ -767,6 +771,9 @@ main#about-page #sobre-mim p {
     max-width: 800px;
     margin: 40px auto;
 }
+#add-game-section h2 {
+    text-align: center;
+}
 #add-game-section h2::after {
     margin-bottom: 20px;
 }
@@ -780,7 +787,8 @@ main#about-page #sobre-mim p {
 }
 #search-container { display: flex; flex-direction: column; gap: 15px; }
 
-#api-search-bar {
+#api-search-bar,
+#steam-search-bar {
     flex-grow: 1;
     padding: 12px 18px;
     border: 1px solid var(--color-border);
@@ -791,11 +799,15 @@ main#about-page #sobre-mim p {
     outline: none;
     transition: all 0.3s ease;
 }
-#api-search-bar:focus {
+#api-search-bar:focus,
+#steam-search-bar:focus {
     border-color: var(--color-accent);
     box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.3);
 }
-#api-search-button { padding: 12px 20px; }
+#api-search-button,
+#steam-search-button.cta-button {
+    padding: 12px 20px;
+}
 
 #api-results-container h3 { margin-bottom: 25px; color: var(--color-text-secondary); text-align: center; }
 .results-grid { display: grid; gap: 15px; }
@@ -1316,4 +1328,319 @@ body.light-mode {
 
 .separator:not(:empty)::after {
     margin-left: .5em;
+}
+
+/* ===================================================================================
+// --- 9. ESTILOS DA GALERIA DE ASSETS (NOVO) ----------------------------------------
+// =================================================================================== */
+
+.gallery-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: none; /* Inicia oculto */
+}
+
+.gallery-overlay.visible {
+    display: block;
+    opacity: 1;
+}
+
+.asset-gallery-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    z-index: 1001;
+    width: 90%;
+    max-width: 1200px;
+    height: 80vh;
+    background-color: var(--color-background-dark);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    display: none; /* Inicia oculto */
+    flex-direction: column;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.asset-gallery-modal.visible {
+    display: flex;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    border-bottom: 1px solid var(--color-border);
+    flex-shrink: 0;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: var(--color-accent);
+}
+
+.close-gallery-btn {
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.close-gallery-btn:hover {
+    color: var(--color-text-primary);
+    transform: rotate(90deg);
+}
+
+.modal-content {
+    padding: 25px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.asset-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.asset-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background-color: var(--color-background-light);
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.asset-item:hover {
+    transform: scale(1.03);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 15px rgba(40, 167, 69, 0.3);
+}
+
+.asset-item img {
+    max-width: 100%;
+    height: auto;
+    max-height: 200px;
+    border-radius: 4px;
+    background-color: var(--color-border);
+}
+
+.asset-item figcaption {
+    font-size: 0.8em;
+    color: var(--color-text-secondary);
+    text-align: center;
+}
+
+.asset-item figcaption span {
+    display: block;
+    font-family: 'Consolas', monospace;
+    font-size: 0.9em;
+    color: var(--color-text-primary);
+}
+
+.light-mode .asset-gallery-modal {
+    background-color: var(--color-background-light);
+}
+.light-mode .asset-item {
+    background-color: var(--color-background-dark);
+}
+
+/* --- Estilos para a busca separada (adicionar.html) --- */
+#search-container,
+#steam-search-container {
+    padding: 20px;
+    margin-bottom: 0;
+    border: 1px dashed var(--color-border);
+    border-radius: 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#search-container h4,
+#steam-search-container h4 {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-weight: normal;
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--color-text-secondary);
+    margin: 25px 0;
+}
+
+.separator::before,
+.separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.separator:not(:empty)::before {
+    margin-right: .5em;
+}
+
+.separator:not(:empty)::after {
+    margin-left: .5em;
+}
+
+/* --- Estilos da Galeria de Assets --- */
+.gallery-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: none;
+}
+
+.gallery-overlay.visible {
+    display: block;
+    opacity: 1;
+}
+
+.asset-gallery-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    z-index: 1001;
+    width: 90%;
+    max-width: 1200px;
+    height: 80vh;
+    background-color: var(--color-background-dark);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    display: none;
+    flex-direction: column;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.asset-gallery-modal.visible {
+    display: flex;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    border-bottom: 1px solid var(--color-border);
+    flex-shrink: 0;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: var(--color-accent);
+}
+
+.close-gallery-btn {
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.close-gallery-btn:hover {
+    color: var(--color-text-primary);
+    transform: rotate(90deg);
+}
+
+.modal-content {
+    padding: 25px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.asset-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.asset-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background-color: var(--color-background-light);
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.asset-item:hover {
+    transform: scale(1.03);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 15px rgba(40, 167, 69, 0.3);
+}
+
+.asset-item img {
+    max-width: 100%;
+    height: auto;
+    max-height: 200px;
+    border-radius: 4px;
+    background-color: var(--color-border);
+}
+
+.asset-item figcaption {
+    font-size: 0.8em;
+    color: var(--color-text-secondary);
+    text-align: center;
+}
+
+.asset-item figcaption span {
+    display: block;
+    font-family: 'Consolas', monospace;
+    font-size: 0.9em;
+    color: var(--color-text-primary);
+}
+
+.light-mode .asset-gallery-modal {
+    background-color: var(--color-background-light);
+}
+
+.light-mode .asset-item {
+    background-color: var(--color-background-dark);
 }

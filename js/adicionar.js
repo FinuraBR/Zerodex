@@ -1,14 +1,15 @@
 // ===================================================================================
 // === MEU ZERODEX - LÓGICA DA PÁGINA DE ADICIONAR JOGO (adicionar.js) [FINAL] ======
 // ===================================================================================
-// DESCRIÇÃO: Versão com buscas separadas e lógica de URL de assets aprimorada.
+// DESCRIÇÃO: Usa a API pública da Steam e uma lista mestra de assets com fallback
+//            entre múltiplos CDNs e múltiplos formatos de imagem.
 // ===================================================================================
 
 const CLOUDFLARE_WORKER_URL = 'https://zerodex-api-proxy.igorrabenschlag.workers.dev';
 
 let tempGuides = [];
 let currentNextId;
-let currentSteamAssets = null;
+let currentSteamData = null;
 
 // --- Seleção de Elementos do DOM ---
 const searchButton = document.getElementById('api-search-button');
@@ -69,11 +70,11 @@ async function searchGamesOnRawg(query) {
     showLoadingMessage('Buscando na RAWG...');
     try {
         const response = await fetch(`${CLOUDFLARE_WORKER_URL}?query=${encodeURIComponent(query)}`);
-        if (!response.ok) throw new Error(`Erro na API RAWG: ${response.statusText}`);
+        if (!response.ok) throw new Error('Falha ao buscar na RAWG.');
         const data = await response.json();
         displayRawgResults(data.results);
     } catch (error) {
-        showErrorMessage("Ocorreu um erro ao buscar na RAWG. Tente novamente.");
+        showErrorMessage("Ocorreu um erro ao buscar na RAWG.");
         console.error("Falha na busca RAWG:", error);
     }
 }
@@ -85,40 +86,48 @@ async function searchSteamDirectly(appId) {
     }
     showLoadingMessage('Buscando na Steam...');
     try {
-        const response = await fetch(`${CLOUDFLARE_WORKER_URL}?appid=${appId}`);
-        if (!response.ok) throw new Error(`Erro na API Steam: ${response.statusText}`);
-        const steamResponse = await response.json();
+        const steamResponse = await fetch(`${CLOUDFLARE_WORKER_URL}?appid=${appId}`);
+        if (!steamResponse.ok) throw new Error('Falha na chamada para a API da Steam.');
+        const steamApiResponse = await steamResponse.json();
         
-        if (steamResponse && steamResponse[appId] && steamResponse[appId].success) {
-            const steamData = steamResponse[appId].data;
+        const steamData = steamApiResponse?.[appId]?.data;
+        if (steamData) {
             const rawgResponse = await fetch(`${CLOUDFLARE_WORKER_URL}?query=${encodeURIComponent(steamData.name)}`);
             const rawgData = await rawgResponse.json();
             const matchingRawgGame = rawgData.results.find(g => g.name === steamData.name) || {};
-            
             populateFormWithHybridData(matchingRawgGame, steamData);
         } else {
-            throw new Error("AppID não encontrado ou resposta inválida da Steam.");
+            throw new Error("AppID não encontrado ou resposta inválida.");
         }
     } catch (error) {
-        showErrorMessage("AppID não encontrado ou erro na busca. Verifique o ID e tente novamente.");
-        console.error("Falha na busca Steam:", error);
+        showErrorMessage("AppID não encontrado ou erro na busca na Steam.");
+        console.error("Falha na busca Steam direta:", error);
     }
 }
 
-async function fetchRawgGameDetails(slug) {
-    showLoadingMessage('Carregando detalhes...');
+async function processRawgSelection(slug) {
+    showLoadingMessage('Buscando informações...');
     try {
-        const response = await fetch(`${CLOUDFLARE_WORKER_URL}/${slug}`);
-        if (!response.ok) throw new Error(`Erro ao buscar detalhes: ${response.statusText}`);
-        const rawgData = await response.json();
-        populateFormWithHybridData(rawgData, null);
+        const rawgResponse = await fetch(`${CLOUDFLARE_WORKER_URL}/${slug}`);
+        if (!rawgResponse.ok) throw new Error('Falha ao buscar detalhes na RAWG.');
+        const rawgData = await rawgResponse.json();
+
+        const steamStore = rawgData.stores?.find(s => s.store.slug === 'steam');
+        const steamAppIdMatch = steamStore?.url.match(/\/app\/(\d+)/);
+        const steamAppId = steamAppIdMatch ? steamAppIdMatch[1] : null;
+
+        if (steamAppId) {
+            await searchSteamDirectly(steamAppId);
+        } else {
+            populateFormWithHybridData(rawgData, null);
+        }
     } catch (error) {
-        showErrorMessage("Erro ao carregar detalhes do jogo.");
-        console.error("Falha ao buscar detalhes:", error);
+        showErrorMessage("Erro ao processar a seleção do jogo.");
+        console.error("Falha no processo de seleção:", error);
     }
 }
 
-// --- Funções de UI ---
+// --- Funções de UI e Formulário ---
 
 function showLoadingMessage(message) {
     resultsContainer.style.display = 'block';
@@ -141,7 +150,7 @@ function displayRawgResults(games) {
     }
     resultsGrid.innerHTML = games.map(game => `
         <div class="api-result-item" data-slug="${game.slug}">
-            <img src="${game.background_image || 'imagens/placeholder.jpg'}" alt="${game.name}">
+            <img src="${game.background_image || 'imagens/favicon.jpg'}" alt="${game.name}">
             <div>
                 <h3>${game.name}</h3>
                 <p>Lançamento: ${game.released || 'Não informado'}</p>
@@ -150,79 +159,158 @@ function displayRawgResults(games) {
     `).join('');
 }
 
-// --- Preenchimento do Formulário ---
-
 function populateFormWithHybridData(rawgData, steamData = null) {
     gameEntryForm.reset();
     tempGuides = [];
     updateGuidesList();
     fanTranslationGroup.style.display = 'none';
-    currentSteamAssets = null;
-
+    currentSteamData = steamData;
+    changeCoverBtn.style.display = 'none';
     gameIdInput.value = currentNextId;
 
     formGameTitleInput.value = steamData?.name || rawgData.name || '';
+    gameStoreUrlInput.value = steamData ? `https://store.steampowered.com/app/${steamData.steam_appid}/` : '';
+    gameReleaseDateElem.textContent = `Lançamento: ${rawgData.released || steamData?.release_date?.date || 'Não informado'}`;
+    populatePlatformSelect(rawgData.platforms || []);
     
-    const defaultCover = (steamData?.library_assets?.library_600x900 && `https://cdn.akamai.steamstatic.com/steam/apps/${steamData.steam_appid}/${steamData.library_assets.library_600x900}.jpg`)
-        || steamData?.header_image 
-        || rawgData.background_image 
-        || 'imagens/placeholder.jpg';
-
+    const defaultCover = steamData ? `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${steamData.steam_appid}/library_600x900.jpg`
+        : rawgData.background_image || 'imagens/favicon.jpg';
+    
     gameImagePreview.src = defaultCover;
     gameImageUrlInput.value = defaultCover;
 
-    const steamStoreUrl = steamData ? `https://store.steampowered.com/app/${steamData.steam_appid}/` : '';
-    gameStoreUrlInput.value = steamStoreUrl;
-
-    gameReleaseDateElem.textContent = `Lançamento: ${rawgData.released || steamData?.release_date?.date || 'Não informado'}`;
-    
-    populatePlatformSelect(rawgData.platforms || []);
-    
     if (steamData) {
-        // **MELHORIA**: Consolida todos os assets de diferentes partes da API em um único objeto.
-        currentSteamAssets = {
-            ...(steamData.library_assets || {}),
-            ...(steamData.assets || {}),
-            clienticon: steamData.clienticon,
-            icon: steamData.icon,
-            community_icon: steamData.community_icon,
-            header_image: steamData.header_image,
-            background_raw: steamData.background_raw,
-            // Adiciona mapeamentos para chaves inconsistentes da API
-            small_capsule: steamData.capsule_image,
-            main_capsule: steamData.assets?.main_capsule,
-            page_background: steamData.background
-        };
         changeCoverBtn.style.display = 'block';
-    } else {
-        changeCoverBtn.style.display = 'none';
     }
 
     statusSelect.innerHTML = `<option value="playing">Jogando</option><option value="completed">Finalizado</option><option value="completed-100">100% Concluído</option><option value="retired">Aposentado</option><option value="archived">Arquivado</option><option value="abandoned">Abandonado</option>`;
-
     resultsContainer.style.display = 'none';
     formContainer.style.display = 'block';
     formContainer.scrollIntoView({ behavior: 'smooth' });
 }
 
-// --- Event Listeners ---
+// --- Galeria de Assets ---
+
+function openAssetGallery() {
+    if (!currentSteamData) return;
+    const appId = currentSteamData.steam_appid;
+
+    const sharedCDN = `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${appId}/`;
+    const akamaiCDN = `https://cdn.akamai.steamstatic.com/steam/apps/${appId}/`;
+    const communityCDN = `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/${appId}/`;
+    const communityShared = `https://shared.fastly.steamstatic.com/community_assets/images/apps/${appId}/`;
+    const FORMATS_TO_TRY = ['jpg', 'png', 'ico', 'png'];
+
+    const masterAssetList = {
+        'Ícones': [
+            { name: currentSteamData.clienticon, cdns: [communityCDN, communityShared] },
+            { name: currentSteamData.icon, cdns: [communityCDN, communityShared] },
+            { name: currentSteamData.logo, cdns: [communityCDN, communityShared] },
+            { name: currentSteamData.logo_small, cdns: [communityCDN, communityShared] },
+            { name: currentSteamData.community_icon, cdns: [communityCDN, communityShared] }
+        ],
+        'Assets da Biblioteca': [
+            { name: 'library_600x900', cdns: [sharedCDN, akamaiCDN] },
+            { name: 'library_600x900_2x', cdns: [sharedCDN, akamaiCDN] },
+            { name: 'library_hero', cdns: [sharedCDN, akamaiCDN] },
+            { name: 'library_hero_2x', cdns: [sharedCDN, akamaiCDN] },
+            { name: 'library_header', cdns: [sharedCDN, akamaiCDN] },
+            { name: 'logo', cdns: [sharedCDN, akamaiCDN] },
+            { name: 'logo_2x', cdns: [sharedCDN, akamaiCDN] }
+        ],
+        'Assets da Loja': [
+            { name: 'header', cdns: [sharedCDN, akamaiCDN] },
+            { name: 'capsule_231x87', cdns: [sharedCDN, akamaiCDN] },
+            { name: 'capsule_616x353', cdns: [sharedCDN, akamaiCDN] },
+            { name: 'hero_capsule', cdns: [sharedCDN, akamaiCDN] },
+        ],
+        'Fundos (API)': [
+            { url: currentSteamData.background },
+            { url: currentSteamData.background_raw },
+            { url: currentSteamData.community_icon }
+        ],
+        'Screenshots (API)': currentSteamData.screenshots?.map(ss => ({ url: ss.path_full, width: ss.width, height: ss.height })) || []
+    };
+
+    let galleryHTML = '';
+    for (const [category, assets] of Object.entries(masterAssetList)) {
+        if (!assets || assets.length === 0) continue;
+        
+        const items = assets.map(asset => {
+            if (!asset || (!asset.url && !asset.name)) return '';
+            
+            let pictureHTML;
+            let finalUrl; // URL para usar no data-url
+            
+            if (asset.url) {
+                // Se a URL já é completa (screenshots, backgrounds)
+                finalUrl = asset.url;
+                pictureHTML = `<img src="${finalUrl}" alt="${finalUrl.split('/').pop()}" loading="lazy" onerror="this.parentElement.style.display='none'">`;
+            } else {
+                // Se precisa construir a URL com múltiplos CDNs e formatos
+                const baseName = asset.name;
+                const cdns = asset.cdns || [];
+                
+                const sources = cdns.flatMap(cdn => 
+                    FORMATS_TO_TRY.map(format => 
+                        `<source srcset="${cdn}${baseName}.${format}" type="image/${format === 'jpg' ? 'jpeg' : format}">`
+                    )
+                ).join('');
+
+                const fallbackSrc = `${cdns[0]}${baseName}.${FORMATS_TO_TRY[0]}`;
+                finalUrl = fallbackSrc;
+
+                pictureHTML = `
+                    <picture>
+                        ${sources}
+                        <img src="${fallbackSrc}" alt="${baseName}" loading="lazy" onerror="this.parentElement.style.display='none'">
+                    </picture>
+                `;
+            }
+
+            const filename = finalUrl.split('/').pop().split('?')[0];
+            const dimensions = (asset.width && asset.height) ? `${asset.width}x${asset.height}` : '';
+
+            return `
+                <figure class="asset-item" data-url="${finalUrl}">
+                    ${pictureHTML}
+                    <figcaption>
+                        ${dimensions}
+                        <span>${filename}</span>
+                    </figcaption>
+                </figure>
+            `;
+        }).join('');
+
+        if (items.trim()) {
+            galleryHTML += `<div class="asset-category"><h4>${category}</h4><div class="asset-grid">${items}</div></div>`;
+        }
+    }
+
+    assetGalleryContent.innerHTML = galleryHTML || '<p>Nenhum asset encontrado.</p>';
+    galleryOverlay.classList.add('visible');
+    assetGalleryModal.classList.add('visible');
+}
+
+
+// O resto do arquivo permanece o mesmo...
+
+function closeAssetGallery() {
+    galleryOverlay.classList.remove('visible');
+    assetGalleryModal.classList.remove('visible');
+}
+
 function initializeEventListeners() {
     searchButton.addEventListener('click', () => searchGamesOnRawg(searchBar.value));
-    searchBar.addEventListener('keyup', (event) => {
-        if (event.key === 'Enter') searchGamesOnRawg(searchBar.value);
-    });
+    searchBar.addEventListener('keyup', e => { if (e.key === 'Enter') searchGamesOnRawg(searchBar.value); });
 
     steamSearchButton.addEventListener('click', () => searchSteamDirectly(steamSearchBar.value));
-    steamSearchBar.addEventListener('keyup', (event) => {
-        if (event.key === 'Enter') searchSteamDirectly(steamSearchBar.value);
-    });
+    steamSearchBar.addEventListener('keyup', e => { if (e.key === 'Enter') searchSteamDirectly(steamSearchBar.value); });
 
-    resultsContainer.addEventListener('click', (event) => {
-        const resultItem = event.target.closest('.api-result-item');
-        if (!resultItem) return;
-        const slug = resultItem.dataset.slug;
-        if (slug) {
-            fetchRawgGameDetails(slug);
+    resultsContainer.addEventListener('click', e => {
+        const resultItem = e.target.closest('.api-result-item');
+        if (resultItem && resultItem.dataset.slug) {
+            processRawgSelection(resultItem.dataset.slug);
         }
     });
 
@@ -231,6 +319,20 @@ function initializeEventListeners() {
         populateFormWithHybridData({});
     });
 
+    changeCoverBtn.addEventListener('click', openAssetGallery);
+    closeGalleryBtn.addEventListener('click', closeAssetGallery);
+    galleryOverlay.addEventListener('click', closeAssetGallery);
+
+    assetGalleryContent.addEventListener('click', e => {
+        const selectedAsset = e.target.closest('.asset-item');
+        if (selectedAsset) {
+            const newImageUrl = selectedAsset.dataset.url;
+            gameImagePreview.src = newImageUrl;
+            gameImageUrlInput.value = newImageUrl;
+            closeAssetGallery();
+        }
+    });
+    
     translationSelect.addEventListener('change', () => {
         fanTranslationGroup.style.display = translationSelect.value === 'fan' ? 'flex' : 'none';
     });
@@ -248,109 +350,14 @@ function initializeEventListeners() {
 
     gameEntryForm.addEventListener('submit', handleFormSubmit);
     copyCodeBtn.addEventListener('click', () => copyCodeToClipboard(outputCode.value, copyCodeBtn, 'Copiado!'));
-    changeCoverBtn.addEventListener('click', openAssetGallery);
-    closeGalleryBtn.addEventListener('click', closeAssetGallery);
-    galleryOverlay.addEventListener('click', closeAssetGallery);
-
-    assetGalleryContent.addEventListener('click', (event) => {
-        const selectedAsset = event.target.closest('.asset-item');
-        if (selectedAsset) {
-            const newImageUrl = selectedAsset.dataset.url;
-            gameImagePreview.src = newImageUrl;
-            gameImageUrlInput.value = newImageUrl;
-            closeAssetGallery();
-        }
-    });
 }
 
 // ===================================================================================
-// --- GALERIA DE ASSETS (LÓGICA CORRIGIDA E EXPANDIDA) ---
+// --- Funções Auxiliares (sem alteração) ---
 // ===================================================================================
-
-function openAssetGallery() {
-    if (!currentSteamAssets) return;
-    const match = gameStoreUrlInput.value.match(/\/app\/(\d+)/);
-    if (!match || !match[1]) {
-        alert("AppID da Steam não encontrado para construir os links da galeria.");
-        return;
-    }
-    const appId = match[1];
-
-    const libraryCDN = `https://cdn.akamai.steamstatic.com/steam/apps/${appId}/`;
-    const communityCDN = `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/${appId}/`;
-
-    // **LÓGICA FINAL**: Mapa completo dos assets, definindo a ordem e as categorias
-    const assetDisplayMap = {
-        'Ícones': ['clienticon', 'icon', 'community_icon'],
-        'Assets da Página': ['header_image', 'background_raw', 'page_background'],
-        'Capsulas': ['small_capsule', 'main_capsule', 'hero_capsule'],
-        'Assets da Biblioteca': ['library_capsule', 'library_capsule_2x', 'library_hero', 'library_hero_2x', 'library_logo', 'library_logo_2x', 'library_header']
-    };
-
-    let galleryHTML = '';
-    for (const [category, keys] of Object.entries(assetDisplayMap)) {
-        const items = keys.map(key => {
-            const assetValue = currentSteamAssets[key];
-            if (!assetValue) return '';
-
-            let fullUrl;
-            
-            // **CORREÇÃO PRINCIPAL**: Verifica se o valor já é uma URL completa
-            if (String(assetValue).startsWith('http')) {
-                fullUrl = assetValue;
-            } 
-            // Constrói a URL do Community CDN para os ícones
-            else if (key.includes('icon')) { 
-                fullUrl = `${communityCDN}${assetValue}.jpg`;
-            }
-            // Constrói a URL do Library/App CDN para todos os outros
-            else {
-                // Adiciona a extensão .jpg se não estiver presente no nome do arquivo
-                const filename = assetValue.includes('.') ? assetValue : `${assetValue}.jpg`;
-                fullUrl = `${libraryCDN}${filename}`;
-            }
-
-            const displayName = fullUrl.split('/').pop().split('?')[0];
-
-            return `
-                <figure class="asset-item" data-url="${fullUrl}">
-                    <img src="${fullUrl}" alt="${displayName}" loading="lazy" onerror="this.parentElement.style.display='none'">
-                    <figcaption><span>${displayName}</span></figcaption>
-                </figure>
-            `;
-        }).join('');
-        
-        if (items.trim()) { // Só adiciona a categoria se houver itens nela
-            galleryHTML += `<div class="asset-category"><h4>${category}</h4><div class="asset-grid">${items}</div></div>`;
-        }
-    }
-
-    assetGalleryContent.innerHTML = galleryHTML || '<p>Nenhum asset encontrado.</p>';
-    galleryOverlay.style.display = 'block';
-    assetGalleryModal.style.display = 'flex';
-    setTimeout(() => {
-        galleryOverlay.classList.add('visible');
-        assetGalleryModal.classList.add('visible');
-    }, 10);
-}
-
-// ===================================================================================
-// --- Funções que não precisam de alteração ---
-// ===================================================================================
-
-function closeAssetGallery() {
-    galleryOverlay.classList.remove('visible');
-    assetGalleryModal.classList.remove('visible');
-    setTimeout(() => {
-        galleryOverlay.style.display = 'none';
-        assetGalleryModal.style.display = 'none';
-    }, 300);
-}
-
 function updateGuidesList() {
     guidesList.innerHTML = tempGuides.map(g => `<div class="guide-item"><span>${g.title} - <a href="${g.url}" target="_blank" rel="noopener noreferrer">Link</a></span></div>`).join('');
 }
-
 function copyCodeToClipboard(textToCopy, buttonElement, successMessage = 'Copiado!') {
     navigator.clipboard.writeText(textToCopy).then(() => {
         const originalText = buttonElement.textContent;
@@ -358,7 +365,6 @@ function copyCodeToClipboard(textToCopy, buttonElement, successMessage = 'Copiad
         setTimeout(() => buttonElement.textContent = originalText, 2500);
     }).catch(err => console.error('Falha ao copiar o código: ', err));
 }
-
 function handleFormSubmit(event) {
     event.preventDefault();
     let translationValue;
@@ -403,7 +409,6 @@ function handleFormSubmit(event) {
         localStorage.setItem('nextGameId', currentNextId);
     }
 }
-
 function setupThemeToggle() {
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
@@ -425,7 +430,6 @@ function setupThemeToggle() {
         applyTheme(newTheme);
     });
 }
-
 function setupBackToTopButton() {
     const backToTopButton = document.getElementById('back-to-top');
     if (!backToTopButton) return;
@@ -440,7 +444,6 @@ function setupBackToTopButton() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
-
 function populatePlatformSelect(gamePlatforms = []) {
     platformSelect.innerHTML = '';
     const knownPlatforms = Object.entries(PLATFORM_DISPLAY_NAMES);
@@ -455,7 +458,6 @@ function populatePlatformSelect(gamePlatforms = []) {
         platformSelect.appendChild(option);
     });
 }
-
 function checkForEditMode() {
     const gameToEditData = localStorage.getItem('gameToEdit');
     if (gameToEditData) {
@@ -468,7 +470,6 @@ function checkForEditMode() {
         localStorage.removeItem('gameToEdit');
     }
 }
-
 function fillFormWithExistingData(game) {
     document.getElementById('search-container').style.display = 'none';
     document.querySelector('.separator').style.display = 'none';
