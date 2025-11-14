@@ -3,38 +3,47 @@
 <html lang="pt-BR">
 
 <head>
-    <!-- ======================= METADADOS E LINKS ESSENCIAIS ======================= -->
-    <!-- A tag <head> contém informações importantes sobre a página que não são visíveis diretamente,
-         como o conjunto de caracteres, a configuração da janela de visualização e links para folhas de estilo. -->
+    <!-- =================================================================================== -->
+    <!-- ======================= METADADOS E LINKS ESSENCIAIS ============================== -->
+    <!-- A tag <head> contém informações cruciais sobre a página que não são visíveis    -->
+    <!-- diretamente, mas são essenciais para o funcionamento, SEO e aparência do site.     -->
+    <!-- =================================================================================== -->
 
-    <!-- Define o conjunto de caracteres como UTF-8, que suporta a maioria dos caracteres e símbolos globais. -->
+    <!-- Define o conjunto de caracteres como UTF-8, o padrão universal que garante
+         a exibição correta de acentos, cedilhas e outros símbolos especiais. -->
     <meta charset="UTF-8">
 
-    <!-- Garante que a página se adapte corretamente a diferentes tamanhos de tela (essencial para design responsivo). -->
+    <!-- Garante que a página seja responsiva, instruindo o navegador a ajustar a largura
+         da página à largura da tela do dispositivo e a iniciar com um nível de zoom de 100%. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- O título que aparece na aba do navegador. É crucial para SEO e identificação da página. -->
+    <!-- O título que aparece na aba ou na janela do navegador. É um fator importante
+         para a identificação da página e para os motores de busca (SEO). -->
     <title>Catálogo de Jogos - Meu Zerodex</title>
 
-    <!-- Link para a folha de estilos (CSS) principal que define toda a aparência do site. -->
+    <!-- Link para a folha de estilos principal (CSS). O arquivo 'style.css'
+         contém todas as regras visuais que definem a aparência do site. -->
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- Define o ícone (favicon) que aparece na aba do navegador, representando o site. -->
+    <!-- Define o ícone (favicon) que aparece na aba do navegador, adicionando uma
+         identidade visual à página. -->
     <link rel="icon" type="image/jpg" href="imagens/favicon.jpg">
 </head>
 
 <body>
     <!-- A tag <body> contém todo o conteúdo visível da página web. -->
 
-    <!-- ======================= CABEÇALHO ======================= -->
-    <!-- O cabeçalho é uma seção consistente em todas as páginas, contendo a identidade visual,
-         a navegação principal e controles globais como o botão de tema. -->
+    <!-- =================================================================================== -->
+    <!-- ======================= CABEÇALHO (HEADER) ======================================== -->
+    <!-- O cabeçalho é uma seção consistente em todas as páginas, contendo a identidade     -->
+    <!-- visual, a navegação principal e controles globais como o botão de tema.           -->
+    <!-- =================================================================================== -->
     <header>
         <div class="header-container">
             <!-- Título principal do site, visível no cabeçalho. -->
             <h1>Meu Zerodex</h1>
 
-            <!-- Menu de Navegação Principal -->
+            <!-- Menu de Navegação Principal, encapsulado na tag semântica <nav>. -->
             <nav>
                 <ul>
                     <li><a href="index.html">Início</a></li>
@@ -47,20 +56,22 @@
             <!-- 'aria-label' melhora a acessibilidade para leitores de tela, descrevendo a função do botão. -->
             <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Tema" aria-label="Alternar Tema">
                 <!-- Ícone de Sol (visível no tema escuro, controlado via CSS) -->
-                <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.061 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.894 17.894a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.591 1.59a.75.75 0 010 1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75-.75zM5.106 17.894a.75.75 0 010-1.06l1.591-1.59a.75.75 0 111.06 1.06l-1.59 1.591a.75.75 0 01-1.061 0zM4.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H5a.75.75 0 01-.75-.75zM6.106 5.106a.75.75 0 011.06 0l1.59 1.591a.75.75 0 11-1.06 1.06L6.106 6.167a.75.75 0 010-1.06z"/></svg>
+                <svg id="sun-icon" xmlns="http://www.w.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.061 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.894 17.894a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.591 1.59a.75.75 0 010 1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75-.75zM5.106 17.894a.75.75 0 010-1.06l1.591-1.59a.75.75 0 111.06 1.06l-1.59 1.591a.75.75 0 01-1.061 0zM4.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H5a.75.75 0 01-.75-.75zM6.106 5.106a.75.75 0 011.06 0l1.59 1.591a.75.75 0 11-1.06 1.06L6.106 6.167a.75.75 0 010-1.06z"/></svg>
                 <!-- Ícone de Lua (visível no tema claro, controlado via CSS) -->
                 <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 004.463-.945a.75.75 0 01.981.652A11.25 11.25 0 0112 21a11.25 11.25 0 01-11.25-11.25 11.25 11.25 0 012.718-7.528a.75.75 0 01.819.162z" clip-rule="evenodd" /></svg>
             </button>
         </div>
     </header>
 
-    <!-- ======================= CONTEÚDO PRINCIPAL ======================= -->
+    <!-- =================================================================================== -->
+    <!-- ======================= CONTEÚDO PRINCIPAL (MAIN) ================================= -->
     <!-- A tag <main> agrupa todo o conteúdo específico desta página. -->
+    <!-- =================================================================================== -->
     <main>
         <!-- Seção dedicada a todo o catálogo de jogos, contendo os filtros e a grade de exibição. -->
         <section id="catalogo">
 
-            <!-- Cabeçalho específico da seção do catálogo. -->
+            <!-- ====== CABEÇALHO DO CATÁLOGO ====== -->
             <div class="catalog-header">
                 <h2>Catálogo Completo</h2>
                 <p class="catalog-note">
@@ -68,7 +79,7 @@
                 </p>
             </div>
 
-            <!-- Controles de Pesquisa, Filtro e Ordenação -->
+            <!-- ====== CONTROLES DE FILTRO E ORDENAÇÃO ====== -->
             <div id="controls-container">
                 <!-- Barra de Pesquisa por nome do jogo. -->
                 <!-- A tag <label> melhora a acessibilidade. A classe 'visually-hidden' a esconde visualmente,
@@ -90,7 +101,7 @@
                  (por plataforma, etc.), tornando a manutenção mais fácil. -->
             <div id="filter-container"></div>
 
-            <!-- Grade de Jogos -->
+            <!-- ====== GRADE DE JOGOS ====== -->
             <!-- Esta é a área principal onde os cards dos jogos serão exibidos.
                  O JavaScript irá gerar e inserir os jogos aqui com base nos filtros e na ordenação. -->
             <div class="game-grid">
@@ -117,8 +128,10 @@
         </section>
     </main>
 
-    <!-- ======================= RODAPÉ ======================= -->
+    <!-- =================================================================================== -->
+    <!-- ======================= RODAPÉ (FOOTER) =========================================== -->
     <!-- O rodapé contém informações de copyright e é consistente em todas as páginas. -->
+    <!-- =================================================================================== -->
     <footer>
         <div class="footer-container">
             <!-- '&copy;' gera o símbolo de copyright © -->
@@ -126,15 +139,18 @@
         </div>
     </footer>
     
-    <!-- ======================= SCRIPTS E ELEMENTOS FINAIS ======================= -->
-    <!-- Scripts são colocados no final do <body> para garantir que o HTML seja totalmente carregado
-         antes que o JavaScript tente manipulá-lo. Isso melhora a performance de carregamento da página. -->
+    <!-- =================================================================================== -->
+    <!-- ======================= SCRIPTS E ELEMENTOS FINAIS ================================ -->
+    <!-- Scripts são colocados no final do <body> para garantir que o HTML seja totalmente   -->
+    <!-- carregado antes que o JavaScript tente manipulá-lo. Isso melhora a performance.     -->
+    <!-- =================================================================================== -->
 
-    <!-- 1. Carrega o banco de dados dos jogos. Deve vir antes do script principal, que depende desses dados. -->
-    <script src="js/database.js"></script>
+    <!-- 1. Carrega o banco de dados dos jogos. Deve vir antes do script principal, que depende desses dados.
+         O atributo 'defer' garante que o script seja executado após a análise do HTML, sem bloquear a renderização. -->
+    <script src="js/database.js" defer></script>
     
     <!-- 2. Carrega o script principal que controla toda a lógica da página (renderização, filtros, busca, etc.). -->
-    <script src="js/script.js"></script>
+    <script src="js/script.js" defer></script>
     
     <!-- Botão "Voltar ao Topo" -->
     <!-- Este botão (controlado via CSS e JS) aparece quando o usuário rola a página para baixo,

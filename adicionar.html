@@ -1,18 +1,38 @@
 <!DOCTYPE html>
+<!-- Define o tipo de documento como HTML5 e o idioma principal como Português do Brasil. -->
 <html lang="pt-BR">
 
 <head>
+    <!-- ======================= METADADOS E LINKS ESSENCIAIS ======================= -->
+    <!-- Contém informações cruciais sobre a página, invisíveis ao usuário, mas essenciais
+         para navegadores, SEO e tecnologias assistivas. -->
+
+    <!-- Define o conjunto de caracteres como UTF-8, garantindo a exibição correta de acentos e símbolos. -->
     <meta charset="UTF-8">
+
+    <!-- Garante que a página seja responsiva, ajustando-se à largura da tela do dispositivo. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- O título que aparece na aba do navegador, importante para identificação e SEO. -->
     <title>Adicionar Jogo ao Zerodex</title>
+
+    <!-- Link para a folha de estilos principal (CSS) que define a aparência do site. -->
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Define o ícone (favicon) da página. -->
     <link rel="icon" type="image/jpg" href="imagens/favicon.jpg">
 </head>
 
 <body>
+    <!-- =================================================================================== -->
+    <!-- ======================= CABEÇALHO (HEADER) ======================================== -->
+    <!-- Seção consistente em todas as páginas, contendo título, navegação e botão de tema. -->
+    <!-- =================================================================================== -->
     <header>
         <div class="header-container">
             <h1>Adicionar Jogo</h1>
+
+            <!-- Menu de Navegação Principal -->
             <nav>
                 <ul>
                     <li><a href="index.html">Início</a></li>
@@ -20,19 +40,30 @@
                     <li><a href="sobre.html">Sobre</a></li>
                 </ul>
             </nav>
+
+            <!-- Botão para alternar tema claro/escuro. A lógica é controlada pelo script.js.
+                 'aria-label' melhora a acessibilidade para leitores de tela. -->
             <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Tema" aria-label="Alternar Tema">
-                <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.061 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.894 17.894a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.591 1.59a.75.75 0 010 1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75-.75zM5.106 17.894a.75.75 0 010-1.06l1.591-1.59a.75.75 0 111.06 1.06l-1.59 1.591a.75.75 0 01-1.061 0zM4.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H5a.75.75 0 01-.75-.75zM6.106 5.106a.75.75 0 011.06 0l1.59 1.591a.75.75 0 11-1.06 1.06L6.106 6.167a.75.75 0 010-1.06z"/></svg>
-                <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 004.463-.945a.75.75 0 01.981.652A11.25 11.25 0 0112 21a11.25 11.25 0 01-11.25-11.25 11.25 11.25 0 012.718-7.528a.75.75 0 01.819.162z" clip-rule="evenodd" /></svg>
+                <!-- Ícone de Sol (visível no tema escuro) -->
+                <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.061 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.894 17.894a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.591 1.59a.75.75 0 010 1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75-.75zM5.106 17.894a.75.75 0 010-1.06l1.591-1.59a.75.75 0 111.06 1.06l-1.59 1.591a.75.75 0 01-1.061 0zM4.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H5a.75.75 0 01-.75-.75zM6.106 5.106a.75.75 0 011.06 0l1.59 1.591a.75.75 0 11-1.06 1.06L6.106 6.167a.75.75 0 010-1.06z"/></svg>
+                <!-- Ícone de Lua (visível no tema claro) -->
+                <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 004.463-.945a.75.75 0 01.981.652A11.25 11.25 0 0112 21a11.25 11.25 0 01-11.25-11.25 11.25 11.25 0 012.718-7.528a.75.75 0 01.819.162z" clip-rule="evenodd" /></svg>
             </button>
         </div>
     </header>
 
+    <!-- =================================================================================== -->
+    <!-- ======================= CONTEÚDO PRINCIPAL (MAIN) ================================= -->
+    <!-- Agrupa todo o conteúdo específico desta página. -->
+    <!-- =================================================================================== -->
     <main>
-        <section id="add-game-section">
-            <h2>Adicionar Jogo</h2>
+        <section id="add-game-section" aria-labelledby="add-game-title">
+            <h2 id="add-game-title">Adicionar Jogo</h2>
 
+            <!-- ====== SEÇÃO DE BUSCA ====== -->
+            <!-- Oferece duas maneiras de buscar dados de um jogo automaticamente. -->
             <div id="search-container">
-                <h4>1. Buscar por Nome (RAWG)</h4>
+                <label for="api-search-bar">1. Buscar por Nome (API RAWG)</label>
                 <input type="text" id="api-search-bar" placeholder="Digite o nome de um jogo para buscar...">
                 <button id="api-search-button" class="cta-button">Buscar</button>
             </div>
@@ -40,22 +71,29 @@
             <div class="separator"><span>OU</span></div>
 
             <div id="steam-search-container">
-                <h4>2. Buscar por AppID (Steam)</h4>
+                <label for="steam-search-bar">2. Buscar por AppID (API Steam)</label>
                 <input type="text" id="steam-search-bar" placeholder="Digite o AppID do jogo na Steam...">
                 <button id="steam-search-button" class="cta-button">Buscar por AppID</button>
             </div>
-
+            
+            <!-- ====== SEÇÃO DE RESULTADOS DA BUSCA ====== -->
+            <!-- Container onde os resultados das buscas acima serão exibidos dinamicamente. -->
             <div id="api-results-container" style="display: none;">
                 <h3>Resultados da Busca</h3>
                 <div class="results-grid"></div>
             </div>
             
+            <!-- Botão para abrir o formulário manual caso o jogo não seja encontrado. -->
             <div class="manual-entry-link">
                 <button id="manual-entry-button" class="secondary-btn" style="display: none;">Não encontrou? Adicione manualmente</button>
             </div>
 
+            <!-- ====== FORMULÁRIO DE ENTRADA DE DADOS ====== -->
+            <!-- Container principal do formulário, que aparece após selecionar um jogo ou clicar em "adicionar manualmente". -->
             <div id="add-form-container" style="display: none;">
-                <form id="game-entry-form">
+                <form id="game-entry-form" aria-labelledby="add-game-title">
+                    
+                    <!-- Dados preenchidos pela API (imagem, título, lançamento) -->
                     <div class="form-api-data">
                         <div class="form-image-wrapper">
                             <img id="form-game-image" src="imagens/favicon.jpg" alt="Capa do Jogo" width="150">
@@ -72,6 +110,7 @@
                     
                     <hr>
                     
+                    <!-- Dados preenchidos pelo usuário (status, plataforma, etc.) -->
                     <div class="form-user-data">
                         <div class="form-group-grid-condensed">
                             <div class="form-group">
@@ -113,8 +152,8 @@
                             <label>Guias (opcional):</label>
                             <div id="guides-list"></div>
                             <div class="form-group-inline" style="margin-top: 5px;">
-                                <input type="text" id="guide-title" placeholder="Nome do Guia (ex: IGN)">
-                                <input type="text" id="guide-url" placeholder="URL do Guia">
+                                <input type="text" id="guide-title" placeholder="Nome do Guia (ex: IGN)" aria-label="Título do Guia">
+                                <input type="text" id="guide-url" placeholder="URL do Guia" aria-label="URL do Guia">
                             </div>
                             <button type="button" id="add-guide-btn" class="secondary-btn">Adicionar Guia</button>
                         </div>
@@ -136,27 +175,41 @@
                 </form>
             </div>
 
+            <!-- ====== SEÇÃO DE SAÍDA (CÓDIGO GERADO) ====== -->
+            <!-- Após submeter o formulário, esta área exibe o objeto JavaScript gerado, pronto para ser copiado. -->
             <div id="output-container" style="display: none; margin-top: 30px;">
                 <h3>Código Gerado para database.js</h3>
                 <p>Copie o código abaixo e cole no topo da lista `gamesData`.</p>
-                <textarea id="output-code" rows="15" readonly></textarea>
+                <textarea id="output-code" rows="15" readonly aria-label="Código gerado para o banco de dados"></textarea>
                 <button type="button" id="copy-code-btn" class="cta-button">Copiar Código</button>
             </div>
         </section>
     </main>
     
+    <!-- =================================================================================== -->
+    <!-- ======================= MODAL DA GALERIA DE CAPAS ================================= -->
+    <!-- Componente de interface que fica oculto e aparece sobre a página para seleção de imagens. -->
+    <!-- Atributos 'role', 'aria-modal' e 'aria-labelledby' melhoram a acessibilidade. -->
+    <!-- =================================================================================== -->
     <div id="gallery-overlay" class="gallery-overlay"></div>
-    <div id="asset-gallery-modal" class="asset-gallery-modal">
+    <div id="asset-gallery-modal" class="asset-gallery-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <div class="modal-header">
-            <h3>Selecionar Capa do Jogo</h3>
-            <button id="close-gallery-btn" class="close-gallery-btn">&times;</button>
+            <h3 id="modal-title">Selecionar Capa do Jogo</h3>
+            <button id="close-gallery-btn" class="close-gallery-btn" aria-label="Fechar galeria">&times;</button>
         </div>
-        <div id="asset-gallery-content" class="modal-content"></div>
+        <div id="asset-gallery-content" class="modal-content">
+            <!-- As imagens da galeria serão inseridas aqui dinamicamente pelo JavaScript. -->
+        </div>
     </div>
     
-    <script src="js/database.js"></script>
-    <script src="js/id_counter.js"></script>
-    <script src="js/adicionar.js"></script>
+    <!-- =================================================================================== -->
+    <!-- ======================= SCRIPTS E ELEMENTOS FINAIS ================================ -->
+    <!-- Scripts são colocados no final para melhorar a performance de carregamento da página. -->
+    <!-- O atributo 'defer' garante que a execução ocorra após a análise do HTML. -->
+    <!-- =================================================================================== -->
+    <script src="js/database.js" defer></script>
+    <script src="js/id_counter.js" defer></script>
+    <script src="js/adicionar.js" defer></script>
     <button id="back-to-top" title="Voltar ao topo">↑</button>
 </body>
 </html>

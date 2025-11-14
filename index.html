@@ -1,52 +1,47 @@
 <!DOCTYPE html>
 <!-- 
   Define o tipo de documento como HTML5 e o idioma principal como Português do Brasil.
-  Isso é importante para os navegadores e para tecnologias assistivas.
+  Isso é crucial para a correta interpretação do navegador e para ferramentas de acessibilidade.
 -->
 <html lang="pt-BR">
 
 <head>
-    <!-- =================================================================================== -->
-    <!-- ======================= METADADOS E LINKS ESSENCIAIS ============================== -->
-    <!-- A tag <head> contém informações cruciais sobre a página que não são visíveis    -->
-    <!-- diretamente, mas são essenciais para o funcionamento, SEO e aparência do site.     -->
-    <!-- =================================================================================== -->
+    <!-- ====== METADADOS E LINKS ESSENCIAIS ====== -->
+    <!-- A seção <head> contém informações sobre o documento que não são exibidas na página,
+         mas são fundamentais para o funcionamento, SEO e estilo do site. -->
 
     <!-- Define o conjunto de caracteres como UTF-8, o padrão universal que garante
-         a exibição correta de acentos, cedilhas e outros símbolos especiais. -->
+         a exibição correta de acentos e outros símbolos especiais. -->
     <meta charset="UTF-8">
 
-    <!-- Garante que a página seja responsiva, instruindo o navegador a ajustar a largura
-         da página à largura da tela do dispositivo e a iniciar com um nível de zoom de 100%. -->
+    <!-- Configura a viewport para garantir que a página seja responsiva, adaptando-se
+         corretamente a diferentes tamanhos de tela, como em celulares e tablets. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- O título que aparece na aba ou na janela do navegador. É um fator importante
-         para a identificação da página e para os motores de busca (SEO). -->
+    <!-- Título da página, exibido na aba ou janela do navegador. É um fator
+         importante para SEO e para a identificação da página pelo usuário. -->
     <title>Zerodex do FinuraBR</title>
 
-    <!-- Link para a folha de estilos principal (CSS). O arquivo 'style.css'
-         contém todas as regras visuais que definem a aparência do site. -->
+    <!-- Link para a folha de estilos principal (CSS), que define toda a aparência visual do site. -->
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- Define o ícone (favicon) que aparece na aba do navegador, adicionando uma
-         identidade visual à página. -->
+    <!-- Define o ícone (favicon) da página, que aparece na aba do navegador. -->
     <link rel="icon" type="image/jpg" href="imagens/favicon.jpg">
 </head>
 
 <body>
-    <!-- A tag <body> contém todo o conteúdo visível da página web. -->
+    <!-- A tag <body> engloba todo o conteúdo visível da página web. -->
 
-    <!-- =================================================================================== -->
-    <!-- ======================= CABEÇALHO (HEADER) ======================================== -->
+    <!-- ====== CABEÇALHO (HEADER) ====== -->
     <!-- O cabeçalho é consistente em todas as páginas, contendo o título principal,
-         a navegação e o botão de alternância de tema. -->
-    <!-- =================================================================================== -->
+         a navegação e o botão de alternância de tema. A tag <header> é semanticamente
+         adequada para este propósito. -->
     <header>
         <div class="header-container">
-            <!-- Título principal do site, que serve como identidade visual. -->
+            <!-- Título principal do site. -->
             <h1>Meu Zerodex</h1>
 
-            <!-- Menu de Navegação Principal, encapsulado na tag semântica <nav>. -->
+            <!-- Menu de Navegação Principal. A tag <nav> indica que este é um bloco de navegação. -->
             <nav>
                 <ul>
                     <li><a href="index.html">Início</a></li>
@@ -64,21 +59,20 @@
             -->
             <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Tema" aria-label="Alternar Tema">
                 <!-- Ícone de Sol (visível no tema escuro). Oculto por padrão e exibido via CSS. -->
-                <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.061 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.894 17.894a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.591 1.59a.75.75 0 010 1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75-.75zM5.106 17.894a.75.75 0 010-1.06l1.591-1.59a.75.75 0 111.06 1.06l-1.59 1.591a.75.75 0 01-1.061 0zM4.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H5a.75.75 0 01-.75-.75zM6.106 5.106a.75.75 0 011.06 0l1.59 1.591a.75.75 0 11-1.06 1.06L6.106 6.167a.75.75 0 010-1.06z"/></svg>
+                <svg id="sun-icon" xmlns="http://www.w.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.061 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.894 17.894a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.591 1.59a.75.75 0 010 1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75-.75zM5.106 17.894a.75.75 0 010-1.06l1.591-1.59a.75.75 0 111.06 1.06l-1.59 1.591a.75.75 0 01-1.061 0zM4.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H5a.75.75 0 01-.75-.75zM6.106 5.106a.75.75 0 011.06 0l1.59 1.591a.75.75 0 11-1.06 1.06L6.106 6.167a.75.75 0 010-1.06z"/></svg>
                 <!-- Ícone de Lua (visível no tema claro). -->
                 <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 004.463-.945a.75.75 0 01.981.652A11.25 11.25 0 0112 21a11.25 11.25 0 01-11.25-11.25 11.25 11.25 0 012.718-7.528a.75.75 0 01.819.162z" clip-rule="evenodd" /></svg>
             </button>
         </div>
     </header>
 
-    <!-- =================================================================================== -->
-    <!-- ======================= CONTEÚDO PRINCIPAL (MAIN) ================================= -->
+    <!-- ====== CONTEÚDO PRINCIPAL (MAIN) ====== -->
     <!-- A tag <main> define o conteúdo principal e único desta página específica. -->
-    <!-- =================================================================================== -->
     <main>
         <!-- SEÇÃO "HERO" (CHAMADA PRINCIPAL) -->
         <!-- Esta é a primeira seção que o visitante vê, com um título de impacto e um
-             "Call to Action" (CTA) que convida à ação. -->
+             "Call to Action" (CTA) que convida à ação. O atributo `aria-labelledby`
+             associa a seção ao seu título para melhor acessibilidade. -->
         <section id="hero" aria-labelledby="hero-title">
             <h2 id="hero-title" class="hero-title">Bem-vindo ao meu universo de games.</h2>
             <p class="hero-subtitle">
@@ -90,9 +84,9 @@
         </section>
 
         <!-- SEÇÃO DE NAVEGAÇÃO RÁPIDA (STICKY) -->
-        <!-- Este menu de navegação fica fixo no topo da tela após o usuário rolar a página
-             para baixo, servindo como um atalho para as seções de jogos abaixo.
-             Seu estado (oculto/visível) é controlado via JavaScript. -->
+        <!-- Este menu fica fixo no topo da tela após a rolagem, servindo como um
+             atalho para as seções de jogos abaixo. Seu estado (oculto/visível)
+             é controlado via JavaScript. -->
         <nav id="shelf-nav" class="shelf-nav-hidden" aria-label="Navegação Rápida para Seções">
             <a href="#currently-playing">Jogando</a>
             <a href="#archived-games">Arquivados</a>
@@ -102,13 +96,11 @@
             <a href="#abandoned-games">Abandonados</a>
         </nav>
 
-        <!-- =================================================================================== -->
-        <!-- ====== ESTRUTURA DAS "ESTANTES" DE JOGOS ========================================== -->
+        <!-- ====== "ESTANTES" DE JOGOS ====== -->
         <!-- Cada seção a seguir representa uma categoria ("estante") de jogos.
              - O ID de cada seção (ex: "currently-playing") permite a navegação direta a partir do menu rápido.
              - O JavaScript irá popular dinamicamente as divs '.game-grid' com os cards dos jogos
                correspondentes, lidos do arquivo 'database.js'. -->
-        <!-- =================================================================================== -->
 
         <!-- Estante: Jogando Atualmente -->
         <section id="currently-playing" class="homepage-shelf" aria-labelledby="currently-playing-title">
@@ -159,44 +151,38 @@
         </section>
     </main>
 
-    <!-- =================================================================================== -->
-    <!-- ======================= RODAPÉ (FOOTER) =========================================== -->
+    <!-- ====== RODAPÉ (FOOTER) ====== -->
     <!-- O rodapé contém informações de copyright e é consistente em todas as páginas. -->
-    <!-- =================================================================================== -->
     <footer>
         <div class="footer-container">
-            <!-- '&copy;' gera o símbolo de copyright ©. O ano é estático. -->
+            <!-- '&copy;' gera o símbolo de copyright ©. -->
             <p>&copy; 2025 - Desenvolvido por FinuraBR</p>
         </div>
     </footer>
 
-    <!-- =================================================================================== -->
-    <!-- ======================= ELEMENTOS E SCRIPTS FINAIS ================================ -->
+    <!-- ====== ELEMENTOS E SCRIPTS FINAIS ====== -->
     <!-- Elementos interativos e scripts são geralmente colocados no final do <body>
-         para melhorar a performance de carregamento da página. -->
-    <!-- =================================================================================== -->
+         para otimizar a performance de carregamento da página. -->
     
     <!-- Botão "Voltar ao Topo" -->
-    <!-- Este botão (controlado via JS/CSS) aparece quando o usuário rola a página para baixo,
+    <!-- Este botão (controlado via JS/CSS) aparece quando o usuário rola a página,
          oferecendo um atalho conveniente para retornar ao início. -->
     <button id="back-to-top" title="Voltar ao topo">↑</button>
 
     <!-- SCRIPTS -->
     <!--
       Colocar os scripts no final do <body> é uma prática de performance. O navegador
-      carrega e exibe todo o conteúdo HTML e CSS primeiro, e só depois executa o JavaScript.
-      Isso resulta em uma percepção de carregamento mais rápido para o usuário.
+      carrega e exibe o conteúdo HTML/CSS primeiro, e só depois executa o JavaScript,
+      resultando em uma percepção de carregamento mais rápido para o usuário.
 
       O atributo 'defer' garante que os scripts sejam executados na ordem em que aparecem,
       após o HTML ser completamente analisado, sem bloquear a renderização da página.
     -->
     
-    <!-- 1. Carrega o banco de dados dos jogos. Este arquivo deve vir PRIMEIRO, pois o
-           script.js depende dos dados contidos nele. -->
+    <!-- 1. Carrega o banco de dados dos jogos. Deve vir PRIMEIRO, pois o script.js depende dele. -->
     <script src="js/database.js" defer></script>
     
-    <!-- 2. Carrega o script principal que controla toda a lógica da página (exibição dos jogos,
-           troca de tema, navegação, etc.). -->
+    <!-- 2. Carrega o script principal que controla toda a lógica da página. -->
     <script src="js/script.js" defer></script>
 </body>
 </html>

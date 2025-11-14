@@ -4,29 +4,30 @@
 
 <head>
     <!-- ======================= METADADOS E LINKS ESSENCIAIS ======================= -->
-    <!-- A tag <head> contém informações importantes sobre a página que não são visíveis diretamente,
-         como o conjunto de caracteres, a configuração da janela de visualização e links para folhas de estilo. -->
+    <!-- Contém informações cruciais sobre a página, invisíveis ao usuário, mas essenciais
+         para navegadores, SEO e tecnologias assistivas. -->
 
-    <!-- Define o conjunto de caracteres como UTF-8, que suporta a maioria dos caracteres e símbolos globais. -->
+    <!-- Define o conjunto de caracteres como UTF-8, garantindo a exibição correta de acentos e símbolos. -->
     <meta charset="UTF-8">
 
-    <!-- Garante que a página se adapte corretamente a diferentes tamanhos de tela (essencial para design responsivo). -->
+    <!-- Garante que a página seja responsiva, ajustando-se à largura da tela do dispositivo. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- O título que aparece na aba do navegador. -->
+    <!-- O título que aparece na aba do navegador, importante para identificação e SEO. -->
     <title>Sobre | Meu Zerodex</title>
 
-    <!-- Link para a folha de estilos (CSS) principal que define a aparência do site. -->
+    <!-- Link para a folha de estilos principal (CSS) que define a aparência do site. -->
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- Define o ícone (favicon) que aparece na aba do navegador, representando o site. -->
+    <!-- Define o ícone (favicon) da página. -->
     <link rel="icon" type="image/jpg" href="imagens/favicon.jpg">
 </head>
 
 <body>
-
-    <!-- ======================= CABEÇALHO ======================= -->
-    <!-- O cabeçalho é uma seção consistente em todas as páginas, contendo a identidade visual e a navegação principal. -->
+    <!-- =================================================================================== -->
+    <!-- ======================= CABEÇALHO (HEADER) ======================================== -->
+    <!-- Seção consistente em todas as páginas, contendo título, navegação e botão de tema. -->
+    <!-- =================================================================================== -->
     <header>
         <div class="header-container">
             <h1>Meu Zerodex</h1>
@@ -40,8 +41,8 @@
                 </ul>
             </nav>
 
-            <!-- Botão para alternar o tema (claro/escuro). A lógica de funcionamento está no script.js. -->
-            <!-- 'aria-label' melhora a acessibilidade para leitores de tela. -->
+            <!-- Botão para alternar tema claro/escuro. A lógica é controlada pelo script.js.
+                 'aria-label' melhora a acessibilidade para leitores de tela. -->
             <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Tema" aria-label="Alternar Tema">
                 <!-- Ícone de Sol (visível no tema escuro) -->
                 <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.061 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.894 17.894a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.591 1.59a.75.75 0 010 1.06zM12 21.75a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0V21a.75.75 0 01-.75-.75zM5.106 17.894a.75.75 0 010-1.06l1.591-1.59a.75.75 0 111.06 1.06l-1.59 1.591a.75.75 0 01-1.061 0zM4.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H5a.75.75 0 01-.75-.75zM6.106 5.106a.75.75 0 011.06 0l1.59 1.591a.75.75 0 11-1.06 1.06L6.106 6.167a.75.75 0 010-1.06z"/></svg>
@@ -51,12 +52,13 @@
         </div>
     </header>
 
-    <!-- ======================= CONTEÚDO PRINCIPAL ======================= -->
-    <!-- A tag <main> agrupa todo o conteúdo específico desta página, separando-o do cabeçalho e rodapé. -->
+    <!-- =================================================================================== -->
+    <!-- ======================= CONTEÚDO PRINCIPAL (MAIN) ================================= -->
+    <!-- Agrupa todo o conteúdo específico desta página. -->
+    <!-- =================================================================================== -->
     <main id="about-page">
         
-        <!-- SEÇÃO 1: SOBRE MIM - Uma breve introdução pessoal. -->
-        <!-- 'aria-labelledby' melhora a acessibilidade ao associar esta seção ao seu título. -->
+        <!-- ====== SEÇÃO: SOBRE MIM ====== -->
         <section id="sobre-mim" class="about-section-card" aria-labelledby="sobre-mim-title">
             <h2 id="sobre-mim-title">Sobre Mim</h2>
             <p>
@@ -65,49 +67,41 @@
             </p>
         </section>
 
-        <!-- SEÇÃO 2: ESTATÍSTICAS DINÂMICAS - Preenchida automaticamente pelo JavaScript (script.js). -->
+        <!-- ====== SEÇÃO: ESTATÍSTICAS DINÂMICAS ====== -->
+        <!-- Esta seção é preenchida automaticamente pelo JavaScript (script.js). -->
         <section id="dynamic-stats" aria-labelledby="dynamic-stats-title">
             <h2 id="dynamic-stats-title" class="section-title">Estatísticas Dinâmicas</h2>
 
-            <!-- Contêiner para as caixas de estatísticas em texto (layout em grid). -->
+            <!-- Contêiner para as caixas de estatísticas em texto. -->
             <div id="stats-container">
-                <!-- Caixa 1: Plataformas. O JS insere a lista de plataformas e suas contagens aqui. -->
                 <div class="stat-item">
                     <h3>Jogos por Plataforma</h3>
-                    <div id="platform-stats-list"></div>
+                    <div id="platform-stats-list"><!-- Conteúdo gerado via JS --></div>
                 </div>
-
-                <!-- Caixa 2: Status. O JS insere a lista de status e suas contagens aqui. -->
                 <div class="stat-item">
                     <h3>Jogos por Status</h3>
-                    <div id="status-stats-list"></div>
+                    <div id="status-stats-list"><!-- Conteúdo gerado via JS --></div>
                 </div>
-
-                <!-- Caixa 3: Gerais. O JS insere a contagem total de jogos. -->
                 <div class="stat-item">
                     <h3>Estatísticas Gerais</h3>
-                    <div id="general-stats-list"></div>
+                    <div id="general-stats-list"><!-- Conteúdo gerado via JS --></div>
                 </div>
             </div>
 
-            <!-- Contêiner para alinhar os dois gráficos lado a lado. Útil para responsividade. -->
+            <!-- Contêiner para os gráficos, garantindo alinhamento e responsividade. -->
             <div class="charts-wrapper">
-                <!-- Gráfico 1: Plataformas. A tag <canvas> é a "tela" onde a biblioteca Chart.js desenhará o gráfico. -->
                 <div class="chart-box">
                     <canvas id="platform-chart"></canvas>
                 </div>
-
-                <!-- Gráfico 2: Status. -->
                 <div class="chart-box">
                     <canvas id="status-chart"></canvas>
                 </div>
             </div>
         </section>
 
-        <!-- SEÇÃO 3: MEU SETUP - Apresenta as especificações do PC e periféricos. -->
+        <!-- ====== SEÇÃO: MEU SETUP ====== -->
         <section id="pc-setup" class="about-section-card" aria-labelledby="pc-setup-title">
             <h2 id="pc-setup-title">Meu Setup</h2>
-            <!-- Contêiner principal para o layout de duas colunas. -->
             <div class="setup-container">
                 <!-- Coluna 1: Componentes do PC -->
                 <div class="setup-column">
@@ -138,11 +132,11 @@
             </div>
         </section>
 
-        <!-- SEÇÃO 4: LEGENDA DE STATUS - Explica o significado de cada status de jogo. -->
+        <!-- ====== SEÇÃO: LEGENDA DE STATUS ====== -->
         <section id="status-legend" class="about-section-card" aria-labelledby="status-legend-title">
             <h2 id="status-legend-title">Legenda de Status</h2>
             <ul class="legend-list">
-                <!-- Cada item da legenda usa a mesma classe '.status-badge' dos cards de jogo para manter a consistência visual. -->
+                <!-- Os itens usam a classe .status-badge para manter a consistência visual com os cards de jogo. -->
                 <li class="legend-item">
                     <span class="status-badge status-completed-100">100%</span>Jogo concluído com todos os objetivos principais, secundários e colecionáveis.
                 </li>
@@ -164,7 +158,7 @@
             </ul>
         </section>
 
-        <!-- SEÇÃO 5: OBSERVAÇÕES DO CATÁLOGO - Uma nota sobre como DLCs são tratadas. -->
+        <!-- ====== SEÇÃO: OBSERVAÇÕES DO CATÁLOGO ====== -->
         <section id="catalog-rules" class="about-section-card" aria-labelledby="catalog-rules-title">
             <h2 id="catalog-rules-title">Observações do Catálogo</h2>
             <div class="rules-container">
@@ -172,12 +166,11 @@
             </div>
         </section>
 
-        <!-- SEÇÃO 6: LINKS EXTERNOS - Uma lista de links úteis e relacionados ao projeto. -->
+        <!-- ====== SEÇÃO: LINKS ÚTEIS ====== -->
         <section id="links-externos" class="about-section-card" aria-labelledby="links-externos-title">
             <h2 id="links-externos-title">Links Úteis</h2>
             <ul>
-                <!-- target="_blank" faz com que o link abra em uma nova aba. -->
-                <!-- rel="noopener noreferrer" é uma boa prática de segurança para links externos. -->
+                <!-- target="_blank" abre o link em uma nova aba. rel="noopener noreferrer" é uma prática de segurança. -->
                 <li><a href="https://www.backloggd.com" target="_blank" rel="noopener noreferrer">Backloggd (Site de inspiração)</a></li>
                 <li><a href="https://github.com/FinuraBR" target="_blank" rel="noopener noreferrer">Meu Perfil no GitHub</a></li>
                 <li><a href="https://dash.cloudflare.com/" target="_blank" rel="noopener noreferrer">Cloudflare (API Proxy)</a></li>
@@ -186,25 +179,30 @@
         </section>
     </main>
 
-    <!-- ======================= RODAPÉ ======================= -->
-    <!-- O rodapé contém informações de copyright e é consistente em todas as páginas. -->
+    <!-- =================================================================================== -->
+    <!-- ======================= RODAPÉ (FOOTER) =========================================== -->
+    <!-- =================================================================================== -->
     <footer>
         <div class="footer-container">
             <p>&copy; 2025 - Desenvolvido por FinuraBR</p>
         </div>
     </footer>
 
-    <!-- ======================= SCRIPTS ======================= -->
-    <!-- Scripts são colocados no final do <body> para que a página carregue o conteúdo visual primeiro,
-         melhorando a performance percebida pelo usuário. -->
+    <!-- =================================================================================== -->
+    <!-- ======================= SCRIPTS E ELEMENTOS FINAIS ================================ -->
+    <!-- Scripts são colocados no final para melhorar a performance de carregamento da página. -->
+    <!-- =================================================================================== -->
     
-    <!-- 1. Chart.js: Biblioteca externa para criar os gráficos. Deve ser carregada antes do script.js, que a utiliza. -->
+    <!-- 1. Chart.js: Biblioteca externa para os gráficos. Deve ser carregada antes do script que a utiliza. -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
-    <!-- 2. database.js: Seu banco de dados de jogos. Precisa ser carregado antes do script.js, que consome esses dados. -->
-    <script src="js/database.js"></script>
+    <!-- 2. database.js: Banco de dados dos jogos. 'defer' garante que execute após o parsing do HTML. -->
+    <script src="js/database.js" defer></script>
     
-    <!-- 3. script.js: Seu arquivo principal com toda a lógica de interatividade da página. -->
-    <script src="js/script.js"></script>
+    <!-- 3. script.js: Lógica de interatividade da página. 'defer' garante a ordem de execução correta. -->
+    <script src="js/script.js" defer></script>
+
+    <!-- Botão "Voltar ao Topo", controlado via JS/CSS. -->
+    <button id="back-to-top" title="Voltar ao topo">↑</button>
 </body>
 </html>

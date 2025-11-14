@@ -1,25 +1,26 @@
 /**
  * ===================================================================================
- * ARQUIVO DE CONFIGURAÇÃO: ID INICIAL (id_counter.js)
+ * MEU ZERODEX - CONTADOR DE ID INICIAL (id_counter.js)
  * ===================================================================================
  *
- * @file Define o ID de ponto de partida a ser utilizado para novos jogos.
+ * @file
+ * Define o ID de ponto de partida para o formulário de adição de novos jogos.
  *
- * @description Este arquivo serve como um "fallback" ou valor inicial seguro para o
- * contador de IDs. A página 'adicionar.html' utiliza a lógica em 'adicionar.js'
- * para calcular o próximo ID disponível, sempre escolhendo o maior valor entre
- * o último ID salvo no armazenamento local (localStorage) e o valor definido
- * neste arquivo.
+ * @description
+ * Este arquivo estabelece um valor inicial seguro (fallback) para o contador de IDs.
+ * A lógica em `adicionar.js` usa este valor como ponto de partida, comparando-o com
+ * o último ID salvo no `localStorage` para garantir que o próximo ID seja sempre
+ * único e sequencial.
  *
- * @note Não é necessário editar este valor manualmente. O sistema foi projetado
- * para gerenciar a contagem de IDs de forma automática, garantindo a unicidade.
- * Este valor só é efetivamente usado na primeira vez que a aplicação é iniciada
- * ou se o cache do navegador for limpo.
+ * @note
+ * Este valor é usado apenas na primeira vez que a página de adição é aberta ou se
+ * o `localStorage` for limpo. A edição manual deste arquivo geralmente não é
+ * necessária, pois o sistema gerencia a contagem de IDs automaticamente.
  */
 
 /**
- * @const {number} nextGameId
- * @description Define o próximo ID a ser sugerido como 1. Este é um valor constante
- * que serve como base inicial para o sistema de contagem de jogos.
+ * ID inicial para o primeiro jogo a ser adicionado.
+ * Funciona como o ponto de partida para o contador automático de IDs.
+ * @type {number}
  */
 const nextGameId = 1;

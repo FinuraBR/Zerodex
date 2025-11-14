@@ -1,8 +1,26 @@
+// ===================================================================================
+// === MEU ZERODEX - BANCO DE DADOS DE JOGOS (database.js) ===========================
+// ===================================================================================
+//
+// DESCRIÇÃO:
+// Este arquivo serve como o banco de dados central para toda a aplicação. Ele contém
+// as configurações globais e o array principal `gamesData` que armazena todos os
+// jogos catalogados. A manutenção e adição de novos jogos é feita diretamente aqui.
+//
+// ===================================================================================
+
+
 // =============================================================================
 // === CONFIGURAÇÕES GLOBAIS ===================================================
 // =============================================================================
-// Mapa para traduzir os 'slugs' das plataformas para nomes legíveis.
-// Declarado aqui para ser acessível por todos os scripts.
+
+/**
+ * @const {Object<string, string>} PLATFORM_DISPLAY_NAMES
+ * @description Mapeia os 'slugs' (identificadores de sistema) das plataformas para
+ * nomes legíveis e amigáveis que serão exibidos na interface do usuário (UI).
+ * Esta constante é declarada globalmente para ser acessível por `script.js` e
+ * `adicionar.js`, garantindo consistência na exibição dos nomes das plataformas.
+ */
 const PLATFORM_DISPLAY_NAMES = {
     'pc': 'PC',
     'android': 'Android',
@@ -10,14 +28,13 @@ const PLATFORM_DISPLAY_NAMES = {
     'xbox360': 'Xbox 360',
     'xbox-one': 'Xbox One',
     'nintendo-switch': 'Switch',
-    // Adicione outras plataformas aqui conforme necessário
+    // Adicione outras plataformas aqui conforme necessário, mantendo o formato 'slug': 'Nome Visível'.
 };
 
+
 // ===================================================================================
-// === MEU ZERODEX - BANCO DE DADOS DE JOGOS (database.js) ===========================
+// === BANCO DE DADOS PRINCIPAL DE JOGOS =============================================
 // ===================================================================================
-// Este arquivo centraliza todos os dados dos jogos catalogados.
-// Para adicionar um novo jogo, siga o guia e o template abaixo.
 
 /*
 |--------------------------------------------------------------------------
@@ -42,14 +59,14 @@ const PLATFORM_DISPLAY_NAMES = {
 |   Exemplo: "The Legend of Zelda: Breath of the Wild"
 |
 | image: (Obrigatório | String)
-|   O link (URL) para a imagem da capa do jogo. Dê preferência a links permanentes.
+|   O link (URL) para a imagem da capa do jogo. Dê preferência a links permanentes
+|   e de alta qualidade (ex: Steam, SteamGridDB).
 |   Exemplo: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/..."
 |
-| platform: (Obrigatório | String)
-|   O 'slug' (identificador em minúsculas) da plataforma. Usado para filtros.
-|   Valores Padrão: ["pc"], ["nintendo-switch"], ["android"], "playstation-5"
-|   Exemplo: ["pc"]
-|
+| platform: (Obrigatório | Array<String>)
+|   Uma lista de 'slugs' (identificadores em minúsculas) das plataformas. Usado para filtros.
+|   Consulte `PLATFORM_DISPLAY_NAMES` para os slugs disponíveis.
+|   Exemplo: ["pc", "nintendo-switch"]
 |
 | status: (Obrigatório | String)
 |   A classe interna que define a cor do 'badge' e a categoria do jogo.
@@ -73,9 +90,9 @@ const PLATFORM_DISPLAY_NAMES = {
 | translation: (Obrigatório | String)
 |   Informação sobre a tradução. Pode conter HTML para links.
 |   Exemplo (texto simples): "Oficial" ou "Não possui"
-|   Exemplo (com link): "Feita por Fã (<a href='URL_DO_PATCH' target='_blank'>baixar</a>)"
+|   Exemplo (com link): "Feita por Fã (<a href='URL_DO_PATCH' target='_blank' rel='noopener noreferrer'>baixar</a>)"
 |
-| guide: (Obrigatório | Array de Objetos)
+| guide: (Obrigatório | Array<Object>)
 |   Uma lista de guias utilizados. Se nenhum foi usado, deixe a lista vazia: `[]`.
 |   Cada objeto na lista deve ter `title` e `url`.
 |   Exemplo: [{ title: "IGN", url: "https://ign.com/..." }]
@@ -100,7 +117,7 @@ const PLATFORM_DISPLAY_NAMES = {
 */
 /*
 {
-    id: 1,
+    id: 0,
     title: "",
     image: "",
     platform: ["pc"],
@@ -117,10 +134,10 @@ const PLATFORM_DISPLAY_NAMES = {
 
 /**
  * @const {Array<Object>} gamesData
- * @description Array principal que armazena a coleção de todos os jogos catalogados.
- * Adicione novos jogos no topo desta lista para manter a ordem decrescente de IDs.
+ * @description Array principal que armazena a coleção completa de jogos catalogados.
+ * Para garantir a ordenação padrão por "Mais Recentes", novos jogos devem ser
+ * adicionados sempre no início (topo) desta lista.
  */
-
 const gamesData = [
     {
         "id": 112,
@@ -192,7 +209,7 @@ const gamesData = [
         "id": 108,
         "title": "Minecraft",
         "image": "https://cdn2.steamgriddb.com/thumb/a73027901f88055aaa0fd1a9e25d36c7.jpg",
-        "platform": ["pc","xbox360"],
+        "platform": ["pc", "xbox360"],
         "status": "retired",
         "statusText": "Aposentado",
         "statusOverlay": "Aposentado",
@@ -233,12 +250,12 @@ const gamesData = [
     {
         "id": 105,
         "title": "[Nightmare Files] Clap Clap",
-        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933290/7c0a2c87b7602ad18dfbbc2fdbe0a229a2f584d0/library_600x900_2x.jpg",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2933290/library_600x900_2x.jpg",
         "platform": ["pc"],
         "status": "completed-100",
         "statusText": "100%",
         "statusOverlay": "100% Concluído",
-        "translation": "Feita por Fã (<a href=\"https://github.com/bbepis/XUnity.AutoTranslator\" target=\"_blank\">baixar</a>)",
+        "translation": "Feita por Fã (<a href=\"https://github.com/bbepis/XUnity.AutoTranslator\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
         "guide": [
             {
                 "title": "Youtube",
@@ -339,7 +356,7 @@ const gamesData = [
         "status": "completed",
         "statusText": "Finalizado",
         "statusOverlay": "Finalizado",
-        "translation": "Feita por Fã (<a href=\"https://www.centraldetraducoes.net.br/2015/10/traducao-do-the-punisher-pc.html\" target=\"_blank\">baixar</a>)",
+        "translation": "Feita por Fã (<a href=\"https://www.centraldetraducoes.net.br/2015/10/traducao-do-the-punisher-pc.html\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
         "guide": [],
         "review": null,
         "version": null,
@@ -564,10 +581,10 @@ const gamesData = [
         "status": "completed-100",
         "statusText": "100%",
         "statusOverlay": "100% Concluído",
-        "translation": "Feita por Fã (<a href=\"https://www.centraldetraducoes.net.br/2025/02/traducao-do-assassins-creed-ii-pc.html\" target=\"_blank\">baixar</a>)",
+        "translation": "Feita por Fã (<a href=\"https://www.centraldetraducoes.net.br/2025/02/traducao-do-assassins-creed-ii-pc.html\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
         "guide": [
             {
-                "title": "Mag Genie",
+                "title": "Map Genie",
                 "url": "https://mapgenie.io/assassins-creed-2"
             },
             {
@@ -775,7 +792,7 @@ const gamesData = [
         "status": "completed",
         "statusText": "Finalizado",
         "statusOverlay": "Finalizado",
-        "translation": "Feita por Fã (<a href=\"https://www.centraldetraducoes.net.br/2023/04/traducao-do-gta-iv-complete-edition-pc.html\" target=\"_blank\">baixar</a>)",
+        "translation": "Feita por Fã (<a href=\"https://www.centraldetraducoes.net.br/2023/04/traducao-do-gta-iv-complete-edition-pc.html\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
         "guide": [
             {
                 "title": "IGN",
@@ -794,7 +811,7 @@ const gamesData = [
         "status": "abandoned",
         "statusText": "Abandonado",
         "statusOverlay": "Abandonado",
-        "translation": "Feita por Fã (<a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=945245625\" target=\"_blank\">baixar</a>)",
+        "translation": "Feita por Fã (<a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=945245625\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
         "guide": [
             {
                 "title": "IGN",
@@ -836,7 +853,7 @@ const gamesData = [
         "status": "completed",
         "statusText": "Finalizado",
         "statusOverlay": "Finalizado",
-        "translation": "Feita por Fã (<a href=\"https://www.centraldetraducoes.net.br/2014/12/traducao-do-borderlands-2-goty-edition-pc.html\" target=\"_blank\">baixar</a>)",
+        "translation": "Feita por Fã (<a href=\"https://www.centraldetraducoes.net.br/2014/12/traducao-do-borderlands-2-goty-edition-pc.html\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
         "guide": [
             {
                 "title": "Map Genie",
@@ -859,7 +876,7 @@ const gamesData = [
         "status": "completed-100",
         "statusText": "100%",
         "statusOverlay": "100% Concluído",
-        "translation": "Feita por Fã (<a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=2329586285\" target=\"_blank\">baixar</a>)",
+        "translation": "Feita por Fã (<a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=2329586285\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
         "guide": [
             {
                 "title": "IGN",
@@ -980,7 +997,7 @@ const gamesData = [
     {
         "id": 64,
         "title": "Marvel's Spider-Man 2",
-        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/6fa28738ef8cde05390d3f0a9b942185b5763cbd/library_600x900_2x.jpg",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2651280/library_600x900_2x.jpg",
         "platform": ["pc"],
         "status": "completed-100",
         "statusText": "100%",
@@ -1069,7 +1086,7 @@ const gamesData = [
         "status": "completed-100",
         "statusText": "100%",
         "statusOverlay": "100% Concluído",
-        "translation": "Feita por Fã (<a href=\"https://steamcommunity.com/app/268050/discussions/0/492379159715516576/\" target=\"_blank\">baixar</a>)",
+        "translation": "Feita por Fã (<a href=\"https://steamcommunity.com/app/268050/discussions/0/492379159715516576/\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
         "guide": [
             {
                 "title": "Steam",
@@ -1429,7 +1446,7 @@ const gamesData = [
         "status": "completed",
         "statusText": "Finalizado",
         "statusOverlay": "Finalizado",
-        "translation": "Feita por Fã (<a href=\"https://steamcommunity.com/app/21000/discussions/0/3117032860248216877/\" target=\"_blank\">baixar</a>)",
+        "translation": "Feita por Fã (<a href=\"https://steamcommunity.com/app/21000/discussions/0/3117032860248216877/\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
         "guide": [
             {
                 "title": "IGN",
@@ -1481,7 +1498,7 @@ const gamesData = [
     {
         "id": 39,
         "title": "LEGO 2K Drive",
-        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1451810/f9cca9fc3e0515582021d1a403f3efe442df5079/library_600x900_2x.jpg",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1451810/library_600x900_2x.jpg",
         "platform": ["pc"],
         "status": "completed",
         "statusText": "Finalizado",
@@ -1614,7 +1631,7 @@ const gamesData = [
         "status": "completed-100",
         "statusText": "100%",
         "statusOverlay": "100% Concluído",
-        "translation": "Feita por Fã (<a href=\"https://www.mediafire.com/download/a93sn4ffpa9fj48/Tradu%C3%A7%C3%A3o+-+The+Beginner%27s+Guide+-+pt-BR.rar\" target=\"_blank\">baixar</a>)",
+        "translation": "Feita por Fã (<a href=\"https://www.mediafire.com/download/a93sn4ffpa9fj48/Tradu%C3%A7%C3%A3o+-+The+Beginner%27s+Guide+-+pt-BR.rar\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
         "guide": [
             {
                 "title": "Youtube",
@@ -1652,7 +1669,7 @@ const gamesData = [
         "status": "abandoned",
         "statusText": "Abandonado",
         "statusOverlay": "Abandonado",
-        "translation": "Feita por Fã (<a href=\"https://tribogamer.com/traducoes/194_traducao-do-the-walking-dead-survival-instinct-para-portugues-do-brasil.html\" target=\"_blank\">baixar</a>)",
+        "translation": "Feita por Fã (<a href=\"https://tribogamer.com/traducoes/194_traducao-do-the-walking-dead-survival-instinct-para-portugues-do-brasil.html\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
         "guide": [
             {
                 "title": "IGN",
@@ -1685,7 +1702,7 @@ const gamesData = [
     {
         "id": 28,
         "title": "The Witcher 3: Wild Hunt",
-        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/292030/fe26986a2bd1601004ef0e4e1dfadd02948e3897/library_600x900_2x.jpg",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/292030/library_600x900_2x.jpg",
         "platform": ["pc"],
         "status": "completed",
         "statusText": "Finalizado",
@@ -1742,7 +1759,7 @@ const gamesData = [
     {
         "id": 25,
         "title": "Tom Clancy’s The Division 2",
-        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2221490/8517c0415397d69e5c0e818eb1f2eb0ae83806b2/library_600x900_2x.jpg",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2221490/library_600x900_2x.jpg",
         "platform": ["pc"],
         "status": "completed",
         "statusText": "Finalizado",
@@ -1818,7 +1835,7 @@ const gamesData = [
     {
         "id": 21,
         "title": "Watch_Dogs",
-        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/243470/hero_capsule.jpg?t=1739177057",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/243470/portrait.png?t=1739177057",
         "platform": ["pc"],
         "status": "completed-100",
         "statusText": "100%",
@@ -1896,7 +1913,7 @@ const gamesData = [
         "status": "completed-100",
         "statusText": "100%",
         "statusOverlay": "100% Concluído",
-        "translation": "Feita por Fã (<a href=\"https://www.centraldetraducoes.net.br/2014/07/traducao-do-wolfenstein-new-order-pc.html\" target=\"_blank\">baixar</a>)",
+        "translation": "Feita por Fã (<a href=\"https://www.centraldetraducoes.net.br/2014/07/traducao-do-wolfenstein-new-order-pc.html\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
         "guide": [
             {
                 "title": "IGN",
@@ -1923,7 +1940,7 @@ const gamesData = [
         "status": "completed-100",
         "statusText": "100%",
         "statusOverlay": "100% Concluído",
-        "translation": "Feita por Fã (<a href=\"https://tribogamer.com/traducoes/304_traducao-do-wolfenstein-the-old-blood-para-portugues-do-brasil.html\" target=\"_blank\">baixar</a>)",
+        "translation": "Feita por Fã (<a href=\"https://tribogamer.com/traducoes/304_traducao-do-wolfenstein-the-old-blood-para-portugues-do-brasil.html\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
         "guide": [
             {
                 "title": "Youtube",
@@ -1964,7 +1981,7 @@ const gamesData = [
     {
         "id": 15,
         "title": "Strike Force 2 - Terrorist Hunt",
-        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1375260/3cd0134dd37dce609d0087fa09a7785feedb3823/library_600x900_2x.jpg",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1375260/library_600x900_2x.jpg",
         "platform": ["pc"],
         "status": "completed",
         "statusText": "Finalizado",
@@ -2002,7 +2019,7 @@ const gamesData = [
         "status": "completed",
         "statusText": "Finalizado",
         "statusOverlay": "Finalizado",
-        "translation": "Feita por Fã (<a href=\"https://github.com/bbepis/XUnity.AutoTranslator\" target=\"_blank\">baixar</a>)",
+        "translation": "Feita por Fã (<a href=\"https://github.com/bbepis/XUnity.AutoTranslator\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
         "guide": [],
         "review": null,
         "version": null,
@@ -2056,108 +2073,108 @@ const gamesData = [
         "storeUrl": "https://store.steampowered.com/app/389140/Horizon_Chase_Turbo/"
     },
     {
-    "id": 9,
-    "title": "The Knight Witch",
-    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1872680/library_600x900_2x.jpg",
-    "platform": ["pc"],
-    "status": "completed",
-    "statusText": "Finalizado",
-    "statusOverlay": "Finalizado",
-    "translation": "Oficial",
-    "guide": [
-        {
-            "title": "Knoef Trophy Guides",
-            "url": "https://knoef.info/trophy-guides/ps5/the-knight-witch-trophy-guide/"
-        }
-    ],
-    "review": "",
-    "version": null,
-    "storeUrl": "https://store.steampowered.com/app/1872680/The_Knight_Witch/"
-    },
-    {
-    "id": 8,
-    "title": "DREDGE",
-    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1562430/library_600x900_2x.jpg",
-    "platform": ["pc"],
-    "status": "completed",
-    "statusText": "Finalizado",
-    "statusOverlay": "Finalizado",
-    "translation": "Oficial",
-    "guide": [
-        {
-            "title": "IGN",
-            "url": "https://www.ign.com/wikis/dredge"
-        },
-        {
-            "title": "Map Genie",
-            "url": "https://mapgenie.io/dredge"
-        }
-    ],
-    "review": null,
-    "version": null,
-    "storeUrl": "https://store.steampowered.com/app/1562430/DREDGE/"
-    },
-    {
-    "id": 7,
-    "title": "Killer Frequency",
-    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1903620/library_600x900_2x.jpg",
-    "platform": ["pc"],
-    "status": "completed",
-    "statusText": "Finalizado",
-    "statusOverlay": "Finalizado",
-    "translation": "Oficial",
-    "guide": [
-        {
-            "title": "Gamer Journalist",
-            "url": "https://gamerjournalist.com/how-to-save-everyone-in-killer-frequency-full-walkthrough/"
-        }
-    ],
-    "review": null,
-    "version": null,
-    "storeUrl": "https://store.steampowered.com/app/1903620/Killer_Frequency/"
-    },
-    {
-    "id": 6,
-    "title": "Trepang2",
-    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1164940/library_600x900_2x.jpg",
-    "platform": ["pc"],
-    "status": "completed",
-    "statusText": "Finalizado",
-    "statusOverlay": "Finalizado",
-    "translation": "Feita por Fã (<a href=\"https://www.nexusmods.com/trepang2/mods/60\" target=\"_blank\">baixar</a>)",
-    "guide": [],
-    "review": null,
-    "version": null,
-    "storeUrl": "https://store.steampowered.com/app/1164940/Trepang2/"
-    },
-    {
-    "id": 5,
-    "title": "ULTRAKILL",
-    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1229490/library_600x900_2x.jpg",
-    "platform": ["pc"],
-    "status": "completed",
-    "statusText": "Finalizado",
-    "statusOverlay": "Finalizado",
-    "translation": "Feita por Fã (<a href=\"https://github.com/ClearwaterUK/UltrakULL\" target=\"_blank\">baixar</a>)",
-    "guide": [
-        {
-            "title": "Fandom",
-            "url": "https://ultrakill.fandom.com/wiki/"
-        }
-    ],
-    "review": null,
-    "version": null,
-    "storeUrl": "https://store.steampowered.com/app/1229490/ULTRAKILL/"
-    },
-    {
-        "id": 4, 
-        "title": "Yakuza Kiwami", 
-        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/834530/library_600x900_2x.jpg", 
+        "id": 9,
+        "title": "The Knight Witch",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1872680/library_600x900_2x.jpg",
         "platform": ["pc"],
-        "status": "completed", 
-        "statusText": "Finalizado", 
+        "status": "completed",
+        "statusText": "Finalizado",
         "statusOverlay": "Finalizado",
-        "translation": "Feita por Fã (<a href=\"https://brazilalliance.com.br\" target=\"_blank\">baixar</a>)",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Knoef Trophy Guides",
+                "url": "https://knoef.info/trophy-guides/ps5/the-knight-witch-trophy-guide/"
+            }
+        ],
+        "review": "",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1872680/The_Knight_Witch/"
+    },
+    {
+        "id": 8,
+        "title": "DREDGE",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1562430/library_600x900_2x.jpg",
+        "platform": ["pc"],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/dredge"
+            },
+            {
+                "title": "Map Genie",
+                "url": "https://mapgenie.io/dredge"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1562430/DREDGE/"
+    },
+    {
+        "id": 7,
+        "title": "Killer Frequency",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1903620/library_600x900_2x.jpg",
+        "platform": ["pc"],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Gamer Journalist",
+                "url": "https://gamerjournalist.com/how-to-save-everyone-in-killer-frequency-full-walkthrough/"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1903620/Killer_Frequency/"
+    },
+    {
+        "id": 6,
+        "title": "Trepang2",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1164940/library_600x900_2x.jpg",
+        "platform": ["pc"],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Feita por Fã (<a href=\"https://www.nexusmods.com/trepang2/mods/60\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1164940/Trepang2/"
+    },
+    {
+        "id": 5,
+        "title": "ULTRAKILL",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1229490/library_600x900_2x.jpg",
+        "platform": ["pc"],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Feita por Fã (<a href=\"https://github.com/ClearwaterUK/UltrakULL\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
+        "guide": [
+            {
+                "title": "Fandom",
+                "url": "https://ultrakill.fandom.com/wiki/"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1229490/ULTRAKILL/"
+    },
+    {
+        "id": 4,
+        "title": "Yakuza Kiwami",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/834530/library_600x900_2x.jpg",
+        "platform": ["pc"],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Feita por Fã (<a href=\"https://brazilalliance.com.br\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
         "guide": [
             {
                 "title": "GameFAQs",
@@ -2176,7 +2193,7 @@ const gamesData = [
         "status": "completed",
         "statusText": "Finalizado",
         "statusOverlay": "Finalizado",
-        "translation": "Feita por Fã (<a href=\"https://brazilalliance.com.br\" target=\"_blank\">baixar</a>)",
+        "translation": "Feita por Fã (<a href=\"https://brazilalliance.com.br\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
         "guide": [
             {
                 "title": "IGN",
@@ -2207,22 +2224,22 @@ const gamesData = [
         "storeUrl": "https://store.steampowered.com/app/1235140/Yakuza_Like_a_Dragon"
     },
     {
-    "id": 1,
-    "title": "Lego Batman 3: Beyond Gotham",
-    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/313690/library_600x900_2x.jpg",
-    "platform": ["pc"],
-    "status": "completed-100",
-    "statusText": "100%",
-    "statusOverlay": "100% Concluído",
-    "translation": "Oficial",
-    "guide": [
-        {
-            "title": "IGN",
-            "url": "https://www.ign.com/wikis/lego-batman-3-beyond-gotham"
-        }
-    ],
-    "review": null,
-    "version": null,
-    "storeUrl": "https://store.steampowered.com/app/313690/LEGO_Batman_3_Beyond_Gotham/"
+        "id": 1,
+        "title": "Lego Batman 3: Beyond Gotham",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/313690/library_600x900_2x.jpg",
+        "platform": ["pc"],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "IGN",
+                "url": "https://www.ign.com/wikis/lego-batman-3-beyond-gotham"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/313690/LEGO_Batman_3_Beyond_Gotham/"
     }
 ];
