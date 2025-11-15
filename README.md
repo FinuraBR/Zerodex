@@ -18,7 +18,6 @@ O Zerodex é um site estático, construído com HTML, CSS e JavaScript puros, qu
 -   **Busca Instantânea**: Pesquise em todo o catálogo por nome do jogo com resultados em tempo real.
 -   **Tema Claro e Escuro**: Um botão de alternância de tema persistente para se adequar à sua preferência.
 -   **Design Responsivo**: A interface se adapta a diferentes tamanhos de tela, de desktops a dispositivos móveis.
--   **Funcionalidade Offline**: Utiliza um Service Worker para armazenar os arquivos essenciais em cache, permitindo que o site funcione sem conexão com a internet.
 -   **Performance Otimizada**: Implementa lazy loading para as imagens dos jogos, garantindo um carregamento inicial rápido.
 -   **Estatísticas Visuais**: A página "Sobre" gera gráficos e dados dinâmicos sobre os jogos catalogados.
 -   **Página de Apoio para Adicionar Jogos**: Uma ferramenta interna (`adicionar.html`) para facilitar a criação do objeto de dados de um novo jogo, incluindo busca em API externa para preenchimento automático.
@@ -29,7 +28,6 @@ O Zerodex é um site estático, construído com HTML, CSS e JavaScript puros, qu
 -   **CSS3**: Para estilização, utilizando variáveis para o sistema de temas e um layout responsivo com Grid e Flexbox.
 -   **JavaScript (Vanilla)**: Para toda a lógica de interatividade, renderização de componentes, filtros e manipulação do DOM.
 -   **Chart.js**: Biblioteca utilizada para criar os gráficos de estatísticas na página "Sobre".
--   **Service Worker**: Para cache de assets e funcionalidade offline (PWA).
 -   **Cloudflare Workers**: Utilizado como um proxy para a API de busca de jogos, protegendo a chave da API e gerenciando as requisições.
 
 ## ⚙️ Como Funciona
