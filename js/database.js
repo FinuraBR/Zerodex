@@ -140,6 +140,725 @@ const PLATFORM_DISPLAY_NAMES = {
  */
 const gamesData = [
     {
+        "id": 151,
+        "title": "Harold Halibut",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/924750/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Guide for 100% Completion and Collectibles",
+                "url": "https://youtube.com/playlist?list=PLFC9pcaL3V_01cIU1tP_eblxfn7scTw4C&si=YP_NL6DbOf9Uycg7"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/924750/"
+    },
+    {
+        "id": 150,
+        "title": "Spirit City: Lofi Sessions",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2113850/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": "nas primeiras 6 horas de jogo eu fiz namoral, apos isso eu usei uma ferramenta para acelerar o jogo",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2113850/"
+    },
+    {
+        "id": 149,
+        "title": "Private Dorm Manager",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2273420/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Não possui",
+        "guide": [
+            {
+                "title": "Walkthrough",
+                "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3116039280"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2273420/"
+    },
+    {
+        "id": 148,
+        "title": "The DvD idle game",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3801340/25711d72d5462686349d8cee72b716c43ac3c1ad/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/3801340/"
+    },
+    {
+        "id": 147,
+        "title": "Supercar Collection Simulator",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3453600/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/3453600/"
+    },
+    {
+        "id": 146,
+        "title": "Condemned: Criminal Origins",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4720/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Feita por Fã (<a href=\"https://www.centraldetraducoes.net.br/2006/04/traducao-do-condemned-criminal-origins-pc.html\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
+        "guide": [
+            {
+                "title": "Todos os itens colecionáveis",
+                "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2851745738"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/4720/"
+    },
+    {
+        "id": 145,
+        "title": "Martha Is Dead",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/515960/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "100% Achievement Guide",
+                "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2763741638"
+            },
+            {
+                "title": "All Infrared Photos",
+                "url": "https://www.youtube.com/watch?v=Kr6Y-OM2Jhw"
+            },
+            {
+                "title": "Lapo Quest",
+                "url": "https://www.youtube.com/watch?v=dcCbud3xncY"
+            },
+            {
+                "title": "The Tower Achievement",
+                "url": "https://www.youtube.com/watch?v=u0vy1TT58TI"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/515960/"
+    },
+    {
+        "id": 144,
+        "title": "Anonymous Hacker Simulator",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2487060/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Walkthrough",
+                "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3315504605"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2487060/"
+    },
+    {
+        "id": 143,
+        "title": "Terra Memoria",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1912750/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1912750/"
+    },
+    {
+        "id": 142,
+        "title": "Make Good Choices",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3410310/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Não possui",
+        "guide": [
+            {
+                "title": "The Watcher Guide",
+                "url": "https://youtu.be/IAUj8tJMGps?si=hq6-RVF5ZGGnCEvR"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/3410310/"
+    },
+    {
+        "id": 141,
+        "title": "Evoland Legendary Edition",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1020470/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "abandoned",
+        "statusText": "Abandonado",
+        "statusOverlay": "Abandonado",
+        "translation": "Feita por Fã (<a href=\"https://www.centraldetraducoes.net.br/2020/11/traducao-do-evoland-legendary-edition-pc.html\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1020470/"
+    },
+    {
+        "id": 140,
+        "title": "Enigma do Medo",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1507580/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "DICAS e RESPOSTAS para TODOS os Puzzles",
+                "url": "https://youtu.be/B2IoJTF3eVo?si=AfzdrSDGNgJyo0AI"
+            },
+            {
+                "title": "Localização de todos itens amaldiçoados",
+                "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3377013568"
+            },
+            {
+                "title": "Enigmas do Samuel",
+                "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3382830804"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1507580/"
+    },
+    {
+        "id": 139,
+        "title": "CSS Clicker",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfFdB2XBlod4Fsjpz5CqXpC26JYy3cgMshFelLmBdqO9OSlg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://lyra.horse/css-clicker/"
+    },
+    {
+        "id": 138,
+        "title": "Turbo Dismount 2",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2280350/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "retired",
+        "statusText": "Aposentado",
+        "statusOverlay": "Aposentado",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2280350/"
+    },
+    {
+        "id": 137,
+        "title": "PAYDAY 3",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1272080/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1272080/"
+    },
+    {
+        "id": 136,
+        "title": "Visage",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/594330/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Steam",
+                "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2317074645"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/594330/"
+    },
+    {
+        "id": 135,
+        "title": "Craftmine",
+        "image": "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/marketplace/YTTHUMBAPRILFOOLS.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Não possui",
+        "guide": [],
+        "review": "é uma versão do minecraft de 1 de abril de 2025 q é tipo um roguelite",
+        "version": null,
+        "storeUrl": "https://www.minecraft.net/pt-br/article/the-craftmine-update"
+    },
+    {
+        "id": 134,
+        "title": "Crime Scene Cleaner",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1040200/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "All Secrets and Cassette Locations",
+                "url": "https://youtu.be/GBuIu8sc760?si=vONkF_9F91-CKzXm"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1040200/"
+    },
+    {
+        "id": 133,
+        "title": "The Dark Pictures Anthology: Little Hope",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1194630/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "All Collectibles [All Secrets & Framed Pictures]",
+                "url": "https://youtu.be/adxJZyWolYo?si=aWGqq1frX-l-lL69"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1194630/"
+    },
+    {
+        "id": 132,
+        "title": "Brothers: A Tale of Two Sons Remake",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2153350/library_600x900.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2153350/"
+    },
+    {
+        "id": 131,
+        "title": "Max Manos",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3428620/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/3428620/"
+    },
+    {
+        "id": 130,
+        "title": "Pacific Drive",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1458140/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "How to open all the new goodies added in the Trips and Treasures Update",
+                "url": "https://www.reddit.com/r/pacificDrive/comments/1gypxei/goldshells_and_you_how_to_open_all_the_new/?tl=pt-br&utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1458140/"
+    },
+    {
+        "id": 129,
+        "title": "SCHiM",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1519710/library_600x900.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "All 71 Lost SCHiM",
+                "url": "https://youtu.be/6T_Fg6WLU6A?si=pU7xCIIaIA_7vGBY"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1519710/"
+    },
+    {
+        "id": 128,
+        "title": "Ghost on the Shore",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1211930/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1211930/"
+    },
+    {
+        "id": 127,
+        "title": "Rayman Raving Rabbids",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/15080/portrait.png",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/15080/"
+    },
+    {
+        "id": 126,
+        "title": "Half-Life 2",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/220/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Half-Life 2 Dublado PT-BR",
+                "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3366526045"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/220/"
+    },
+    {
+        "id": 125,
+        "title": "Angry Birds Go",
+        "image": "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/co4gd5.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Audio Tour",
+                "url": "https://youtube.com/playlist?list=PLY-EuCfOnRzkrdhJvpF0CaIKwrwBzSaus&si=TKrpuq1m2amWh8v7"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://apkpure.com/br/angry-birds-go/com.rovio.angrybirdsgo"
+    },
+    {
+        "id": 124,
+        "title": "Firewatch",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/383870/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Feita por Fã (<a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=3239381666\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/383870/"
+    },
+    {
+        "id": 123,
+        "title": "LEGO Horizon Adventures",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2428810/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2428810/"
+    },
+    {
+        "id": 122,
+        "title": "RATUZ",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1550840/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "abandoned",
+        "statusText": "Abandonado",
+        "statusOverlay": "Abandonado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1550840/RATUZ/"
+    },
+    {
+        "id": 121,
+        "title": "Feed Us",
+        "image": "https://m.media-amazon.com/images/I/71Q5iFFY-SL._h1_.png",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://flashpointarchive.org/downloads/"
+    },
+    {
+        "id": 120,
+        "title": "Wheely",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/548330/portrait.png",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/548330/"
+    },
+    {
+        "id": 119,
+        "title": "Stimulation Clicker",
+        "image": "https://neal.fun/link-images/stimulation-clicker.svg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://neal.fun/stimulation-clicker/"
+    },
+    {
+        "id": 118,
+        "title": "Chair Simulator",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1610870/library_600x900.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1610870/"
+    },
+    {
+        "id": 117,
+        "title": "Bubble People",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1710930/library_600x900.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1710930/"
+    },
+    {
+        "id": 116,
+        "title": "Summerland",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1444110/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Feita por Fã (<a href=\"https://github.com/bbepis/XUnity.AutoTranslator\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1444110/"
+    },
+    {
+        "id": 115,
+        "title": "The Pilgrim",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1132880/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Feita por Fã (<a href=\"https://github.com/bbepis/XUnity.AutoTranslator\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1132880/"
+    },
+    {
+        "id": 114,
+        "title": "The Murder of Sonic the Hedgehog",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2324650/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Feita por Fã (<a href=\"https://github.com/bbepis/XUnity.AutoTranslator\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2324650/"
+    },
+    {
+        "id": 113,
+        "title": "The Backrooms Deluxe",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2558700/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Não possui",
+        "guide": [
+            {
+                "title": "Youtube",
+                "url": "https://youtu.be/1fTvLasrL38?si=8KH5VZu1ckJtajPf"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2558700/"
+    },
+    {
         "id": 112,
         "title": "112 Operator",
         "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/793460/library_600x900_2x.jpg",

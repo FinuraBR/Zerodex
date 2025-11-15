@@ -150,6 +150,8 @@ async function searchSteamDirectly(appId) {
         const steamData = steamApiResponse?.[appId]?.data;
 
         if (steamData) {
+            // Log da API da steam
+            console.log('Dados recebidos da API da Steam:', steamData);
             // Busca na RAWG para obter informações complementares (ex: plataformas)
             const rawgResponse = await fetch(`${CLOUDFLARE_WORKER_URL}?query=${encodeURIComponent(steamData.name)}`);
             const rawgData = await rawgResponse.json();
@@ -249,107 +251,155 @@ function displayRawgResults(games) {
 // ===================================================================================
 
 /**
+* Tenta encontrar uma URL de imagem válida testando diferentes CDNs e formatos.
+* Agora verifica se o 'baseName' já contém uma extensão de arquivo.
+* @param {string} baseName - O nome do arquivo (ex: 'logo' ou 'hash.ico').
+* @param {Array<string>} cdns - A lista de CDNs para testar.
+* @param {Array<string>} formats - A lista de formatos para testar.
+* @returns {Promise<string|null>} A primeira URL válida encontrada ou null.
+*/
+async function findValidImageUrl(baseName, cdns, formats) {
+    if (!baseName) return null;
+
+    // Verifica se o baseName já termina com uma das extensões conhecidas.
+    const hasExtension = formats.some(ext => baseName.toLowerCase().endsWith(`.${ext}`));
+
+    for (const cdn of cdns) {
+        if (hasExtension) {
+            // Se já tem extensão, testa a URL diretamente.
+            const url = `${cdn}${baseName}`;
+            try {
+                const response = await fetch(url, { method: 'HEAD' });
+                if (response.ok && response.headers.get('content-type')?.startsWith('image')) {
+                    return url; // Encontrou!
+                }
+            } catch (e) { /* Ignora e tenta o próximo CDN */ }
+        } else {
+            // Se não tem extensão, itera sobre os formatos para encontrá-la.
+            for (const format of formats) {
+                const url = `${cdn}${baseName}.${format}`;
+                try {
+                    const response = await fetch(url, { method: 'HEAD' });
+                    if (response.ok && response.headers.get('content-type')?.startsWith('image')) {
+                        return url; // Encontrou!
+                    }
+                } catch (e) { /* Ignora e tenta o próximo formato */ }
+            }
+        }
+    }
+
+    return null; // Não encontrou nenhuma URL válida.
+}
+
+/**
+ * Carrega uma imagem em memória para obter suas dimensões.
+ * @param {string} url - A URL da imagem.
+ * @returns {Promise<{width: number, height: number}|null>} Um objeto com as dimensões ou null se falhar.
+ */
+function getImageDimensions(url) {
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+            resolve({ width: img.naturalWidth, height: img.naturalHeight });
+        };
+        img.onerror = () => {
+            resolve(null); // Falha ao carregar a imagem
+        };
+        img.src = url;
+    });
+}
+
+
+/**
  * Abre o modal da galeria de assets, buscando e exibindo todas as imagens
  * disponíveis para o jogo na API da Steam.
  */
-function openAssetGallery() {
+async function openAssetGallery() {
     if (!currentSteamData) return;
     const appId = currentSteamData.steam_appid;
 
-    // Define os CDNs (Content Delivery Networks) da Steam para maior robustez
+    assetGalleryContent.innerHTML = '<p>Buscando e validando assets, por favor aguarde...</p>';
+    galleryOverlay.classList.add('visible');
+    assetGalleryModal.classList.add('visible');
+
     const sharedCDN = `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${appId}/`;
     const akamaiCDN = `https://cdn.akamai.steamstatic.com/steam/apps/${appId}/`;
     const communityCDN = `https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/${appId}/`;
-    const communityShared = `https://shared.fastly.steamstatic.com/community_assets/images/apps/${appId}/`;
-    // Formatos a serem testados para cada imagem, pois a API não especifica a extensão
-    const FORMATS_TO_TRY = ['jpg', 'png', 'ico'];
+    const communityShared = `https://shared.fastly.steamstatic.com/steamcommunity/public/images/apps/${appId}/`;
+    const FORMATS_TO_TRY = ['png', 'jpg', 'ico', 'gif', 'jpeg'];
 
-    // Estrutura de dados que organiza todos os assets conhecidos da Steam
     const masterAssetList = {
         'Assets da Biblioteca': [
+            { name: 'portrait', cdns: [sharedCDN, akamaiCDN] },
             { name: 'library_600x900', cdns: [sharedCDN, akamaiCDN] },
             { name: 'library_600x900_2x', cdns: [sharedCDN, akamaiCDN] },
             { name: 'library_hero', cdns: [sharedCDN, akamaiCDN] },
-            { name: 'library_hero_2x', cdns: [sharedCDN, akamaiCDN] },
             { name: 'logo', cdns: [sharedCDN, akamaiCDN] },
+            { name: 'logo_2x', cdns: [sharedCDN, akamaiCDN] },
+            { url: currentSteamData.header_image },
         ],
         'Assets da Loja': [
-            { name: 'header', cdns: [sharedCDN, akamaiCDN] },
             { name: 'capsule_616x353', cdns: [sharedCDN, akamaiCDN] },
             { name: 'hero_capsule', cdns: [sharedCDN, akamaiCDN] },
+            { url: currentSteamData.capsule_image },
+            { url: currentSteamData.capsule_imagev5 },
         ],
         'Ícones': [
             { name: currentSteamData.clienticon, cdns: [communityCDN, communityShared] },
-            { name: currentSteamData.community_icon, cdns: [communityCDN, communityShared] }
+            { name: currentSteamData.community_icon, cdns: [communityCDN, communityShared] },
+            { name: currentSteamData.icon, cdns: [communityCDN, communityShared] }
         ],
         'Fundos (API)': [
-            { url: currentSteamData.background_raw }
+            { url: currentSteamData.background_raw },
+            { url: currentSteamData.background }
         ],
         'Screenshots (API)': currentSteamData.screenshots?.map(ss => ({ url: ss.path_full, width: ss.width, height: ss.height })) || []
     };
 
     let galleryHTML = '';
-    // Itera sobre cada categoria e seus assets para gerar o HTML
     for (const [category, assets] of Object.entries(masterAssetList)) {
         if (!assets || assets.length === 0) continue;
 
-        const items = assets.map(asset => {
+        const assetPromises = assets.map(async (asset) => {
             if (!asset || (!asset.url && !asset.name)) return '';
 
-            let pictureHTML;
-            let finalUrl; // URL base para o data-attribute
-
-            if (asset.url) {
-                // Caso 1: A URL já está completa (ex: screenshots da API)
-                finalUrl = asset.url;
-                pictureHTML = `<img src="${finalUrl}" alt="${finalUrl.split('/').pop()}" loading="lazy" onerror="this.parentElement.style.display='none'">`;
-            } else {
-                // Caso 2: Precisa construir a URL com múltiplos CDNs e formatos
-                const baseName = asset.name;
-                const cdns = asset.cdns || [];
-                
-                // Usa a tag <picture> com <source> para tentar carregar a imagem de vários
-                // CDNs e com vários formatos, oferecendo um fallback robusto.
-                const sources = cdns.flatMap(cdn =>
-                    FORMATS_TO_TRY.map(format =>
-                        `<source srcset="${cdn}${baseName}.${format}" type="image/${format === 'jpg' ? 'jpeg' : format}">`
-                    )
-                ).join('');
-
-                const fallbackSrc = `${cdns[0]}${baseName}.${FORMATS_TO_TRY[0]}`;
-                finalUrl = fallbackSrc;
-
-                pictureHTML = `
-                    <picture>
-                        ${sources}
-                        <img src="${fallbackSrc}" alt="${baseName}" loading="lazy" onerror="this.parentElement.style.display='none'">
-                    </picture>
-                `;
+            let validUrl = asset.url;
+            if (!validUrl) {
+                validUrl = await findValidImageUrl(asset.name, asset.cdns, FORMATS_TO_TRY);
             }
 
-            const filename = finalUrl.split('/').pop().split('?')[0];
-            const dimensions = (asset.width && asset.height) ? `${asset.width}x${asset.height}` : '';
+            if (!validUrl) return '';
+
+            // NOVIDADE: Obter as dimensões da imagem
+            let dimensions = null;
+            if (asset.width && asset.height) {
+                dimensions = { width: asset.width, height: asset.height }; // Usa dimensões da API se existirem
+            } else {
+                dimensions = await getImageDimensions(validUrl); // Senão, busca as dimensões
+            }
+
+            const filename = validUrl.split('/').pop().split('?')[0];
+            const dimensionsText = dimensions ? `(${dimensions.width}x${dimensions.height})` : '';
 
             return `
-                <figure class="asset-item" data-url="${finalUrl}">
-                    ${pictureHTML}
+                <figure class="asset-item" data-url="${validUrl}">
+                    <img src="${validUrl}" alt="${filename}" loading="lazy" onerror="this.parentElement.style.display='none'">
                     <figcaption>
-                        ${dimensions}
                         <span>${filename}</span>
+                        ${dimensionsText}
                     </figcaption>
                 </figure>
             `;
-        }).join('');
+        });
+        
+        const items = (await Promise.all(assetPromises)).join('');
 
-        // Adiciona a categoria ao HTML final apenas se ela tiver itens válidos
         if (items.trim()) {
             galleryHTML += `<div class="asset-category"><h4>${category}</h4><div class="asset-grid">${items}</div></div>`;
         }
     }
 
     assetGalleryContent.innerHTML = galleryHTML || '<p>Nenhum asset adicional encontrado.</p>';
-    galleryOverlay.classList.add('visible');
-    assetGalleryModal.classList.add('visible');
 }
 
 /**
@@ -387,7 +437,7 @@ function populateFormWithHybridData(rawgData, steamData = null) {
 
     // Define a capa padrão (biblioteca da Steam) ou a imagem de fundo da RAWG
     const defaultCover = steamData
-        ? `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${steamData.steam_appid}/library_600x900.jpg`
+        ? `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${steamData.steam_appid}/library_600x900_2x.jpg` || `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${steamData.steam_appid}/library_600x900.jpg` || `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${steamData.steam_appid}/portrait.png`
         : rawgData.background_image || 'imagens/favicon.jpg';
 
     gameImagePreview.src = defaultCover;
