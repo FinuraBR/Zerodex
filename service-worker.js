@@ -126,27 +126,26 @@ self.addEventListener('fetch', event => {
                             return networkResponse; // Retorna a resposta inválida sem armazená-la no cache.
                         }
 
+                        // Só tenta cachear se a requisição for para um recurso web (http ou https)
+                        if (event.request.url.startsWith('http')) {
                         // IMPORTANTE: Uma resposta (Response) é um stream que só pode ser "consumido" uma vez.
                         // Como precisamos enviar a resposta para o navegador (para renderizar a página) e
                         // também para o cache (para armazenamento), é necessário cloná-la.
-                        const responseToCache = networkResponse.clone();
+                            const responseToCache = networkResponse.clone();
 
-                        caches.open(CACHE_NAME)
-                            .then(cache => {
-                                // Armazena a nova resposta da rede no cache para futuras requisições.
-                                // A chave é o objeto da requisição, e o valor é a resposta clonada.
-                                cache.put(event.request, responseToCache);
-                            });
-
+                            caches.open(CACHE_NAME)
+                                .then(cache => {
+                                    // Armazena a nova resposta da rede no cache para futuras requisições.
+                                    // A chave é o objeto da requisição, e o valor é a resposta clonada.
+                                    cache.put(event.request, responseToCache);
+                                });
+                        }
                         // Retorna a resposta original da rede para o navegador, que a renderizará.
                         return networkResponse;
                     }
                 ).catch(error => {
                     // Este bloco é executado se a busca na rede falhar (ex: sem conexão com a internet).
                     console.warn(`[Service Worker] Falha na requisição de fetch para ${event.request.url}. O dispositivo pode estar offline.`, error);
-                    // Aqui seria o local ideal para retornar uma página de fallback offline, se houvesse uma.
-                    // Exemplo: return caches.match('/offline.html');
-                    // Como não temos uma, a falha de rede será propagada para o navegador.
                 });
             })
     );
