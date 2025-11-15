@@ -38,7 +38,7 @@ const URLS_TO_CACHE = [
     './js/script.js',
     './js/adicionar.js',
     './js/id_counter.js',
-    './imagens'
+    './imagens/favicon.jpg'
 ];
 
 // --- 2. CICLO DE VIDA DO SERVICE WORKER ------------------------------------------
