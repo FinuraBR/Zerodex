@@ -1,5 +1,5 @@
 // ===================================================================================
-// === MEU ZERODEX - LÓGICA DA PÁGINA DE ADICIONAR JOGO (adicionar.js) ==============
+// === ZERODEX - LÓGICA DA PÁGINA DE ADICIONAR JOGO (adicionar.js) ==============
 // ===================================================================================
 //
 // DESCRIÇÃO:
@@ -341,6 +341,7 @@ async function openAssetGallery() {
         'Assets da Loja': [
             { name: 'capsule_616x353', cdns: [sharedCDN, akamaiCDN] },
             { name: 'hero_capsule', cdns: [sharedCDN, akamaiCDN] },
+            { name: 'hero_capsule_2x', cdns: [sharedCDN, akamaiCDN] },
             { url: currentSteamData.capsule_image },
             { url: currentSteamData.capsule_imagev5 },
         ],
@@ -435,13 +436,24 @@ function populateFormWithHybridData(rawgData, steamData = null) {
 
     populatePlatformSelect(rawgData.platforms || []);
 
-    // Define a capa padrão (biblioteca da Steam) ou a imagem de fundo da RAWG
-    const defaultCover = steamData
-        ? `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${steamData.steam_appid}/library_600x900_2x.jpg` || `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${steamData.steam_appid}/library_600x900.jpg` || `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${steamData.steam_appid}/portrait.png`
-        : rawgData.background_image || 'imagens/favicon.jpg';
+// Define a capa do jogo usando um sistema de fallback para garantir que a imagem exista.
+const localFallback = 'imagens/favicon.jpg';
+let coverUrlsToTry = [];
 
-    gameImagePreview.src = defaultCover;
-    gameImageUrlInput.value = defaultCover;
+if (steamData) {
+    const appId = steamData.steam_appid;
+    // Lista de URLs da Steam para tentar, da melhor qualidade para a mais básica.
+    coverUrlsToTry = [
+        `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${appId}/library_600x900_2x.jpg`,
+        `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${appId}/library_600x900.jpg`
+    ];
+} else if (rawgData.background_image) {
+    // Se não houver dados da Steam, usa a imagem da RAWG.
+    coverUrlsToTry.push(rawgData.background_image);
+}
+
+// Chama a função que testa as URLs e define a imagem e o valor do input.
+setImageWithFallback(gameImagePreview, gameImageUrlInput, coverUrlsToTry, localFallback);
 
     // Mostra o botão "Trocar Capa" apenas se houver dados da Steam
     changeCoverBtn.style.display = steamData ? 'block' : 'none';
@@ -657,6 +669,40 @@ function setupBackToTopButton() {
     backToTopButton.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+}
+
+/**
+ * Define a imagem de um elemento <img> com uma lista de URLs de fallback.
+ * Tenta carregar a primeira URL, se falhar, tenta a próxima, e assim por diante.
+ * Também atualiza um campo de input com a URL que funcionou.
+ * @param {HTMLImageElement} imgElement - O elemento <img> a ser atualizado.
+ * @param {HTMLInputElement} inputElement - O elemento <input> que armazena a URL da imagem.
+ * @param {Array<string>} urls - Um array de URLs de imagem para tentar em ordem.
+ * @param {string} finalFallbackUrl - Uma URL local para usar se todas as outras falharem.
+ */
+function setImageWithFallback(imgElement, inputElement, urls, finalFallbackUrl) {
+    if (!urls || urls.length === 0) {
+        // Se todas as URLs falharam, usa o fallback final.
+        imgElement.src = finalFallbackUrl;
+        inputElement.value = finalFallbackUrl;
+        return;
+    }
+
+    const currentUrl = urls[0];
+    const remainingUrls = urls.slice(1);
+
+    imgElement.src = currentUrl;
+
+    // Se a imagem carregar com sucesso, limpa o 'onerror' e atualiza o input.
+    imgElement.onload = () => {
+        imgElement.onerror = null; // Remove o listener de erro para evitar problemas futuros.
+        inputElement.value = currentUrl;
+    };
+
+    // Se a imagem falhar ao carregar, tenta a próxima da lista.
+    imgElement.onerror = () => {
+        setImageWithFallback(imgElement, inputElement, remainingUrls, finalFallbackUrl);
+    };
 }
 
 // ===================================================================================

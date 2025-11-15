@@ -19,7 +19,7 @@
  * ao atualizar os arquivos essenciais (app shell) invalida o cache antigo e força
  * a instalação de um novo, garantindo que os usuários recebam a versão mais recente.
  */
-const CACHE_NAME = 'zerodex-cache-v1';
+const CACHE_NAME = 'zerodex-cache-v1.1';
 
 /**
  * @const {string[]} URLS_TO_CACHE
@@ -38,7 +38,7 @@ const URLS_TO_CACHE = [
     './js/script.js',
     './js/adicionar.js',
     './js/id_counter.js',
-    './imagens/favicon.jpg'
+    './imagens'
 ];
 
 // --- 2. CICLO DE VIDA DO SERVICE WORKER ------------------------------------------

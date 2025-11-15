@@ -1,5 +1,5 @@
 // ===================================================================================
-// === MEU ZERODEX - BANCO DE DADOS DE JOGOS (database.js) ===========================
+// === ZERODEX - BANCO DE DADOS DE JOGOS (database.js) ===========================
 // ===================================================================================
 //
 // DESCRIÇÃO:
@@ -23,11 +23,12 @@
  */
 const PLATFORM_DISPLAY_NAMES = {
     'pc': 'PC',
+    'web': 'Web',
     'android': 'Android',
-    'ios': 'iOS',
-    'xbox360': 'Xbox 360',
     'xbox-one': 'Xbox One',
+    'xbox360': 'Xbox 360',
     'nintendo-switch': 'Switch',
+    'nintendo-64': 'Nintendo 64',
     // Adicione outras plataformas aqui conforme necessário, mantendo o formato 'slug': 'Nome Visível'.
 };
 
@@ -139,6 +140,1101 @@ const PLATFORM_DISPLAY_NAMES = {
  * adicionados sempre no início (topo) desta lista.
  */
 const gamesData = [
+    {
+        "id": 217,
+        "title": "Control Ultimate Edition",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/870780/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "playing",
+        "statusText": "Jogando",
+        "statusOverlay": "Jogando Atualmente",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Todos os Colecionáveis e Segredos (Empresa Principal+DLC)",
+                "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2542715672"
+            },
+            {
+                "title": "Mapa Interativo",
+                "url": "https://mapgenie.io/control/maps/oldest-house"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/870780/"
+    },
+    {
+        "id": 216,
+        "title": "Moving Houses",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2831060/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [],
+        "review": "terminei o jogo normal, objetos extra e conteudo removido (100% exceto conquistas)",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2831060/"
+    },
+    {
+        "id": 215,
+        "title": "Scritchy Scratchy",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3948120/92ea0ffb83c1a9b85d7f2f5544b7c324680b1027/library_capsule_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "archived",
+        "statusText": "Arquivado",
+        "statusOverlay": "Arquivado",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": "Demo",
+        "storeUrl": "https://store.steampowered.com/app/3948120/"
+    },
+    {
+        "id": 214,
+        "title": "BACKROOMS INVASION",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2928660/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2928660/"
+    },
+    {
+        "id": 213,
+        "title": "Sniper Elite 4",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/312660/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Mapa Interativo",
+                "url": "https://sniperelite4maps.de/"
+            }
+        ],
+        "review": "zerei, só n fiz os desafios das missoes e zerei todas as missoes no modo dificil",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/312660/"
+    },
+    {
+        "id": 212,
+        "title": "seekL",
+        "image": "https://img.itch.zone/aW1nLzE2MDg4MjY4LmpwZw==/original/q6iZrm.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Feita por Fã (<a href=\"https://drive.google.com/file/d/1zJ3Wgh4kQVtuBXimvNm0bb-8wseQa_1Q/view?usp=sharing\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
+        "guide": [
+            {
+                "title": "Walkthrough",
+                "url": "https://docs.google.com/document/d/1JlaBlgqqMnaxP6FQ-kZoLMEJGnLHCKvlMNYoEUAcMAU/edit?usp=sharing"
+            },
+            {
+                "title": "Answer Key",
+                "url": "https://docs.google.com/document/d/1OembQ2gR8bJIvz3wQylP19egaRdnjhocpFrItz3S3QY/edit?usp=sharing"
+            }
+        ],
+        "review": "Fiz uma tradução, não está perfeita, e sim, foi feita por I.A. Testei enquanto jogava. Recomendo que alguém com mais paciência do que eu a revise, mas, no geral, a tradução funciona perfeitamente.",
+        "version": null,
+        "storeUrl": "https://robobarbie.itch.io/seekl"
+    },
+    {
+        "id": 211,
+        "title": "Tales of Kenzera™: ZAU",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2316580/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Mapa Interativo",
+                "url": "https://mapmaster.io/games/tales-of-kenzera-zau"
+            }
+        ],
+        "review": "a historia é sinceramente ruim tipo eu n entendi nada mas a gameplay até q é legal mas sei la é um 6,5/10 a 7/10",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2316580/"
+    },
+    {
+        "id": 210,
+        "title": "Paper Mario (2000)",
+        "image": "https://media.rawg.io/media/resize/200/-/screenshots/ad4/ad4df90fba587299cc0367f0a865cefe.jpg",
+        "platform": [
+            "nintendo-64"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Feita por Fã (<a href=\"https://romsportugues.com/paper-mario-64/\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
+        "guide": [
+            {
+                "title": "Walkthrough",
+                "url": "https://mariopartylegacy.com/guides/paper-mario-64/walkthrough"
+            },
+            {
+                "title": "Mods",
+                "url": "https://starhaven.dev/"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://romsportugues.com/paper-mario-64/"
+    },
+    {
+        "id": 209,
+        "title": "Fort Solis",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1931730/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Walkthrough (All Achievements & Collectibles) - Video",
+                "url": "https://www.youtube.com/watch?v=edTBSxmz698"
+            },
+            {
+                "title": "Guia em forma de foto e texto, mas sem as conquistas",
+                "url": "https://platget.com/guides/fort-solis-all-collectibles-guide/"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1931730/"
+    },
+    {
+        "id": 208,
+        "title": "skate.",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3354750/8dd654efd195e289b91d1d3afe1cbb24123fe6b5/library_capsule_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "archived",
+        "statusText": "Arquivado",
+        "statusOverlay": "Arquivado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": "Acesso Antecipado",
+        "storeUrl": "https://store.steampowered.com/app/3354750/"
+    },
+    {
+        "id": 207,
+        "title": "Another Crab's Treasure",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1887840/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Walkthrough",
+                "url": "https://www.youtube.com/playlist?list=PLFtudHJ9ddnnoiIyCB8_7VAo_3FAwvzPI"
+            }
+        ],
+        "review": "fiz 100% e quase platinei",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1887840/"
+    },
+    {
+        "id": 206,
+        "title": "Paint the Town Red",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/337320/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/337320/"
+    },
+    {
+        "id": 205,
+        "title": "Fallout 3: Game of the Year Edition",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/22370/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "abandoned",
+        "statusText": "Abandonado",
+        "statusOverlay": "Abandonado",
+        "translation": "Feita por Fã (<a href=\"https://joao13traducoes.com/2024/04/pc-fallout-3-goty-edition-traduzido-e-dublado-gamevicio-tribo-gamer-e-ewertongba99/\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
+        "guide": [],
+        "review": "cheio de mods para rodar NORMAL e ainda tive muitos problemas para encontrar os mods essenciais e de compatibilidade entre mods\n\nedit: EU QUERO Q ESSE JOGO *SE FODA* EU JÁ GASTEI COISA DE 2 UNIDADES DE HORAS SÓ TENTANDO ARRUMAR ESSA BOSTA E QUANDO ARRUMAVA UMA COISA SURGIA OUTRA!!!!!!!!!! *VAI TOMA NO CU BETHESDA!*",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/22370/"
+    },
+    {
+        "id": 204,
+        "title": "CloverPit",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3314790/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "retired",
+        "statusText": "Aposentado",
+        "statusOverlay": "Aposentado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/3314790/"
+    },
+    {
+        "id": 203,
+        "title": "Fallout 2: A Post Nuclear Role Playing Game",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/38410/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "abandoned",
+        "statusText": "Abandonado",
+        "statusOverlay": "Abandonado",
+        "translation": "Feita por Fã (<a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=2520507916\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
+        "guide": [],
+        "review": "mesmo estilo de jogo do 1 ent nem me dei o trabalho de baixar e só assisti um (<a href=\\\"https://www.youtube.com/watch?v=E_Yqz64SvM0\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">video sobre a historia do jogo</a>)",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/38410/"
+    },
+    {
+        "id": 202,
+        "title": "Fallout: A Post Nuclear Role Playing Game",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/38400/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "abandoned",
+        "statusText": "Abandonado",
+        "statusOverlay": "Abandonado",
+        "translation": "Feita por Fã (<a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=2243442656\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
+        "guide": [],
+        "review": "assisti um (<a href=\"https://youtu.be/w56c0q-NaRE?si=H2nnjVQn_W94A5Mh\" target=\"_blank\" rel=\"noopener noreferrer\">video sobre a historia do jogo</a>)",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/38400/"
+    },
+    {
+        "id": 201,
+        "title": "Burnout™ Paradise Remastered",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1238080/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1238080/"
+    },
+    {
+        "id": 200,
+        "title": "Sunset Overdrive",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/847370/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/847370/"
+    },
+    {
+        "id": 199,
+        "title": "Drive Beyond Horizons",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2625420/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "retired",
+        "statusText": "Aposentado",
+        "statusOverlay": "Aposentado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2625420/"
+    },
+    {
+        "id": 198,
+        "title": "Coin Flipper",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2153770/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2153770/"
+    },
+    {
+        "id": 197,
+        "title": "Suicide Guy Deluxe Plus",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1972820/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1972820/"
+    },
+    {
+        "id": 196,
+        "title": "Museum of All Things",
+        "image": "https://img.itch.zone/aW1nLzE5OTUwNzc5LnBuZw==/original/S4QySP.png",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://mayeclair.itch.io/museum-of-all-things"
+    },
+    {
+        "id": 195,
+        "title": "Shadows Awaken",
+        "image": "https://m.gjcdn.net/game-screenshot/300/35980332-hnysjpte-v4.webp",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://gamejolt.com/games/ShadowsAwaken/620021"
+    },
+    {
+        "id": 194,
+        "title": "CarX Street",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1114150/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1114150/"
+    },
+    {
+        "id": 193,
+        "title": "Grand Theft Auto V Enhanced",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3240220/library_600x900_2x.jpg",
+        "platform": [
+            "pc",
+            "xbox360",
+            "xbox-one"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [],
+        "review": "joguei antes de criar esse catálogo",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/3240220/"
+    },
+    {
+        "id": 192,
+        "title": "MILF's Plaza",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2706300/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2706300/"
+    },
+    {
+        "id": 191,
+        "title": "SILENT BREATH",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2796180/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2796180/"
+    },
+    {
+        "id": 190,
+        "title": "Infiniclick",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3612640/c30038a9b2117d0e0684ba38e3688dd5c6989cb7/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/3612640/"
+    },
+    {
+        "id": 189,
+        "title": "POOLS",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2663530/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2663530/"
+    },
+    {
+        "id": 188,
+        "title": "Computer Virus Simulator",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2133050/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "retired",
+        "statusText": "Aposentado",
+        "statusOverlay": "Aposentado",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2133050/"
+    },
+    {
+        "id": 187,
+        "title": "A Little to the Left",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1629520/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1629520/"
+    },
+    {
+        "id": 186,
+        "title": "Human Fall Flat",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/477160/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/477160/"
+    },
+    {
+        "id": 185,
+        "title": "Far Cry 4",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/298110/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Mapa Interativo",
+                "url": "https://mapgenie.io/far-cry-4"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/298110/"
+    },
+    {
+        "id": 184,
+        "title": "Far Cry 3 - Blood Dragon",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/233270/portrait.png",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": "joguei antes de criar esse catálogo",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/233270/"
+    },
+    {
+        "id": 183,
+        "title": "Far Cry 3",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/220240/library_600x900_2x.jpg",
+        "platform": [
+            "pc",
+            "xbox-one"
+        ],
+        "status": "playing",
+        "statusText": "Jogando",
+        "statusOverlay": "Jogando Atualmente",
+        "translation": "Oficial",
+        "guide": [],
+        "review": "joguei antes de criar esse catálogo",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/220240/"
+    },
+    {
+        "id": 182,
+        "title": "Far Cry 2",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/19900/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Feita por Fã (<a href=\"https://www.gamevicio.com/traducoes/\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
+        "guide": [],
+        "review": "joguei antes de criar esse catálogo",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/19900/"
+    },
+    {
+        "id": 181,
+        "title": "Instruments of Destruction",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1428100/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1428100/"
+    },
+    {
+        "id": 180,
+        "title": "The Dark Pictures Anthology: House of Ashes",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1281590/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "All Collectibles Locations (All Pictures & Secrets)",
+                "url": "https://youtu.be/XGc99R5DQig?si=PgzFh5HbgPjq_cL1"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1281590/"
+    },
+    {
+        "id": 179,
+        "title": "The Dark Pictures Anthology: Man of Medan",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/939850/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/939850/"
+    },
+    {
+        "id": 178,
+        "title": "House Flipper",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/613100/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/613100/"
+    },
+    {
+        "id": 177,
+        "title": "Resident Evil HD Remaster",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/304240/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "abandoned",
+        "statusText": "Abandonado",
+        "statusOverlay": "Abandonado",
+        "translation": "Feita por Fã (<a href=\"https://www.romhacking.net.br/index.php?topic=3012\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
+        "guide": [],
+        "review": "eu tentei jogar, mas a jogabilidade de camera, inventario e tudo no geral não me agradou e eu até tentei me forçar a gostar, mas não deu certo ent tô assistindo um filme do jogo. | a tradução na versão da steam não funciona tem que ser a versão antiga antes de ter DRM então recomendo baixar via metodos duvidos",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/304240/"
+    },
+    {
+        "id": 176,
+        "title": "Revolution Idle",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2763740/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2763740/"
+    },
+    {
+        "id": 175,
+        "title": "Slay the Princess — The Pristine Cut",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1989270/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1989270/"
+    },
+    {
+        "id": 174,
+        "title": "HOT WHEELS UNLEASHED",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1271700/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1271700/"
+    },
+    {
+        "id": 173,
+        "title": "Maneater",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/629820/library_600x900_2x.jpg",
+        "platform": [
+            "pc",
+            "xbox-one"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Mapa Interativo",
+                "url": "https://mapgenie.io/maneater"
+            }
+        ],
+        "review": "Esse jogo tinha um grande potencial, mas foi abandonado e possui uma péssima otimização. É tão mal otimizado que há áreas praticamente injogáveis. Foi um inferno fazer 100%.",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/629820/"
+    },
+    {
+        "id": 172,
+        "title": "AI Learns To Drive",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3312030/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "retired",
+        "statusText": "Aposentado",
+        "statusOverlay": "Aposentado",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/3312030/"
+    },
+    {
+        "id": 171,
+        "title": "Fill Up The Hole",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3343160/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/3343160/"
+    },
+    {
+        "id": 170,
+        "title": "Cash Cleaner Simulator",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2488370/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2488370/"
+    },
+    {
+        "id": 169,
+        "title": "Detroit: Become Human",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1222140/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Walkthrough",
+                "url": "https://www.powerpyx.com/detroit-become-human-full-walkthrough-all-chapters"
+            },
+            {
+                "title": "Fluxogramas dos capítulos",
+                "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2706070429"
+            }
+        ],
+        "review": "a partir do capitulo \"encruzilhada\" eu só joguei uma vez e peguei quase nenhum colecionavel (a partir daí são uns capitulos muito longos onde tu joga com os 3 personagens ao msm tempo, aí eu falei \"ok aqui é meu limite\"",
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1222140/"
+    },
+    {
+        "id": 168,
+        "title": "Max Payne 3",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/204100/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Golden Guns and Clues Locations",
+                "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=257634803"
+            },
+            {
+                "title": "Single Player Grinds [Not Golden Guns]",
+                "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=155953117"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/204100/"
+    },
+    {
+        "id": 167,
+        "title": "Call of Juarez",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3020/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Feita por Fã (<a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=2698910771\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
+        "guide": [
+            {
+                "title": "Youtube",
+                "url": "https://youtube.com/playlist?list=PL6tIQ2O2ylYrI6FhxqyOdBJHtKTqwbTs2&si=TdvMlYOhF1MfE6dq"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/3020/"
+    },
+    {
+        "id": 166,
+        "title": "Outlast",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/238320/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Document and Note locations (including Whistleblower) and Cheats",
+                "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=258003893"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/238320/"
+    },
+    {
+        "id": 165,
+        "title": "BEHEMOTH",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3027260/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/3027260/"
+    },
+    {
+        "id": 164,
+        "title": "Take me, Vitaly",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2144590/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2144590/"
+    },
+    {
+        "id": 163,
+        "title": "Poly Bridge 3",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1850160/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1850160/"
+    },
+    {
+        "id": 162,
+        "title": "Call of Duty: United Offensive",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2640/portrait.png?t=1731699751",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Feita por Fã (<a href=\"https://www.centraldetraducoes.net.br/2004/09/traducao-do-call-of-duty-united-offensive-pc.html\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2640/"
+    },
+    {
+        "id": 161,
+        "title": "Call of Duty (2003)",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2620/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Feita por Fã (<a href=\"https://www.centraldetraducoes.net.br/2024/01/traducao-do-call-of-duty-2003-pc.html\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2620/"
+    },
+    {
+        "id": 160,
+        "title": "Minecraft Legends",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1928870/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/1928870/"
+    },
+    {
+        "id": 159,
+        "title": "Beyond: Two Souls",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/960990/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/960990/"
+    },
+    {
+        "id": 158,
+        "title": "Row Divers",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2572300/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2572300/"
+    },
+    {
+        "id": 157,
+        "title": "FIVE NIGHTS AT FREDDY'S: HELP WANTED",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/732690/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "All Endings w/ DLCs 100% Full Game Walkthrough",
+                "url": "https://youtube.com/playlist?list=PLkMyjUYUnRb7BiOjq0zbjsu5mwe5iYnsl&si=7SxJ-9JcyCe_bTpr"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/732690/"
+    },
+    {
+        "id": 156,
+        "title": "Minecraft Backrooms Found Footage",
+        "image": "https://cdn.modrinth.com/data/H6pjI7Ol/831ad01659612e42dc2adfe6bcf00b3a4a5515f4_96.webp",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://modrinth.com/project/H6pjI7Ol"
+    },
     {
         "id": 155,
         "title": "The Backroom - Lost and Found",
@@ -1025,7 +2121,7 @@ const gamesData = [
         "id": 106,
         "title": "Infinite Monkeys",
         "image": "https://img.itch.zone/aW1hZ2UvMTI4MTU4MS83NDkzODQ3LnBuZw==/original/mRvGHP.png",
-        "platform": ["pc"],
+        "platform": ["pc","web"],
         "status": "completed-100",
         "statusText": "100%",
         "statusOverlay": "100% Concluído",
@@ -1072,7 +2168,7 @@ const gamesData = [
         "id": 103,
         "title": "I Didn't Cheat (v.1.2)",
         "image": "https://img.itch.zone/aW1nLzE4MjkyNjUzLnBuZw==/original/uUlJOy.png",
-        "platform": ["pc"],
+        "platform": ["pc","web"],
         "status": "completed",
         "statusText": "Finalizado",
         "statusOverlay": "Finalizado",
@@ -1086,7 +2182,7 @@ const gamesData = [
         "id": 102,
         "title": "Mirror's Edge Catalyst",
         "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1233570/library_600x900_2x.jpg",
-        "platform": ["pc"],
+        "platform": ["pc",],
         "status": "completed",
         "statusText": "Finalizado",
         "statusOverlay": "Finalizado",
@@ -1173,7 +2269,7 @@ const gamesData = [
         "id": 98,
         "title": "Bituca Clicker",
         "image": "https://img.itch.zone/aW1nLzE3MDY2Mjc5LnBuZw==/original/jLbd6E.png",
-        "platform": ["pc"],
+        "platform": ["web"],
         "status": "completed-100",
         "statusText": "100%",
         "statusOverlay": "100% Concluído",
@@ -1297,7 +2393,7 @@ const gamesData = [
         "translation": "Oficial",
         "guide": [
             {
-                "title": "Map Genie",
+                "title": "Mapa Interativo",
                 "url": "https://mapgenie.io/death-stranding/maps/world"
             },
             {
@@ -1372,7 +2468,7 @@ const gamesData = [
         "translation": "Feita por Fã (<a href=\"https://www.centraldetraducoes.net.br/2025/02/traducao-do-assassins-creed-ii-pc.html\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
         "guide": [
             {
-                "title": "Map Genie",
+                "title": "Mapa Interativo",
                 "url": "https://mapgenie.io/assassins-creed-2"
             },
             {
@@ -1537,7 +2633,7 @@ const gamesData = [
         "translation": "Oficial",
         "guide": [
             {
-                "title": "Map Genie",
+                "title": "Mapa Interativo",
                 "url": "https://rdr2map.com/"
             },
             {
@@ -1560,7 +2656,7 @@ const gamesData = [
         "translation": "Oficial",
         "guide": [
             {
-                "title": "Map Genie",
+                "title": "Mapa Interativo",
                 "url": "https://mapgenie.io/the-outer-worlds"
             },
             {
@@ -1621,7 +2717,7 @@ const gamesData = [
         "translation": "Oficial",
         "guide": [
             {
-                "title": "Map Genie",
+                "title": "Mapa Interativo",
                 "url": "https://mapgenie.io/days-gone"
             },
             {
@@ -1644,7 +2740,7 @@ const gamesData = [
         "translation": "Feita por Fã (<a href=\"https://www.centraldetraducoes.net.br/2014/12/traducao-do-borderlands-2-goty-edition-pc.html\" target=\"_blank\" rel=\"noopener noreferrer\">baixar</a>)",
         "guide": [
             {
-                "title": "Map Genie",
+                "title": "Mapa Interativo",
                 "url": "https://mapgenie.io/borderlands-2"
             },
             {
@@ -1737,7 +2833,7 @@ const gamesData = [
         "translation": "Oficial",
         "guide": [
             {
-                "title": "Map Genie",
+                "title": "Mapa Interativo",
                 "url": "https://mapgenie.io/god-of-war-2018"
             },
             {
@@ -1793,7 +2889,7 @@ const gamesData = [
         "translation": "Oficial",
         "guide": [
             {
-                "title": "Map Genie",
+                "title": "Mapa Interativo",
                 "url": "https://mapgenie.io/marvels-spider-man-2/maps/new-york"
             }
         ],
@@ -1812,7 +2908,7 @@ const gamesData = [
         "translation": "Oficial",
         "guide": [
             {
-                "title": "Map Genie",
+                "title": "Mapa Interativo",
                 "url": "https://mapgenie.io/marvels-spider-man-miles-morales/maps/manhattan"
             }
         ],
@@ -1831,7 +2927,7 @@ const gamesData = [
         "translation": "Oficial",
         "guide": [
             {
-                "title": "Map Genie",
+                "title": "Mapa Interativo",
                 "url": "https://mapgenie.io/marvels-spider-man/maps/manhattan"
             },
             {
@@ -2894,7 +3990,7 @@ const gamesData = [
                 "url": "https://www.ign.com/wikis/dredge"
             },
             {
-                "title": "Map Genie",
+                "title": "Mapa Interativo",
                 "url": "https://mapgenie.io/dredge"
             }
         ],
