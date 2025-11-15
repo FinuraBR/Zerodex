@@ -928,13 +928,18 @@ const gamesData = [
         "id": 108,
         "title": "Minecraft",
         "image": "https://cdn2.steamgriddb.com/thumb/a73027901f88055aaa0fd1a9e25d36c7.jpg",
-        "platform": ["pc", "xbox360"],
+        "platform": [
+            "pc",
+            "android",
+            "xbox360",
+            "xbox-one"
+        ],
         "status": "retired",
         "statusText": "Aposentado",
         "statusOverlay": "Aposentado",
         "translation": "Oficial",
         "guide": [],
-        "review": "Já joguei no PC, Xbox 360, Xbox One e Celular",
+        "review": null,
         "version": null,
         "storeUrl": "https://www.minecraft.net/pt-br"
     },
@@ -2961,4 +2966,5 @@ const gamesData = [
         "version": null,
         "storeUrl": "https://store.steampowered.com/app/313690/LEGO_Batman_3_Beyond_Gotham/"
     }
+
 ];
