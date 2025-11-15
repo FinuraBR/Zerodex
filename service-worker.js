@@ -19,7 +19,7 @@
  * ao atualizar os arquivos essenciais (app shell) invalida o cache antigo e força
  * a instalação de um novo, garantindo que os usuários recebam a versão mais recente.
  */
-const CACHE_NAME = 'zerodex-cache-v1.1';
+const CACHE_NAME = 'zerodex-cache-v1.2';
 
 /**
  * @const {string[]} URLS_TO_CACHE
