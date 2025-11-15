@@ -140,6 +140,75 @@ const PLATFORM_DISPLAY_NAMES = {
  */
 const gamesData = [
     {
+        "id": 155,
+        "title": "The Backroom - Lost and Found",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2019830/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2019830/"
+    },
+    {
+        "id": 154,
+        "title": "while True: learn()",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/619150/library_600x900.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [
+            {
+                "title": "Steam",
+                "url": "https://steamcommunity.com/app/619150/guides/?searchText=&browsefilter=toprated&browsesort=creationorder&requiredtags%5B%5D=-1#scrollTop=400"
+            }
+        ],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/619150/"
+    },
+    {
+        "id": 153,
+        "title": "The Awesome Adventures of Captain Spirit",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/845070/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Oficial",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/845070/"
+    },
+    {
+        "id": 152,
+        "title": "Backrooms Break",
+        "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2248330/library_600x900_2x.jpg",
+        "platform": [
+            "pc"
+        ],
+        "status": "completed-100",
+        "statusText": "100%",
+        "statusOverlay": "100% Concluído",
+        "translation": "Não possui",
+        "guide": [],
+        "review": null,
+        "version": null,
+        "storeUrl": "https://store.steampowered.com/app/2248330/"
+    },
+    {
         "id": 151,
         "title": "Harold Halibut",
         "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/924750/library_600x900_2x.jpg",
@@ -928,18 +997,13 @@ const gamesData = [
         "id": 108,
         "title": "Minecraft",
         "image": "https://cdn2.steamgriddb.com/thumb/a73027901f88055aaa0fd1a9e25d36c7.jpg",
-        "platform": [
-            "pc",
-            "android",
-            "xbox360",
-            "xbox-one"
-        ],
+        "platform": ["pc", "xbox360"],
         "status": "retired",
         "statusText": "Aposentado",
         "statusOverlay": "Aposentado",
         "translation": "Oficial",
         "guide": [],
-        "review": null,
+        "review": "Já joguei no PC, Xbox 360, Xbox One e Celular",
         "version": null,
         "storeUrl": "https://www.minecraft.net/pt-br"
     },
@@ -2966,5 +3030,4 @@ const gamesData = [
         "version": null,
         "storeUrl": "https://store.steampowered.com/app/313690/LEGO_Batman_3_Beyond_Gotham/"
     }
-
 ];
