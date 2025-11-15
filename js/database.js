@@ -750,9 +750,9 @@ const gamesData = [
             "pc",
             "xbox-one"
         ],
-        "status": "playing",
-        "statusText": "Jogando",
-        "statusOverlay": "Jogando Atualmente",
+        "status": "completed",
+        "statusText": "Finalizado",
+        "statusOverlay": "Finalizado",
         "translation": "Oficial",
         "guide": [],
         "review": "joguei antes de criar esse catálogo",
