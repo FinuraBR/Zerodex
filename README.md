@@ -1,6 +1,6 @@
-# Meu Zerodex
+# Zerodex
 
-Bem-vindo ao Meu Zerodex, um catálogo pessoal de jogos projetado para registrar e exibir todas as minhas jornadas no universo dos games. Inspirado em plataformas como o Backloggd, este projeto é uma fusão de duas paixões: programação e videogames.
+Bem-vindo ao Zerodex, um catálogo pessoal de jogos projetado para registrar e exibir todas as minhas jornadas no universo dos games. Inspirado em plataformas como o Backloggd, este projeto é uma fusão de duas paixões: programação e videogames.
 
 **[➡️ Acesse a versão ao vivo aqui!](https://finurabr.github.io/Zerodex/)**
 
